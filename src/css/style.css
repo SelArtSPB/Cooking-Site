@@ -1,0 +1,239 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+.site-header {
+    background-color: #000;
+    color: #fff;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.site-header .logo h1 {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.site-header .logo span {
+    color: #ff4444;
+}
+
+.navigation ul {
+    list-style-type: none;
+    display: flex;
+    gap: 20px;
+}
+
+.navigation a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+
+.main-banner {
+    background-image: url('../img/MainFon.png');
+    background-size: cover;
+    background-position: center;
+    padding: 80px 30px;
+    text-align: left;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 400px;
+    color: #fff;
+}
+
+
+.popular-banners
+{
+    display: flex;
+    background-color: white;
+    padding-top: 150px;
+    height: 350px;
+    width: auto;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 65px;
+    padding-right: 65px;
+
+}
+.top_food_banner
+{
+    display: flex;
+    background-color:  black;
+    height: 350px;
+    width: 250px;
+
+}
+
+.banner-content {
+    max-width: 600px;
+}
+
+.banner-content h2 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.banner-content p {
+    font-size: 18px;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+.list_eat {
+    text-align: left;
+    color: white;
+    margin-top: 25px;
+    padding-left: 20px;
+
+
+}
+.add-settings{
+    list-style-type: "\1F374";
+    line-height: 2.5;
+}
+.button {
+    background-color: #ff4444;
+    color: #fff;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: bold;
+    display: inline-block;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.site-header {
+    background-color: #000;
+    color: #fff;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.site-header .logo h1 {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.site-header .logo span {
+    color: #ff4444;
+}
+
+.navigation ul {
+    list-style-type: none;
+    display: flex;
+    gap: 20px;
+}
+
+.navigation a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.main-banner {
+    background-image: url('../img/MainFon.png');
+    background-size: cover;
+    background-position: center;
+    padding: 80px 30px;
+    text-align: left;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 400px;
+    color: #fff;
+}
+
+.popular-banners {
+    display: flex;
+    background-color: white;
+    padding: 20px 65px;
+    justify-content: space-around;
+    flex-wrap: wrap; /* Позволяет баннерам переноситься на новую строку на маленьких экранах */
+}
+
+.top_food_banner {
+    display: flex;
+    background-color: #333; /* Темный фон для раздела */
+    color: white;
+    height: 350px;
+    width: 250px;
+    flex-direction: column; /* Расположим элементы по вертикали */
+    margin-right: 20px; /* Добавим отступы между баннерами */
+    padding: 20px;
+    border-radius: 10px;
+    justify-content: space-between; /* Распределим пространство между элементами */
+}
+
+.top_eat_img img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px; /* Округленные углы для изображения */
+    margin-top: 10px;
+}
+
+.banner-content {
+    max-width: 600px;
+}
+
+.banner-content h2 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.banner-content p {
+    font-size: 18px;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.list_eat {
+    text-align: left;
+    color: white;
+    margin-top: 15px; /* Изменил отступ сверху для лучшего визуального восприятия */
+    padding-left: 0; /* Убрал padding для списка */
+}
+
+.add-settings {
+    list-style-type: none;
+    padding: 0;
+    line-height: 1.8;
+}
+
+.add-settings li:before {
+    content: "\1F374"; /* Иконка ложки */
+    margin-right: 8px;
+}
+
+.popular-dishes-title { /* Новый класс для заголовка */
+    font-size: 28px;
+    font-weight: bold;
+    margin: 20px 0; /* Добавил отступы для визуального разделения */
+    text-align: center; /* Центрируем заголовок */
+    color: #333; /* Цвет заголовка */
+}
+
+.button {
+    background-color: #ff4444;
+    color: #fff;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: bold;
+    display: inline-block;
+}
+
