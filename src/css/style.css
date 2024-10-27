@@ -1,21 +1,26 @@
+/*Настройки ширины под экран*/
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-
-body, html {
-    font-family: Arial, sans-serif;
-    color: #333;
-}
-
+/*<>Шапка пошла*/
 .header {
-    background-color: #000;
+    background-color: rgba(0, 0, 0, 0.8);
     color: #fff;
     padding: 15px 30px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    transition: background-color 0.3s ease;
+}
+
+.header.scrolled {
+    background-color: rgba(0, 0, 0, 0.9);
 }
 
 .header .logo h1 {
@@ -37,121 +42,74 @@ body, html {
     color: #fff;
     text-decoration: none;
     font-size: 16px;
+    position: relative;
+    padding: 5px 10px;
+    transition: color 0.3s ease;
+    font-family:Intro, sans-serif;
 }
 
+.nav a:hover {
+    color: #ff4444;
+}
+
+.nav a::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background-color: #ff4444;
+    left: 0;
+    bottom: -5px;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.nav a:hover::after {
+    transform: scaleX(1);
+}
+/*<>Шапка закончилась*/
+
+
+/*<>Первый блок пошёл*/
 .banner {
-    background-image: url('../img/MainFon.png');
+    background-color: lightslategray;
     background-size: cover;
     background-position: center;
-    padding: 80px 30px;
+    padding: 85px 25px;
     text-align: left;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 400px;
+    height: 800px;
     color: #fff;
+    font-family:Intro, sans-serif;
 }
 
-.banner-content {
-    max-width: 600px;
-    text-align: left;
-}
 
-.banner-content h2 {
-    font-size: 36px;
-    margin-bottom: 20px;
-}
+/*Первый блок закрылся*/
 
-.banner-content p {
-    font-size: 18px;
-    margin-bottom: 20px;
-    line-height: 1.5;
-}
-
-.button {
-    background-color: #ff4444;
-    color: #fff;
-    padding: 10px 20px;
-    text-decoration: none;
-    border-radius: 25px;
-    font-weight: bold;
-}
-
-.popular-dishes {
-    padding: 50px;
-    text-align: center;
-}
-
-.popular-dishes .title {
-    font-size: 28px;
-    margin-bottom: 30px;
-}
-
-.dishes {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-}
-
-.dish {
-    background-color: #222;
-    color: white;
-    width: 250px;
-    padding: 20px;
-    border-radius: 10px;
-    text-align: left;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-}
-
-.dish h3 {
-    margin-bottom: 15px;
-    font-size: 22px;
-}
-
-.dish ul {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 20px;
-}
-
-.dish li::before {
-    content: "\1F374";
-    margin-right: 8px;
-}
-
-.dish img {
-    width: 100%;
-    height: auto;
-    border-radius: 10px;
-}
-
-.featured-recipe {
-    padding: 50px;
-    justify-content: center;
-}
-
+/*Второй блок открылся*/
 .featured-recipe .title{
     font-size: 28px;
-    margin-bottom: 30px;
+    margin-bottom: 45px;
+    margin-top: 50px;
     text-align: center;
+    font-family:Intro, sans-serif;
 }
 
 .recipe-card {
     display: flex;
     background-color: #222;
     padding: 40px;
+    margin: 0 45px;
     justify-content: center;
     border-radius: 20px;
-    width: 100%;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    height: 550px;
 }
 
 .recipe-image {
     width: 300px;
-    border-radius: 15px;
     object-fit: cover;
-    margin-right: 30px;
 }
 
 .recipe-content {
@@ -165,10 +123,63 @@ body, html {
 }
 
 .recipe-content ol {
-    padding-left: 20px;
-    line-height: 1.6;
+    padding-left: 15px;
 }
 
 .recipe-content ol li {
     margin-bottom: 10px;
 }
+/*<>Второй блок закрыт*/
+
+
+/*Третий блок открыт*/
+.popular-dishes {
+    padding: 50px;
+    width: 100%;
+    height: 650px;
+}
+.popular-dishes .title {
+    font-size: 28px;
+    margin-bottom: 45px;
+    text-align: center;
+    font-family:Intro, sans-serif;
+}
+
+.dishes {
+    display: flex;
+    flex: 1;
+    gap: 20px;
+    justify-content: center;
+    height: 350px;
+    width: 100%;
+}
+
+.dish {
+    background-color: #222;
+    color: white;
+    width: 350px;
+    height: 450px;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: left;
+}
+.dish-text h3{
+    margin-bottom: 15px;
+    font-size: 22px;
+}
+.dish-text ul{
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px;
+}
+.dish-text li::before {
+    content: "\1F374";
+    margin-right: 8px;
+}
+.dish-img{
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+}
+
+
