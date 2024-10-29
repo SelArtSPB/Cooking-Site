@@ -75,17 +75,48 @@
     background-color: lightslategray;
     background-size: cover;
     background-position: center;
-    padding: 85px 25px;
+    padding-top: 57px;
     text-align: left;
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    align-items: center;
     height: 800px;
     color: #fff;
     font-family:Intro, sans-serif;
 }
-
-
+.first-banner{
+    background-color: aqua;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    gap: 2%;
+    width: 100%;
+    height: 530px;
+    margin-bottom: 5px;
+    padding: 25px 0 0 0;
+}
+.firin-banner {
+    background-color: red;
+    width: 250px;
+    height: 450px;
+    border-radius: 5%;
+}
+.second-banner{
+    background-color: aqua;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 100%;
+    height: 200px;
+    margin-top: 5px;
+    padding: 25px 0;
+}
+.secin-banner{
+    background-color: red;
+    width: 400px;
+    height: 150px;
+    border-radius: 5%;
+}
 /*Первый блок закрылся*/
 
 /*Второй блок открылся*/
