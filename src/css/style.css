@@ -97,7 +97,7 @@
 }
 .firin-banner {
     background-color: red;
-    width: 250px;
+    width: 300px;
     height: 450px;
     border-radius: 5%;
 }
@@ -107,6 +107,7 @@
     flex-direction: row;
     justify-content: space-evenly;
     width: 100%;
+    gap: 2%;
     height: 200px;
     margin-top: 5px;
     padding: 25px 0;
@@ -120,21 +121,11 @@
 /*Первый блок закрылся*/
 
 /*Второй блок открылся*/
-.featured-recipe .title{
-    font-size: 28px;
-    margin-bottom: 45px;
-    margin-top: 50px;
-    text-align: center;
-    font-family:Intro, sans-serif;
-}
-
 .recipe-card {
     display: flex;
     background-color: #222;
     padding: 40px;
-    margin: 0 45px;
     justify-content: center;
-    border-radius: 20px;
     height: 550px;
 }
 
@@ -165,9 +156,8 @@
 
 /*Третий блок открыт*/
 .popular-dishes {
-    padding: 50px;
     width: 100%;
-    height: 650px;
+    height: 525px;
 }
 .popular-dishes .title {
     font-size: 28px;
@@ -209,8 +199,42 @@
 }
 .dish-img{
     width: 100%;
-    height: 100%;
+    height: 250px;
     border-radius: 10px;
 }
+/*третий блок закрыт*/
 
+
+/*четвёртый блок пошёл*/
+.like-block{
+    display: block;
+    background-color: #222;
+    padding: 15px  75px 0 75px;
+    margin: 0 125px;
+    justify-content: center;
+    height: 500px;
+    overflow-y: auto;
+}
+.like{
+    display: flex;
+    flex-direction: column;
+    background-color: crimson;
+    width: 100%;
+    height: 230px;
+    margin-bottom: 20px;
+    padding: 15px 25px;
+    border-radius: 8%;
+}
+/*четвёртый блок закрыт*/
+
+
+
+/*остстальное*/
+.title{
+    font-size: 28px;
+    margin-top: 35px;
+    margin-bottom: 45px;
+    text-align: center;
+    font-family:Intro, sans-serif;
+}
 
