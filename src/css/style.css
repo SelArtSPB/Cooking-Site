@@ -209,11 +209,14 @@
 .like-block{
     display: block;
     background-color: #222;
-    padding: 15px  75px 0 75px;
-    margin: 0 125px;
+    padding: 15px  5px 0 15px;
+    margin: 0 100px 15px 100px ;
     justify-content: center;
-    height: 500px;
+    height: 510px;
     overflow-y: auto;
+    scrollbar-color: white #222;
+    scrollbar-width: thin;
+
 }
 .like{
     display: flex;
@@ -223,10 +226,17 @@
     height: 230px;
     margin-bottom: 20px;
     padding: 15px 25px;
-    border-radius: 8%;
+    border-radius: calc(15px);
 }
 /*четвёртый блок закрыт*/
 
+/*Подвал открыт*/
+.basement{
+    background-color: black;
+    width: 100%;
+    height: 150px;
+}
+/*Подвал закрыт*/
 
 
 /*остстальное*/
