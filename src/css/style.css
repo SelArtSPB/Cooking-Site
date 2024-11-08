@@ -72,85 +72,135 @@
 
 /*<>Первый блок пошёл*/
 .banner {
-    background-color: lightslategray;
+    background-image: url('../img/MainFon.png');
     background-size: cover;
     background-position: center;
-    padding-top: 57px;
+    padding: 80px 30px;
     text-align: left;
     display: flex;
-    flex-direction: column;
     justify-content: center;
-    height: 800px;
+    align-items: center;
+    height: 400px;
     color: #fff;
-    font-family:Intro, sans-serif;
 }
-.first-banner{
-    background-color: aqua;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    gap: 2%;
-    width: 100%;
-    height: 530px;
-    margin-bottom: 5px;
-    padding: 25px 0 0 0;
+
+.banner-content {
+    max-width: 600px;
+    text-align: left;
 }
-.firin-banner {
-    background-color: red;
-    width: 300px;
-    height: 450px;
-    border-radius: 5%;
+
+.banner-content h2 {
+    font-size: 36px;
+    margin-bottom: 20px;
 }
-.second-banner{
-    background-color: aqua;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    width: 100%;
-    gap: 2%;
-    height: 200px;
-    margin-top: 5px;
-    padding: 25px 0;
+
+.banner-content p {
+    font-size: 18px;
+    margin-bottom: 20px;
+    line-height: 1.5;
 }
-.secin-banner{
-    background-color: red;
-    width: 400px;
-    height: 150px;
-    border-radius: 5%;
+
+.button {
+    background-color: #ff4444;
+    color: #fff;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: bold;
 }
 /*Первый блок закрылся*/
 
-/*Второй блок открылся*/
+/* Общие стили */
+.featured-recipe {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
 .recipe-card {
     display: flex;
     background-color: #222;
     padding: 40px;
     justify-content: center;
-    height: 550px;
+    gap: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    max-width: 100%;
+    width: 100%;
+    flex-wrap: wrap; /* Для адаптации на меньших экранах */
 }
 
+/* Изображение рецепта */
 .recipe-image {
-    width: 300px;
+    width: 50%; /* Занимает половину ширины на больших экранах */
+    max-width: 500px;
+    height: auto;
     object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 20px; /* отступ снизу для адаптации */
 }
 
+/* Контент рецепта */
 .recipe-content {
     color: #fff;
     flex: 1;
+    max-width: 500px; /* Ограничение по ширине для удобного чтения */
+}
+
+/* Заголовки и текст */
+.title {
+    font-size: 32px;
+    text-align: center;
+    font-family: 'Intro', sans-serif;
+    margin-bottom: 25px;
+    color: #ff4444;
 }
 
 .recipe-content h2 {
-    font-size: 24px;
-    margin-bottom: 15px;
+    font-size: 28px;
+    margin-bottom: 20px;
+    font-family: 'Intro', sans-serif;
+    color: #ff4444;
 }
 
+/* Список шагов рецепта */
 .recipe-content ol {
-    padding-left: 15px;
+    padding-left: 20px;
+    line-height: 1.8;
+    font-size: 20px; /* Увеличенный размер для читабельности */
+    font-family: Arial, sans-serif;
 }
 
 .recipe-content ol li {
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
+
+/* Мобильная адаптация */
+@media (max-width: 768px) {
+    .recipe-card {
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+    }
+
+    .recipe-image {
+        width: 80%;
+    }
+
+    .recipe-content {
+        max-width: 90%;
+    }
+
+    .title, .recipe-content h2 {
+        font-size: 24px;
+        text-align: center;
+    }
+
+    .recipe-content ol {
+        font-size: 18px;
+    }
+}
+
 /*<>Второй блок закрыт*/
 
 
@@ -197,10 +247,9 @@
     content: "\1F374";
     margin-right: 8px;
 }
-.dish-img{
-    width: 100%;
+.dish-img img{
+    width: 320px;
     height: 250px;
-    border-radius: 10px;
 }
 /*третий блок закрыт*/
 
