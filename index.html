@@ -20,6 +20,7 @@
             <li><a href="#">Контакты</a></li>
         </ul>
     </nav>
+    <button class="menu-toggle" aria-label="Toggle menu">☰</button>
 </header>
 
 <main class="banner">
@@ -133,4 +134,9 @@
     </div>
 </section>
 </body>
+<script>
+    document.querySelector('.menu-toggle').addEventListener('click', function () {
+        document.querySelector('.nav ul').classList.toggle('active')
+    });
+</script>
 </html>
