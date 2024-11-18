@@ -281,7 +281,7 @@
 /*Подвал открыт*/
 .basement{
     background-color: black;
-    width: 1864px;
+    width: 1920px;
     height: 150px;
     display: flex;
 }
