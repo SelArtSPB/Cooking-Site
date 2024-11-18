@@ -207,7 +207,7 @@
 /*Третий блок открыт*/
 .popular-dishes {
     width: 100%;
-    padding: 20px 0; /* Добавили отступы сверху и снизу */
+    padding: 20px 0;
 }
 .popular-dishes .title {
     font-size: 28px;
@@ -220,7 +220,7 @@
     display: flex;
     gap: 20px;
     justify-content: center;
-    flex-wrap: wrap; /* Добавляем перенос строк */
+    flex-wrap: wrap;
 }
 
 .dish {
@@ -245,6 +245,7 @@
     margin-right: 8px;
 }
 .dish-img img{
+    align-items: center;
     width: 320px;
     height: 250px;
 }
@@ -263,6 +264,7 @@
     scrollbar-color: white #222;
     scrollbar-width: thin;
 
+
 }
 .like{
     display: flex;
@@ -279,7 +281,24 @@
 /*Подвал открыт*/
 .basement{
     background-color: black;
-    width: 100%;
+    width: 1864px;
+    height: 150px;
+    display: flex;
+}
+.b-logo{
+    background-color: lightslategray;
+    width: 300px;
+    height: 150px;
+
+}
+.b-rules{
+    background-color: #ff4444;
+    width: 900px;
+    height: 150px;
+}
+.b-contact{
+    background-color: aqua;
+    width: 720px;
     height: 150px;
 }
 /*Подвал закрыт*/
