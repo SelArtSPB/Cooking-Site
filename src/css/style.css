@@ -253,20 +253,19 @@
 
 
 /*четвёртый блок пошёл*/
-.like-block{
+.like-block {
     display: block;
     background-color: #222;
-    padding: 15px  5px 0 15px;
-    margin: 0 100px 15px 100px ;
+    padding: 15px 5px 0 15px;
+    margin: 0 100px 15px 100px;
     justify-content: center;
-    height: 510px;
+    max-height: 510px;
     overflow-y: auto;
     scrollbar-color: white #222;
     scrollbar-width: thin;
-
-
 }
-.like{
+
+.like {
     display: flex;
     flex-direction: column;
     background-color: crimson;
@@ -276,30 +275,58 @@
     padding: 15px 25px;
     border-radius: calc(15px);
 }
+
+.title {
+    text-align: center;
+    color: white;
+}
+
+@media (max-width: 600px) {
+    .like-block {
+        margin: 0 10px;
+        padding: 10px;
+    }
+}
 /*четвёртый блок закрыт*/
 
 /*Подвал открыт*/
-.basement{
+.basement {
     background-color: black;
-    width: 1920px;
-    height: 150px;
     display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 10px;
 }
-.b-logo{
-    background-color: lightslategray;
-    width: 300px;
-    height: 150px;
 
+.b-logo, .b-rules, .b-contact {
+    flex: 1;
+    min-width: 200px;
+    height: 150px;
+    margin: 5px;
 }
-.b-rules{
+
+.b-logo {
+    background-color: lightslategray;
+}
+
+.b-rules {
     background-color: #ff4444;
-    width: 900px;
-    height: 150px;
 }
-.b-contact{
+
+.b-contact {
     background-color: aqua;
-    width: 720px;
-    height: 150px;
+}
+
+@media (max-width: 600px) {
+    .basement {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .b-logo, .b-rules, .b-contact {
+        width: 100%;
+        margin: 10px 0;
+    }
 }
 /*Подвал закрыт*/
 
