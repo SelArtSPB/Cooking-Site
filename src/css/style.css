@@ -294,11 +294,11 @@
     background-color: black;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: flex-start;
     padding: 10px;
 }
 
-.b-logo, .b-rules, .b-contact {
+.b-logo, .b-docks, .b-contact {
     flex: 1;
     min-width: 200px;
     height: 150px;
@@ -306,11 +306,22 @@
 }
 
 .b-logo {
-    background-color: lightslategray;
+    color: #fff;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.logo h1 {
+    font-size: 24px;
+    font-weight: bold;
 }
 
-.b-rules {
-    background-color: #ff4444;
+.b-logo span {
+    color: #ff4444;
+}
+.b-docks{
+    background-color: burlywood;
 }
 
 .b-contact {
@@ -323,7 +334,7 @@
         align-items: center;
     }
 
-    .b-logo, .b-rules, .b-contact {
+    .b-logo, .b-docks, .b-contact {
         width: 100%;
         margin: 10px 0;
     }
