@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Food to Love</title>
     <link rel="stylesheet" href="src/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
 <header class="header">
@@ -14,132 +15,67 @@
     <nav class="nav">
         <ul>
             <li><a href="#">Главная</a></li>
-            <li><a href="#">Новости</a></li>
+            <li><a href="#">Интересное</a></li>
             <li><a href="#">Рецепты</a></li>
-            <li><a href="#">Отзывы</a></li>
-            <li><a href="#">Контакты</a></li>
         </ul>
     </nav>
     <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+    <div class="search-line">
+        <form class="search">
+            <input type="search" placeholder="Искать здесь...">
+            <button type="submit">
+                <i class="fas fa-search"></i>
+            </button>
+        </form>
+    </div>
 </header>
-
-<main class="banner">
-    <div class="banner-content">
-        <h2>Учимся готовить дома</h2>
-        <p>Лучшие рецепты для Вас</p>
-        <p>На этом сайте вы найдете кулинарные рецепты, праздничные и повседневные, с подробными инструкциями и пошаговыми фотографиями.</p>
-        <a href="#" class="button">Узнать подробнее</a>
-    </div>
-</main>
-
-<section class="featured-recipe">
-    <h1 class="title">Популярный рецепт дня</h1>
-    <div class="recipe-card">
-        <img src="src/img/SUP_miso.png" alt="Dish Image" class="recipe-image">
-        <div class="recipe-content">
-            <h2>Домашний мисо суп</h2>
-            <ol>
-                <li>Подготовьте ингредиенты: нарежьте тофу на кубики, зелёный лук — мелко, грибы — тонкими ломтиками, а сухие водоросли замочите в воде на 5-10 минут.</li>
-                <li>Приготовьте бульон: в кастрюлю налейте 4 стакана воды и доведите до кипения. При желании добавьте даси для насыщенного вкуса.</li>
-                <li>Добавьте грибы и варите 3-5 минут, затем добавьте тофу и водоросли, варите ещё 2-3 минуты.</li>
-                <li>В небольшой миске разведите пасту мисо с горячим бульоном, добавьте в кастрюлю. Добавьте зелёный лук и подавайте.</li>
-            </ol>
-        </div>
-    </div>
-</section>
-
-
 <section>
-    <div class = "popular-dishes">
-        <h1 class="title">Популярные блюда недели</h1>
-        <div class="dishes">
-            <div class="dish">
-                <div class = "dish-text">
-                    <h3>Супы</h3>
-                    <ul>
-                        <li>Бульон куриный</li>
-                        <li>Крем-суп тыквенный</li>
-                        <li>Крем-суп сырный</li>
-                        <li>Том-ям</li>
-                    </ul>
-                </div>
-                <div class = "dish-img">
-                    <img src="src/img/SUP2.png" alt="Супы">
+    <div class="container">
+        <h1>Кулинарные рецепты</h1>
+        <div class="main-content">
+            <div class="featured-recipe">
+                <img src="src/img/red-cake.jpg" alt="Красный бархат">
+                <div class="recipe-info">
+                    <h2>Секреты и тонкости приготовления торта «Красный бархат» в домашних условиях</h2>
+                    <p>«Бархатный торт», «Красный торт», «Торт Вальдорф Астория»...</p>
                 </div>
             </div>
-            <div class="dish">
-                <div class = "dish-text">
-                    <h3>Сэндвичи</h3>
-                    <ul>
-                        <li>Сэндвич ветчина</li>
-                        <li>Сэндвич курица</li>
-                        <li>Сэндвич хамон</li>
-                        <li>Сэндвич лосось</li>
-                    </ul>
+            <aside class="sidebar">
+                <div class="sidebar-item">
+                    <img src="burnt-dish.jpg" alt="Как спасти пригоревшее блюдо">
+                    <div class="text-content">
+                        <h3><a href="#">Как спасти пригоревшее блюдо</a></h3>
+                        <p>Полезные советы для всех, кто сталкивался с этой проблемой.</p>
+                    </div>
                 </div>
-                <div class = "dish-img">
-                    <img src="src/img/SENDVICH2.png" alt="Сэндвичи">
+                <div class="sidebar-item">
+                    <img src="liver-dish.jpg" alt="Что приготовить из свиной печени">
+                    <div class="text-content">
+                        <h3><a href="#">Что приготовить из свиной печени</a></h3>
+                        <p>7 оригинальных рецептов для разнообразия меню.</p>
+                    </div>
                 </div>
-            </div>
-            <div class="dish">
-                <div class = "dish-text">
-                    <h3>Пицца</h3>
-                    <ul>
-                        <li>Пицца Маргарита</li>
-                        <li>Пицца Пепперони</li>
-                        <li>Пицца Барбекю</li>
-                        <li>Пицца 4 сыра</li>
-                        <li>Пицца Гавайская</li>
-                    </ul>
+                <div class="sidebar-item">
+                    <img src="pastry-cream.jpg" alt="Самый главный крем кондитера">
+                    <div class="text-content">
+                        <h3><a href="#">Самый главный крем кондитера</a></h3>
+                        <p>Раскрываем секреты идеального крема.</p>
+                    </div>
                 </div>
-                <div class = "dish-img">
-                    <img src="src/img/PIZZA2.png" alt="Пицца">
+                <div class="sidebar-item">
+                    <img src="collagen-food.jpg" alt="Для чего нужен коллаген">
+                    <div class="text-content">
+                        <h3><a href="#">Для чего нужен коллаген</a></h3>
+                        <p>Узнайте, в каких продуктах содержится коллаген.</p>
+                    </div>
                 </div>
-            </div>
-            <div class="dish">
-                <div class = "dish-text">
-                    <h3>Салаты</h3>
-                    <ul>
-                        <li>Печёные овощи</li>
-                        <li>Цезарь с курицей</li>
-                        <li>Крабовый</li>
-                        <li>Чука</li>
-                    </ul>
-                </div>
-                <div class = "dish-img">
-                    <img src="src/img/SALAT2.png" alt="Салаты">
-                </div>
-            </div>
+            </aside>
         </div>
     </div>
 </section>
-<section>
-    <div>
-        <h1 class = "title">Отзывы</h1>
-        <div class = "like-block">
-            <div class = "like">
-                <h1 class = "like-title">Спасибо за рецепт!</h1>
-                <p>ТЕТЕТЕТТЕТЕТЕТЕТЕТЕТЕТЕТЕ</p>
-            </div>
-            <div class = "like">
-                <h1 class = "like-title">Брать данные из бд</h1>
-                <p>XDXDXDXDXDXDXDXDXDXDXDX</p>
-            </div>
-            <div class = "like"></div>
-            <div class = "like"></div>
-            <div class = "like"></div>
-        </div>
-    </div>
-</section>
-<section>
-    <footer class="basement">
-        <div class="b-logo">
-            <h1>FOOD<br><span>TO<br>LOVE</span></h1>
-        </div>
-        <div class="b-docks"><h1>ДОКУМЕНТАЦИЯ</h1></div>
-        <div class="b-contact"><h1>КОНТАКТЫ</h1></div>
-    </footer>
-</section>
+<footer>
+
+</footer>
 </body>
 <script>
     document.querySelector('.menu-toggle').addEventListener('click', function () {
