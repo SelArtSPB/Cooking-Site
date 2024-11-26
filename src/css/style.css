@@ -1,11 +1,9 @@
-/*Настройки ширины под экран*/
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Добавьте в начало файла или после сброса стилей */
 html, body {
     height: 100%;
 }
@@ -16,7 +14,6 @@ body {
     min-height: 100vh;
 }
 
-/*Шапка пошла*/
 .header {
     background-color: rgba(0, 0, 0, 0.8);
     color: #fff;
@@ -79,7 +76,7 @@ body {
 .nav a:hover::after {
     transform: scaleX(1);
 }
-/*Поисковая строка*/
+
 * {box-sizing: border-box;}
 
 .search {
@@ -88,6 +85,7 @@ body {
     margin: 0 auto;
     height: 42px;
 }
+
 .search input {
     height: 42px;
     width: 0;
@@ -103,11 +101,13 @@ body {
     z-index: 2;
     color: white;
 }
+
 .search input:focus {
     width: 300px;
     z-index: 1;
     border-bottom: 2px solid #ff4444;
 }
+
 .search button {
     background: #ff4444;
     border: none;
@@ -124,8 +124,6 @@ body {
     font-size: 16px;
 }
 
-/*Поисковая строка кончилась*/
-/*Бургер меню для шапки*/
 .menu-toggle {
     display: none;
     font-size: 24px;
@@ -157,10 +155,7 @@ body {
         display: flex;
     }
 }
-/*Конец Бургера*/
-/*Шапка закончилась*/
 
-/*Первый блок пошёл*/
 .container {
     max-width: 1200px;
     margin: 75px auto;
@@ -314,7 +309,6 @@ body {
     text-decoration: underline;
 }
 
-/* Футер */
 .footer {
     background-color: rgba(0, 0, 0, 0.9);
     color: #fff;
@@ -428,7 +422,6 @@ body {
     }
 }
 
-/* Стили для переключателя темы */
 .theme-toggle {
     background: none;
     border: none;
@@ -472,7 +465,6 @@ body {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* Медиа-запрос для мобильных устройств */
 @media (max-width: 768px) {
     .nav .dropdown-content {
         position: static;
@@ -486,7 +478,6 @@ body {
     }
 }
 
-/* Добавьте эти стили для темной темы */
 body.dark-theme {
     background-color: #1a1a1a;
     color: #ffffff;
@@ -521,5 +512,153 @@ body.dark-theme .read-more {
 
 body.dark-theme .read-more:hover {
     color: #ff8888;
+}
+
+.recipes-grid {
+    padding: 40px 0;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 25px;
+    padding: 20px 0;
+}
+
+.recipe-card {
+    position: relative;
+    border-radius: 15px;
+    overflow: hidden;
+    aspect-ratio: 1;
+    cursor: pointer;
+}
+
+.recipe-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.recipe-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.9) 0%,
+        rgba(0, 0, 0, 0.7) 50%,
+        rgba(0, 0, 0, 0) 100%
+    );
+    padding: 20px;
+    color: white;
+    transform: translateY(100%);
+    transition: transform 0.5s ease;
+}
+
+.recipe-overlay h3 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.recipe-overlay p {
+    font-size: 0.9em;
+    line-height: 1.4;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease 0.2s;
+}
+
+.recipe-card:hover img {
+    transform: scale(1.1);
+}
+
+.recipe-card:hover .recipe-overlay {
+    transform: translateY(0);
+}
+
+.recipe-card:hover .recipe-overlay p {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+    .grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 15px;
+    }
+
+    .recipe-overlay {
+        transform: translateY(0);
+        background: linear-gradient(
+            to top,
+            rgba(0, 0, 0, 0.8) 0%,
+            rgba(0, 0, 0, 0.5) 100%
+        );
+    }
+
+    .recipe-overlay p {
+        display: none;
+    }
+}
+
+body.dark-theme .recipe-overlay {
+    background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.95) 0%,
+        rgba(0, 0, 0, 0.8) 50%,
+        rgba(0, 0, 0, 0.2) 100%
+    );
+}
+
+body.dark-theme .recipe-card {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 32px;
+    color: #333;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+body.dark-theme .section-title {
+    color: #fff;
+}
+
+/* Подключение шрифтов через Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Open+Sans:wght@400;600&family=Roboto:wght@300;400;500&family=Lato:wght@400;700&display=swap');
+
+/* Применение шрифтов */
+.logo h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+}
+.section-title, .recipe-title {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+}
+
+.nav ul {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+}
+
+.recipe-excerpt, .recipe-overlay p {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+}
+
+.sidebar-item h3, .sidebar-excerpt {
+    font-family: 'Lato', sans-serif;
+}
+
+.footer {
+    font-family: 'Open Sans', sans-serif;
 }
 
