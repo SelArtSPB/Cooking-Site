@@ -304,7 +304,7 @@ body {
 }
 
 .text-content a {
-    color: #007bff;
+    color: black;
     text-decoration: none;
 }
 
@@ -534,6 +534,9 @@ body.dark-theme .read-more:hover {
     overflow: hidden;
     aspect-ratio: 1;
     cursor: pointer;
+    border: black;
+    border-radius: 8px;
+    box-shadow: 0 20px 15px rgba(0, 0, 0, 0.1);
 }
 
 .recipe-card img {
