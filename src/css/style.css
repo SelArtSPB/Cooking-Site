@@ -630,10 +630,8 @@ body.dark-theme .section-title {
     color: #fff;
 }
 
-/* Подключение шрифтов через Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Open+Sans:wght@400;600&family=Roboto:wght@300;400;500&family=Lato:wght@400;700&display=swap');
 
-/* Применение шрифтов */
 .logo h1 {
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
@@ -660,5 +658,141 @@ body.dark-theme .section-title {
 
 .footer {
     font-family: 'Open Sans', sans-serif;
+}
+
+.slider-container {
+    position: relative;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.slider-wrapper {
+    overflow: hidden;
+    margin: 0 40px;
+    width: calc(100% - 80px);
+}
+
+.slider-track {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    width: max-content;
+}
+
+.slider-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 68, 68, 0.8);
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+.slider-button:hover {
+    background: rgba(255, 68, 68, 1);
+}
+
+.slider-button.prev {
+    left: 0;
+}
+
+.slider-button.next {
+    right: 0;
+}
+
+.slider-dots {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #ccc;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.dot.active {
+    background: #ff4444;
+}
+
+.recipe-card {
+    flex: 0 0 calc(25% - 20px);
+    max-width: calc(25% - 20px);
+    margin: 0 10px;
+}
+
+body.dark-theme .slider-button {
+    background: rgba(255, 68, 68, 0.6);
+}
+
+body.dark-theme .slider-button:hover {
+    background: rgba(255, 68, 68, 0.8);
+}
+
+body.dark-theme .dot {
+    background: #666;
+}
+
+body.dark-theme .dot.active {
+    background: #ff4444;
+}
+
+@media (max-width: 768px) {
+    .slider-wrapper {
+        margin: 0 30px;
+    }
+    
+    .slider-button {
+        width: 30px;
+        height: 30px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .recipe-card {
+        flex: 0 0 calc(33.333% - 20px);
+        max-width: calc(33.333% - 20px);
+    }
+}
+
+@media (max-width: 992px) {
+    .recipe-card {
+        flex: 0 0 calc(50% - 20px);
+        max-width: calc(50% - 20px);
+    }
+}
+
+@media (max-width: 576px) {
+    .recipe-card {
+        flex: 0 0 calc(100% - 20px);
+        max-width: calc(100% - 20px);
+    }
+    
+    .slider-wrapper {
+        margin: 0 20px;
+        width: calc(100% - 40px);
+    }
+    
+    .slider-button {
+        display: none;
+    }
+}
+
+.slider-track {
+    cursor: grab;
+}
+
+.slider-track:active {
+    cursor: grabbing;
 }
 
