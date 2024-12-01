@@ -8,172 +8,127 @@ document.querySelector('.theme-toggle').addEventListener('click', function() {
 });
 
 document.addEventListener('DOMContentLoaded', function() {
-    const slider = document.querySelector('.slider-track');
-    const slides = document.querySelectorAll('.recipe-card');
-    const prevButton = document.querySelector('.prev');
-    const nextButton = document.querySelector('.next');
-    const dotsContainer = document.querySelector('.slider-dots');
+    const elements = {
+        slider: document.querySelector('.slider-track'),
+        slides: document.querySelectorAll('.recipe-card'),
+        prevBtn: document.querySelector('.prev'),
+        nextBtn: document.querySelector('.next'),
+        dotsContainer: document.querySelector('.slider-dots')
+    };
     
-    if (!slider || !slides.length) return;
+    if (!elements.slider || !elements.slides.length) return;
 
-    function getSlidesPerView() {
-        if (window.innerWidth > 1200) return 4;
-        if (window.innerWidth > 992) return 3;
-        if (window.innerWidth > 576) return 2;
-        return 1;
+    const state = {
+        slidesPerView: window.innerWidth > 1200 ? 4 : window.innerWidth > 992 ? 3 : window.innerWidth > 576 ? 2 : 1,
+        currentSlide: 0,
+        isDragging: false,
+        startPos: 0,
+        currentTranslate: 0,
+        prevTranslate: 0,
+        animationID: 0
+    };
+
+    // Обработчики событий для слайдера
+    elements.slider.addEventListener('mousedown', dragStart);
+    elements.slider.addEventListener('touchstart', dragStart);
+    elements.slider.addEventListener('mousemove', drag);
+    elements.slider.addEventListener('touchmove', drag);
+    elements.slider.addEventListener('mouseup', dragEnd);
+    elements.slider.addEventListener('touchend', dragEnd);
+    elements.slider.addEventListener('mouseleave', dragEnd);
+
+    function dragStart(e) {
+        state.isDragging = true;
+        state.startPos = e.type === 'mousedown' ? e.pageX : e.touches[0].clientX;
+        state.animationID = requestAnimationFrame(animation);
+        elements.slider.style.cursor = 'grabbing';
     }
 
-    let slidesPerView = getSlidesPerView();
-    let totalSlides = slides.length;
-    let maxSlideIndex = totalSlides - slidesPerView;
-    let currentSlide = 0;
-
-    let isDragging = false;
-    let startPos = 0;
-    let currentTranslate = 0;
-    let prevTranslate = 0;
-    let animationID = 0;
-    let startTime = 0;
-    
-    slider.addEventListener('touchstart', touchStart);
-    slider.addEventListener('touchmove', touchMove);
-    slider.addEventListener('touchend', touchEnd);
-    
-    slider.addEventListener('mousedown', touchStart);
-    slider.addEventListener('mousemove', touchMove);
-    slider.addEventListener('mouseup', touchEnd);
-    slider.addEventListener('mouseleave', touchEnd);
-    
-    window.oncontextmenu = function(event) {
-        if (event.target.closest('.slider-track')) {
-            event.preventDefault();
-            event.stopPropagation();
-            return false;
-        }
+    function drag(e) {
+        if (!state.isDragging) return;
+        const currentPosition = e.type === 'mousemove' ? e.pageX : e.touches[0].clientX;
+        state.currentTranslate = state.prevTranslate + currentPosition - state.startPos;
     }
 
-    function touchStart(event) {
-        startTime = Date.now();
-        isDragging = true;
-        startPos = getPositionX(event);
+    function dragEnd() {
+        state.isDragging = false;
+        cancelAnimationFrame(state.animationID);
         
-        animationID = requestAnimationFrame(animation);
-        slider.style.cursor = 'grabbing';
-    }
-
-    function touchMove(event) {
-        if (!isDragging) return;
+        const movedBy = state.currentTranslate - state.prevTranslate;
+        const slideWidth = elements.slides[0].offsetWidth + 20;
         
-        const currentPosition = getPositionX(event);
-        currentTranslate = prevTranslate + currentPosition - startPos;
-    }
-
-    function touchEnd() {
-        isDragging = false;
-        cancelAnimationFrame(animationID);
-        
-        const movedBy = currentTranslate - prevTranslate;
-        const duration = Date.now() - startTime;
-        
-        if (duration < 250 && Math.abs(movedBy) > 20) {
+        if (Math.abs(movedBy) > slideWidth / 4) {
             if (movedBy < 0) {
                 nextSlide();
             } else {
                 prevSlide();
             }
         } else {
-            const slideWidth = slides[0].offsetWidth + 20;
-            const threshold = slideWidth / 4;
-            if (Math.abs(movedBy) > threshold) {
-                if (movedBy < 0) {
-                    nextSlide();
-                } else {
-                    prevSlide();
-                }
-            } else {
-                goToSlide(currentSlide);
-            }
+            goToSlide(state.currentSlide);
         }
         
-        slider.style.cursor = 'grab';
-    }
-
-    function getPositionX(event) {
-        return event.type.includes('mouse') 
-            ? event.pageX 
-            : event.touches[0].clientX;
+        elements.slider.style.cursor = 'grab';
     }
 
     function animation() {
-        if (isDragging) {
+        if (state.isDragging) {
             setSliderPosition();
             requestAnimationFrame(animation);
         }
     }
 
     function setSliderPosition() {
-        slider.style.transform = `translateX(${currentTranslate}px)`;
+        elements.slider.style.transform = `translateX(${state.currentTranslate}px)`;
     }
 
     function goToSlide(index) {
-        if (index < 0 || index > maxSlideIndex) return;
-        currentSlide = index;
-        const slideWidth = slides[0].offsetWidth + 20;
-        currentTranslate = -currentSlide * slideWidth;
-        prevTranslate = currentTranslate;
+        const maxSlide = elements.slides.length - state.slidesPerView;
+        if (index < 0 || index > maxSlide) return;
+        
+        state.currentSlide = index;
+        const slideWidth = elements.slides[0].offsetWidth + 20;
+        state.currentTranslate = state.prevTranslate = -index * slideWidth;
         setSliderPosition();
         updateDots();
     }
 
-    window.addEventListener('resize', () => {
-        slidesPerView = getSlidesPerView();
-        maxSlideIndex = totalSlides - slidesPerView;
-        if (currentSlide > maxSlideIndex) {
-            currentSlide = maxSlideIndex;
-        }
-        goToSlide(currentSlide);
-        updateDots();
-    });
-
-    const totalDots = maxSlideIndex + 1;
-    for (let i = 0; i < totalDots; i++) {
+    // Создаем точки навигации
+    const dotsCount = elements.slides.length - state.slidesPerView + 1;
+    for (let i = 0; i < dotsCount; i++) {
         const dot = document.createElement('div');
         dot.classList.add('dot');
         if (i === 0) dot.classList.add('active');
         dot.addEventListener('click', () => goToSlide(i));
-        dotsContainer.appendChild(dot);
+        elements.dotsContainer.appendChild(dot);
     }
-    
+
     const dots = document.querySelectorAll('.dot');
-    
     function updateDots() {
-        dots.forEach((dot, index) => {
-            dot.classList.toggle('active', index === currentSlide);
+        dots.forEach((dot, i) => {
+            dot.classList.toggle('active', i === state.currentSlide);
         });
     }
-    
+
     function nextSlide() {
-        if (currentSlide < maxSlideIndex) {
-            goToSlide(currentSlide + 1);
-        }
+        goToSlide(state.currentSlide + 1);
     }
-    
+
     function prevSlide() {
-        if (currentSlide > 0) {
-            goToSlide(currentSlide - 1);
-        }
+        goToSlide(state.currentSlide - 1);
     }
-    
-    prevButton?.addEventListener('click', prevSlide);
-    nextButton?.addEventListener('click', nextSlide);
-    
-    const slideInterval = setInterval(() => {
-        if (currentSlide === maxSlideIndex) {
+
+    // Кнопки навигации
+    elements.prevBtn.addEventListener('click', prevSlide);
+    elements.nextBtn.addEventListener('click', nextSlide);
+
+    // Автопрокрутка
+    const autoSlide = setInterval(() => {
+        if (state.currentSlide === elements.slides.length - state.slidesPerView) {
             goToSlide(0);
         } else {
             nextSlide();
         }
     }, 5000);
-    
-    slider.addEventListener('mouseenter', () => clearInterval(slideInterval));
+
+    elements.slider.addEventListener('mouseenter', () => clearInterval(autoSlide));
 });
