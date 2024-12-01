@@ -255,6 +255,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 15px;
+    height: 100%;
 }
 
 .sidebar-item {
@@ -266,6 +267,7 @@ body {
     padding: 10px;
     align-items: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    flex: 1;
 }
 
 .sidebar-item:hover {
@@ -445,7 +447,7 @@ body {
 }
 
 .theme-toggle .sun {
-    color: #ffd700;
+    color: #ffffff;
     font-size: 24px;
 }
 
@@ -802,5 +804,57 @@ body.dark-theme .dot.active {
 
 .slider-track:active {
     cursor: grabbing;
+}
+
+/* Rounded corners for divs */
+.container,
+.featured-recipe,
+.sidebar-item,
+.recipe-info,
+.footer-section,
+.search,
+.nav ul,
+.slider-container,
+.slider-wrapper,
+.footer-content,
+.footer-bottom {
+    border-radius: 12px;
+}
+
+/* Rounded corners for buttons */
+button,
+.search button,
+.menu-toggle,
+.theme-toggle,
+.read-more,
+.slider-button {
+    border-radius: 8px;
+}
+
+/* Special treatment for search input */
+.search input {
+    border-radius: 21px; /* Half of the height (42px) for pill shape */
+}
+
+/* Keep slider buttons circular */
+.slider-button {
+    border-radius: 50%;
+}
+
+/* Rounded corners for navigation items */
+.nav a {
+    border-radius: 6px;
+}
+
+/* Category tag adjustment */
+.category-tag {
+    border-radius: 25px;
+}
+
+/* Dark theme adjustments */
+body.dark-theme .container,
+body.dark-theme .featured-recipe,
+body.dark-theme .sidebar-item {
+    border-radius: 12px;
 }
 
