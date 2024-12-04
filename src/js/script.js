@@ -7,6 +7,20 @@ document.querySelector('.theme-toggle').addEventListener('click', function() {
     document.body.classList.toggle('dark-theme');
 });
 
+document.querySelector('.profile-toggle').addEventListener('click', function(e) {
+    e.stopPropagation();
+    document.querySelector('.profile-menu').classList.toggle('active');
+});
+
+document.addEventListener('click', function(e) {
+    const menu = document.querySelector('.profile-menu');
+    const toggle = document.querySelector('.profile-toggle');
+    
+    if (!menu.contains(e.target) && !toggle.contains(e.target)) {
+        menu.classList.remove('active');
+    }
+});
+
 document.addEventListener('DOMContentLoaded', function() {
     const elements = {
         slider: document.querySelector('.slider-track'),
