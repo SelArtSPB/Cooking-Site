@@ -2,11 +2,6 @@ document.querySelector('.menu-toggle').addEventListener('click', function () {
     document.querySelector('.nav ul').classList.toggle('active')
 });
 
-document.querySelector('.theme-toggle').addEventListener('click', function() {
-    this.classList.toggle('dark');
-    document.body.classList.toggle('dark-theme');
-});
-
 document.querySelector('.profile-toggle').addEventListener('click', function(e) {
     e.stopPropagation();
     document.querySelector('.profile-menu').classList.toggle('active');
@@ -145,4 +140,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 5000);
 
     elements.slider.addEventListener('mouseenter', () => clearInterval(autoSlide));
+});
+
+document.querySelector('.profile-theme-toggle').addEventListener('click', function(e) {
+    e.preventDefault(); // Prevent default link behavior
+    document.body.classList.toggle('dark-theme'); // Toggle the dark theme
 });
