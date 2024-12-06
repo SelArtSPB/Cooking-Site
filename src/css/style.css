@@ -186,7 +186,7 @@ body {
 
 .main-content {
     display: flex;
-    gap: 20px;
+    gap: 15px;
 }
 
 .featured-recipe {
@@ -1060,13 +1060,114 @@ body.dark-theme .profile-menu a:hover {
         max-width: 250px;
         height: 250px;
     }
-}
+}   
 
 @media (max-width: 576px) {
     .recipe-card {
         flex: 0 0 calc(100% - 30px);
         max-width: calc(100% - 30px);
         height: 300px;
+    }
+}
+
+.national-recipes {
+    padding: 40px 0;
+    background-color: #f9f9f9;
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+}
+
+body.dark-theme .national-recipes {
+    background-color: #222;
+}
+
+.countries-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 0;
+    padding: 0;
+}
+
+.country-card {
+    position: relative;
+    height: 280px;
+    border-radius: 0;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.country-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.country-card:hover img {
+    transform: scale(1.1);
+}
+
+.country-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.8) 0%,
+        rgba(0, 0, 0, 0.6) 50%,
+        rgba(0, 0, 0, 0) 100%
+    );
+    color: white;
+}
+
+.country-overlay h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    font-family: 'Playfair Display', serif;
+}
+
+.recipe-counter {
+    display: flex;
+    align-items: baseline;
+    gap: 5px;
+}
+
+.recipe-counter .count {
+    font-size: 28px;
+    font-weight: bold;
+    color: #ff4444;
+}
+
+.recipe-counter .label {
+    font-size: 16px;
+    opacity: 0.9;
+}
+
+@media (max-width: 768px) {
+    .countries-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+
+    .country-card {
+        height: 200px;
+    }
+
+    .country-overlay h3 {
+        font-size: 20px;
+    }
+
+    .recipe-counter .count {
+        font-size: 24px;
+    }
+
+    .recipe-counter .label {
+        font-size: 14px;
     }
 }
 
