@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Food to Love</title>
     <link rel="stylesheet" href="src/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -35,14 +35,51 @@
             </button>
             <div class="profile-menu">
                 <a href="#"><i class="fas fa-user-circle"></i> Моя страница</a>
-                <a href="#"><i class="fas fa-cog"></i> Настройки</a>
-                <a href="#"><i class="fas fa-question-circle"></i> Помощь</a>
-                <a href="#"><i class="fas fa-sign-out-alt"></i> Выход</a>
                 <a href="#" class="profile-theme-toggle"><i class="fas fa-adjust"></i> Изменить тему</a>
+                <a href="#"><i class="fas fa-question-circle"></i> Помощь</a>
+                <a href="#"><i class="fas fa-cog"></i> Настройки</a>
+                <a href="#"><i class="fas fa-sign-out-alt"></i> Выход</a>
             </div>
         </div>
     </div>
 </header>
+<section class="famous-chefs">
+    <div class="container">
+        <h2 class="section-title">Известные повара</h2>
+        <div class="chefs-grid">
+            <div class="chef-card">
+                <div class="chef-image">
+                    <img src="src/img/chefs/chef1.jpg" alt="Шеф-повар">
+                </div>
+                <div class="chef-info">
+                    <h3>Константин Ивлев</h3>
+                    <p class="chef-role">Шеф-повар, ресторатор</p>
+                    <p class="chef-description">Известный российский шеф-повар, телеведущий и ресторатор. Ведущий популярных кулинарных шоу, автор множества книг по кулинарии.</p>
+                </div>
+            </div>
+            <div class="chef-card">
+                <div class="chef-image">
+                    <img src="src/img/chefs/chef2.jpg" alt="Шеф-повар">
+                </div>
+                <div class="chef-info">
+                    <h3>Александр Белькович</h3>
+                    <p class="chef-role">Шеф-повар, телеведущий</p>
+                    <p class="chef-description">Популярный шеф-повар и телеведущий. Ведущий кулинарных программ, владелец нескольких ресторанов в Санкт-Петербурге.</p>
+                </div>
+            </div>
+            <div class="chef-card">
+                <div class="chef-image">
+                    <img src="src/img/chefs/chef3.jpg" alt="Шеф-повар">
+                </div>
+                <div class="chef-info">
+                    <h3>Андрей Махов</h3>
+                    <p class="chef-role">Бренд-шеф</p>
+                    <p class="chef-description">Бренд-шеф известных ресторанов русской кухни. Признанный эксперт в области традиционной русской гастрономии.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 <section class="recipes-section">
     <div class="container">
         <h1 class="section-title">Кулинарные новости</h1>
@@ -179,7 +216,7 @@
                         <img src="src/img/recipes/shakshuka.jpg" alt="Шакшука">
                         <div class="recipe-overlay">
                             <h3>Шакшука</h3>
-                            <p>Классический шакшука с говядиной, грибами, со��сом и специями.</p>
+                            <p>Классический шакшука с говядиной, грибами, соусом и специями.</p>
                         </div>
                     </div>
                 </div>
@@ -192,68 +229,54 @@
     </div>
 </section>
 <section class="national-recipes">
-    <div class="container">
-        <h2 class="section-title">Кухни народов мира</h2>
-        <div class="countries-grid">
-            <div class="country-card" data-country="italian">
-                <img src="src/img/countries/italian.jpg" alt="Итальянская кухня">
-                <div class="country-overlay">
-                    <h3>Италия</h3>
-                    <div class="recipe-counter">
-                        <span class="count">42</span>
-                        <span class="label">рецепта</span>
-                    </div>
-                </div>
+    <h2 class="section-title">Кухни народов мира</h2>
+    <div class="countries-grid">
+        <div class="country-card" data-country="italian">
+            <img src="src/img/countries/italian.jpg" alt="Итальянская кухня">
+            <div class="country-overlay">
+                <h3>Италия</h3>
             </div>
-            <div class="country-card" data-country="japanese">
-                <img src="src/img/countries/japanese.jpg" alt="Японская кухня">
-                <div class="country-overlay">
-                    <h3>Япония</h3>
-                    <div class="recipe-counter">
-                        <span class="count">35</span>
-                        <span class="label">рецептов</span>
-                    </div>
-                </div>
+        </div>
+        <div class="country-card" data-country="italian">
+            <img src="src/img/countries/italian.jpg" alt="Итальянская кухня">
+            <div class="country-overlay">
+                <h3>Италия</h3>
             </div>
-            <div class="country-card" data-country="french">
-                <img src="src/img/countries/french.jpg" alt="Французская кухня">
-                <div class="country-overlay">
-                    <h3>Франция</h3>
-                    <div class="recipe-counter">
-                        <span class="count">38</span>
-                        <span class="label">рецептов</span>
-                    </div>
-                </div>
+        </div>
+        <div class="country-card" data-country="italian">
+            <img src="src/img/countries/italian.jpg" alt="Итальянская кухня">
+            <div class="country-overlay">
+                <h3>Италия</h3>
             </div>
-            <div class="country-card" data-country="russian">
-                <img src="src/img/countries/russian.jpg" alt="Русская кухня">
-                <div class="country-overlay">
-                    <h3>Россия</h3>
-                    <div class="recipe-counter">
-                        <span class="count">45</span>
-                        <span class="label">рецептов</span>
-                    </div>
-                </div>
+        </div>
+        <div class="country-card" data-country="japanese">
+            <img src="src/img/countries/japanese.jpg" alt="Японская кухня">
+            <div class="country-overlay">
+                <h3>Япония</h3>
             </div>
-            <div class="country-card" data-country="spanish">
-                <img src="src/img/countries/spanish.jpg" alt="Испанская кухня">
-                <div class="country-overlay">
-                    <h3>Испания</h3>
-                    <div class="recipe-counter">
-                        <span class="count">32</span>
-                        <span class="label">рецептов</span>
-                    </div>
-                </div>
+        </div>
+        <div class="country-card" data-country="french">
+            <img src="src/img/countries/french.jpg" alt="Французская кухня">
+            <div class="country-overlay">
+                <h3>Франция</h3>
             </div>
-            <div class="country-card" data-country="greek">
-                <img src="src/img/countries/greek.jpg" alt="Греческая кухня">
-                <div class="country-overlay">
-                    <h3>Греция</h3>
-                    <div class="recipe-counter">
-                        <span class="count">22</span>
-                        <span class="label">рецептов</span>
-                    </div>
-                </div>
+        </div>
+        <div class="country-card" data-country="russian">
+            <img src="src/img/countries/russian.jpg" alt="Русская кухня">
+            <div class="country-overlay">
+                <h3>Россия</h3>
+            </div>
+        </div>
+        <div class="country-card" data-country="spanish">
+            <img src="src/img/countries/spanish.jpg" alt="Испанская кухня">
+            <div class="country-overlay">
+                <h3>Испания</h3>
+            </div>
+        </div>
+        <div class="country-card" data-country="greek">
+            <img src="src/img/countries/greek.jpg" alt="Греческая кухня">
+            <div class="country-overlay">
+                <h3>Греция</h3>
             </div>
         </div>
     </div>

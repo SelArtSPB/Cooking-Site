@@ -4,18 +4,20 @@
     box-sizing: border-box;
 }
 
-html, body {
-    height: 100%;
-}
-
 body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    background-color: #F4F6F6;
+    font-family: 'Open Sans', sans-serif;
+}
+
+html, body {
+    height: 100%;
 }
 
 .header {
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: #000000;
     color: #fff;
     padding: 0 40px;
     height: 80px;
@@ -30,7 +32,7 @@ body {
 }
 
 .header.scrolled {
-    background-color: rgba(0, 0, 0, 0.9);
+    background-color: #000000;
 }
 
 .header .logo {
@@ -50,17 +52,20 @@ body {
     flex: 1;
     display: flex;
     justify-content: center;
-    margin: 0 20px;
+    margin: 0 auto;
+    max-width: 600px;
 }
 
 .nav ul {
     display: flex;
+    justify-content: center;
     gap: 30px;
     list-style: none;
     margin: 0;
     padding: 0;
     height: 100%;
     align-items: center;
+    width: 100%;
 }
 
 .nav a {
@@ -100,6 +105,7 @@ body {
     width: 300px;
     margin: 0 auto;
     height: 42px;
+    margin-right: 20px;
 }
 
 .search input {
@@ -133,6 +139,15 @@ body {
     top: 0;
     right: 0;
     cursor: pointer;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+}
+
+.search button:hover {
+    background: #ff6666;
 }
 
 .search button i {
@@ -155,6 +170,7 @@ body {
     }
 
     .nav ul {
+        margin-left: 170px;
         display: none;
         flex-direction: column;
         align-items: center;
@@ -174,7 +190,7 @@ body {
 
 .container {
     max-width: 1200px;
-    margin: 75px auto;
+    margin: 30px auto;
     padding: 20px;
     flex: 1 0 auto;
 }
@@ -270,8 +286,7 @@ body {
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 15px;
-
+    gap: 10px;
 }
 
 .sidebar-item {
@@ -283,7 +298,7 @@ body {
     padding: 15px;
     align-items: flex-start;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    min-height: 110px;
+    height: calc((100% - 30px) / 4);
 }
 
 .sidebar-item:hover {
@@ -341,7 +356,7 @@ body.dark-theme .text-content a {
 .footer {
     background-color: rgba(0, 0, 0, 0.9);
     color: #fff;
-    padding: 40px 0 20px;
+    padding: 30px 0 20px;
     margin-top: auto;
     flex-shrink: 0;
 }
@@ -352,7 +367,7 @@ body.dark-theme .text-content a {
     display: flex;
     justify-content: space-between;
     padding: 0 20px;
-    gap: 30px;
+    gap: 20px;
 }
 
 .footer-section {
@@ -544,8 +559,8 @@ body.dark-theme .read-more:hover {
 }
 
 .recipes-grid {
-    padding: 40px 0;
-    width: 100vw;
+    padding: 20px 0;
+    width: 100%;
     position: relative;
     left: 50%;
     right: 50%;
@@ -562,7 +577,7 @@ body.dark-theme .read-more:hover {
     max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 
 @media (max-width: 768px) {
@@ -689,7 +704,7 @@ body.dark-theme .recipe-card {
 
 .section-title {
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     font-size: 32px;
     color: #333;
     font-weight: 600;
@@ -712,6 +727,7 @@ body.dark-theme .section-title {
 }
 
 .nav ul {
+    margin-left: 170px;
     font-family: 'Open Sans', sans-serif;
     font-weight: 600;
 }
@@ -891,7 +907,7 @@ button,
 .theme-toggle,
 .read-more,
 .slider-button {
-    border-radius: 8px;
+    border-radius: 100%;
 }
 
 /* Special treatment for search input */
@@ -931,6 +947,7 @@ body.dark-theme .sidebar-item {
     }
 
     .sidebar-item {
+        height: 110px;
         min-height: auto;
     }
 }
@@ -1071,33 +1088,37 @@ body.dark-theme .profile-menu a:hover {
 }
 
 .national-recipes {
-    padding: 40px 0;
+    width: 100%;
     background-color: #f9f9f9;
-    width: 100vw;
-    position: relative;
-    left: 50%;
-    right: 50%;
-    margin-left: -50vw;
-    margin-right: -50vw;
 }
 
 body.dark-theme .national-recipes {
     background-color: #222;
 }
 
+.national-recipes .section-title {
+    max-width: 1200px;
+    margin: 0 auto 20px;
+    padding: 20px;
+}
+
 .countries-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 0;
-    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 0 20px;
+    max-width: 1600px;
+    margin: 0 auto;
 }
 
 .country-card {
+    flex: 0 0 350px;
     position: relative;
     height: 280px;
-    border-radius: 0;
     overflow: hidden;
     cursor: pointer;
+    border-radius: 12px;
 }
 
 .country-card img {
@@ -1128,46 +1149,564 @@ body.dark-theme .national-recipes {
 
 .country-overlay h3 {
     font-size: 24px;
-    margin-bottom: 10px;
-    font-family: 'Playfair Display', serif;
+    font-family: 'Open Sans', sans-serif;
+    margin: 0;
 }
 
-.recipe-counter {
-    display: flex;
-    align-items: baseline;
-    gap: 5px;
+@media (max-width: 1600px) {
+    .country-card {
+        flex: 0 0 330px;
+        height: 260px;
+    }
 }
 
-.recipe-counter .count {
-    font-size: 28px;
-    font-weight: bold;
-    color: #ff4444;
+@media (max-width: 1400px) {
+    .country-card {
+        flex: 0 0 300px;
+        height: 240px;
+    }
 }
 
-.recipe-counter .label {
-    font-size: 16px;
-    opacity: 0.9;
+@media (max-width: 1200px) {
+    .country-card {
+        flex: 0 0 280px;
+        height: 220px;
+    }
+}
+
+@media (max-width: 992px) {
+    .country-card {
+        flex: 0 0 320px;
+        height: 250px;
+    }
 }
 
 @media (max-width: 768px) {
     .countries-grid {
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 15px;
+        padding: 0 15px;
+    }
+    
+    .country-card {
+        flex: 0 0 280px;
+        height: 220px;
+    }
+}
+
+@media (max-width: 576px) {
+    .country-card {
+        flex: 0 0 100%;
+        max-width: 400px;
+        height: 250px;
+    }
+}
+
+.famous-chefs {
+    padding: 40px 0;
+    background-color: #E5E9EC;
+}
+
+body.dark-theme .famous-chefs {
+    background-color: #1a1a1a;
+}
+
+.chefs-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.chef-card {
+    background: #E5E9EC;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+body.dark-theme .chef-card {
+    background: #333;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.chef-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.chef-image {
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+}
+
+.chef-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.chef-card:hover .chef-image img {
+    transform: scale(1.1);
+}
+
+.chef-info {
+    padding: 20px;
+}
+
+.chef-info h3 {
+    font-size: 24px;
+    margin-bottom: 8px;
+    color: #333;
+    font-family: 'Playfair Display', serif;
+}
+
+.chef-role {
+    color: #ff4444;
+    font-size: 16px;
+    margin-bottom: 12px;
+    font-weight: 500;
+}
+
+.chef-description {
+    color: #666;
+    line-height: 1.6;
+    font-size: 15px;
+}
+
+body.dark-theme .chef-info h3 {
+    color: #fff;
+}
+
+body.dark-theme .chef-description {
+    color: #ccc;
+}
+
+@media (max-width: 992px) {
+    .chefs-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        padding: 0 15px;
+    }
+}
+
+@media (max-width: 576px) {
+    .chefs-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .chef-card {
+        max-width: 100%;
+    }
+
+    .chef-image {
+        height: 200px;
+    }
+
+    .chef-info {
+        padding: 15px;
+    }
+
+    .chef-info h3 {
+        font-size: 18px;
+    }
+}
+
+/* Обновляем стили хедера для мобильных устройств */
+@media (max-width: 768px) {
+    .header {
+        padding: 0 20px;
+        height: 70px;
+    }
+
+    .header .logo h1 {
+        font-size: 20px;
+    }
+
+    .search {
+        width: 200px;
+        margin-right: 10px;
+    }
+
+    .search input:focus {
+        width: 200px;
+    }
+
+    /* Исправляем отступ для навигации */
+    .nav ul {
+        margin-left: 0;
+        padding: 15px 0;
+    }
+}
+
+/* Добавля��м стили для очень маленьких экранов */
+@media (max-width: 480px) {
+    .header {
+        padding: 0 15px;
+        height: 60px;
+    }
+
+    .search {
+        display: none; /* Скрываем поиск на очень маленьких экранах */
+    }
+
+    .header .logo h1 {
+        font-size: 18px;
+    }
+}
+
+/* Обновляем стили для основного контента */
+@media (max-width: 992px) {
+    .main-content {
+        flex-direction: column;
+    }
+
+    .featured-recipe {
+        margin-bottom: 20px;
+    }
+
+    .sidebar {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+
+    .sidebar-item {
+        height: auto;
+        min-height: 100px;
+    }
+}
+
+@media (max-width: 576px) {
+    .sidebar {
+        grid-template-columns: 1fr;
+    }
+
+    .featured-image {
+        height: 200px;
+    }
+
+    .recipe-title {
+        font-size: 20px;
+    }
+}
+
+/* Обновляем стили для секции национальных кухонь */
+@media (max-width: 992px) {
+    .countries-grid {
+        grid-template-columns: repeat(3, 1fr);
+        padding: 0 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    .countries-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+
+    .country-card {
+        height: 180px;
+    }
+}
+
+@media (max-width: 480px) {
+    .countries-grid {
+        grid-template-columns: 1fr;
     }
 
     .country-card {
         height: 200px;
     }
+}
 
+/* Обновляем стили для футера */
+@media (max-width: 768px) {
+    .footer-content {
+        flex-direction: column;
+        padding: 0 15px;
+    }
+
+    .footer-section {
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .footer-bottom {
+        padding: 15px;
+        margin-top: 20px;
+    }
+
+    .footer-links {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .social-links {
+        justify-content: center;
+    }
+}
+
+/* Обновляем стили для контейнеров */
+@media (max-width: 1200px) {
+    .container {
+        padding: 15px;
+        margin: 15px auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .section-title {
+        font-size: 24px;
+        margin-bottom: 15px;
+    }
+
+    .container {
+        padding: 10px;
+        margin: 10px auto;
+    }
+}
+
+/* Обновляем стили для профиля и меню */
+@media (max-width: 768px) {
+    .profile-menu {
+        width: 100%;
+        max-width: none;
+        border-radius: 12px 12px 0 0;
+    }
+
+    .profile-menu a {
+        padding: 15px 20px;
+        justify-content: center;
+    }
+
+    .header-controls {
+        gap: 10px;
+    }
+}
+
+@media (max-width: 992px) {
+    .countries-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 300px));
+        justify-content: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .countries-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 300px));
+        gap: 15px;
+        padding: 0 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .countries-grid {
+        grid-template-columns: minmax(250px, 300px);
+    }
+}
+
+.countries-grid::after {
+    content: '';
+    grid-column: 1 / -1;
+}
+
+/* Обновляем цвет фона для всех основных блоков */
+.famous-chefs {
+    background-color: #E5E9EC;
+}
+
+.national-recipes {
+    background-color: #E5E9EC;
+}
+
+.recipes-section {
+    background-color: #E5E9EC;
+}
+
+.featured-recipe {
+    background-color: #fff;
+}
+
+.sidebar-item {
+    background-color: #fff;
+}
+
+.recipes-grid {
+    background-color: #E5E9EC;
+}
+
+/* Для темной темы */
+body.dark-theme .famous-chefs,
+body.dark-theme .national-recipes,
+body.dark-theme .recipes-section,
+body.dark-theme .recipes-grid {
+    background-color: #1a1a1a;
+}
+
+body.dark-theme .featured-recipe,
+body.dark-theme .sidebar-item {
+    background-color: #333;
+}
+
+/* Добавляем отступы для лучшего визуального разделения секций */
+.famous-chefs,
+.national-recipes,
+.recipes-section,
+.recipes-grid {
+    padding: 40px 0;
+}
+
+/* Основные шрифты */
+:root {
+    --heading-font: 'Playfair Display', serif;
+    --body-font: 'Open Sans', sans-serif;
+    --nav-font: 'Montserrat', sans-serif;
+    --accent-font: 'Lato', sans-serif;
+}
+
+/* Логотип */
+.logo h1 {
+    font-family: var(--nav-font);
+    font-size: 28px;
+    font-weight: 700;
+}
+
+/* Навигация */
+.nav a {
+    font-family: var(--nav-font);
+    font-size: 16px;
+    font-weight: 500;
+}
+
+/* Заголовки секций */
+.section-title {
+    font-family: var(--heading-font);
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 30px;
+}
+
+/* Карточки шеф-поваров */
+.chef-info h3 {
+    font-family: var(--heading-font);
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.chef-role {
+    font-family: var(--accent-font);
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.chef-description {
+    font-family: var(--body-font);
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+/* Карточки стран */
+.country-overlay h3 {
+    font-family: var(--heading-font);
+    font-size: 28px;
+    font-weight: 600;
+}
+
+/* Рецепты */
+.recipe-title {
+    font-family: var(--heading-font);
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.recipe-excerpt {
+    font-family: var(--body-font);
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+/* Сайдбар */
+.sidebar-item h3 {
+    font-family: var(--accent-font);
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.sidebar-excerpt {
+    font-family: var(--body-font);
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+/* Медиа-запросы для адаптивной типографики */
+@media (max-width: 1200px) {
+    .section-title {
+        font-size: 32px;
+    }
+    
+    .country-overlay h3 {
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 992px) {
+    .section-title {
+        font-size: 28px;
+    }
+    
+    .chef-info h3 {
+        font-size: 22px;
+    }
+    
+    .recipe-title {
+        font-size: 22px;
+    }
+}
+
+@media (max-width: 768px) {
+    .section-title {
+        font-size: 24px;
+    }
+    
     .country-overlay h3 {
         font-size: 20px;
     }
-
-    .recipe-counter .count {
-        font-size: 24px;
+    
+    .chef-info h3 {
+        font-size: 20px;
     }
-
-    .recipe-counter .label {
+    
+    .recipe-title {
+        font-size: 20px;
+    }
+    
+    .chef-description,
+    .recipe-excerpt {
         font-size: 14px;
+    }
+}
+
+@media (max-width: 576px) {
+    .section-title {
+        font-size: 22px;
+    }
+    
+    .country-overlay h3 {
+        font-size: 18px;
+    }
+    
+    .sidebar-item h3 {
+        font-size: 15px;
+    }
+    
+    .sidebar-excerpt {
+        font-size: 13px;
     }
 }
 

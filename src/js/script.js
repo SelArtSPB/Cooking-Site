@@ -91,12 +91,21 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function goToSlide(index) {
-        const maxSlide = elements.slides.length - state.slidesPerView;
-        if (index < 0 || index > maxSlide) return;
-        
-        state.currentSlide = index;
         const slideWidth = elements.slides[0].offsetWidth + 20;
-        state.currentTranslate = state.prevTranslate = -index * slideWidth;
+        const maxScroll = elements.slides.length * slideWidth - elements.slider.parentElement.offsetWidth;
+        
+        if (index >= elements.slides.length - state.slidesPerView) {
+            state.currentTranslate = -maxScroll;
+            state.currentSlide = elements.slides.length - state.slidesPerView;
+        } else if (index < 0) {
+            state.currentTranslate = 0;
+            state.currentSlide = 0;
+        } else {
+            state.currentTranslate = -index * slideWidth;
+            state.currentSlide = index;
+        }
+        
+        state.prevTranslate = state.currentTranslate;
         setSliderPosition();
         updateDots();
     }
@@ -132,7 +141,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Автопрокрутка
     const autoSlide = setInterval(() => {
-        if (state.currentSlide === elements.slides.length - state.slidesPerView) {
+        const maxSlideIndex = elements.slides.length - state.slidesPerView;
+        if (state.currentSlide >= maxSlideIndex) {
             goToSlide(0);
         } else {
             nextSlide();
