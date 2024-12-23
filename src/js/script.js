@@ -1,5 +1,27 @@
-document.querySelector('.menu-toggle').addEventListener('click', function () {
-    document.querySelector('.nav ul').classList.toggle('active')
+document.querySelector('.menu-toggle').addEventListener('click', function() {
+    this.classList.toggle('active');
+    document.querySelector('.nav').classList.toggle('active');
+    document.body.style.overflow = document.querySelector('.nav').classList.contains('active') ? 'hidden' : '';
+});
+
+document.querySelectorAll('.nav a').forEach(link => {
+    link.addEventListener('click', () => {
+        document.querySelector('.nav').classList.remove('active');
+        document.querySelector('.menu-toggle').classList.remove('active');
+        document.body.style.overflow = '';
+    });
+});
+
+document.addEventListener('click', (e) => {
+    const nav = document.querySelector('.nav');
+    const toggle = document.querySelector('.menu-toggle');
+    if (nav.classList.contains('active') && 
+        !nav.contains(e.target) && 
+        !toggle.contains(e.target)) {
+        nav.classList.remove('active');
+        toggle.classList.remove('active');
+        document.body.style.overflow = '';
+    }
 });
 
 document.querySelector('.profile-toggle').addEventListener('click', function(e) {
@@ -153,6 +175,50 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 document.querySelector('.profile-theme-toggle').addEventListener('click', function(e) {
-    e.preventDefault(); // Prevent default link behavior
-    document.body.classList.toggle('dark-theme'); // Toggle the dark theme
+    e.preventDefault();
+    const icon = this.querySelector('i');
+    icon.style.transform = 'rotate(180deg)';
+    
+    setTimeout(() => {
+        document.body.classList.toggle('dark-theme');
+        icon.style.transform = 'rotate(0)';
+    }, 150);
+});
+
+// Добавляем обработчик для мобильного поиска
+document.querySelector('.mobile-search-toggle').addEventListener('click', function() {
+    const searchContainer = document.querySelector('.mobile-search-container');
+    searchContainer.classList.toggle('active');
+    
+    if (searchContainer.classList.contains('active')) {
+        // Фокусируемся на поле ввода
+        searchContainer.querySelector('input').focus();
+    }
+});
+
+// Закрываем поиск при клике вне его
+document.addEventListener('click', (e) => {
+    const searchContainer = document.querySelector('.mobile-search-container');
+    const searchToggle = document.querySelector('.mobile-search-toggle');
+    
+    if (!searchContainer.contains(e.target) && 
+        !searchToggle.contains(e.target) && 
+        searchContainer.classList.contains('active')) {
+        searchContainer.classList.remove('active');
+    }
+});
+
+// Закрываем поиск при нажатии Escape
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        document.querySelector('.mobile-search-container').classList.remove('active');
+    }
+});
+
+// Обработка отправки формы поиска
+document.querySelector('.mobile-search-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    // Здесь добавьте логику обработки поиска
+    const searchQuery = this.querySelector('input').value;
+    console.log('Поисковый запрос:', searchQuery);
 });

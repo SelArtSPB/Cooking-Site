@@ -1,9 +1,11 @@
+/* Reset */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* Base styles */
 body {
     display: flex;
     flex-direction: column;
@@ -16,6 +18,7 @@ html, body {
     height: 100%;
 }
 
+/* Header block */
 .header {
     background-color: #000000;
     color: #fff;
@@ -48,6 +51,7 @@ html, body {
     color: #ff4444;
 }
 
+/* Navigation */
 .nav {
     flex: 1;
     display: flex;
@@ -98,8 +102,7 @@ html, body {
     transform: scaleX(1);
 }
 
-* {box-sizing: border-box;}
-
+/* Search block */
 .search {
     position: relative;
     width: 300px;
@@ -155,6 +158,7 @@ html, body {
     font-size: 16px;
 }
 
+/* Mobile menu */
 .menu-toggle {
     display: none;
     font-size: 24px;
@@ -162,6 +166,8 @@ html, body {
     background: none;
     border: none;
     cursor: pointer;
+    padding: 10px;
+    z-index: 1001;
 }
 
 @media (max-width: 768px) {
@@ -169,25 +175,83 @@ html, body {
         display: block;
     }
 
-    .nav ul {
-        margin-left: 170px;
-        display: none;
-        flex-direction: column;
-        align-items: center;
-        gap: 15px;
-        background-color: rgba(0, 0, 0, 0.9);
-        position: absolute;
-        top: 100%;
+    .nav {
+        position: fixed;
+        top: 0;
         left: 0;
         width: 100%;
-        padding: 20px;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.95);
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        z-index: 1000;
     }
 
-    .nav ul.active {
+    .nav.active {
+        transform: translateX(0);
+    }
+
+    .nav ul {
+        margin: 0;
+        padding: 80px 20px 20px;
+        height: 100%;
         display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .nav ul li {
+        width: 100%;
+        text-align: center;
+    }
+
+    .nav a {
+        display: block;
+        padding: 15px;
+        width: 100%;
+        font-size: 18px;
+    }
+
+    /* Исправляем позиционирование хедера */
+    .header {
+        justify-content: space-between;
+        padding: 0 20px;
+        position: relative;
+    }
+
+    /* Обновляем стили для поиска */
+    .search-line {
+        position: absolute;
+        right: 70px;
+    }
+
+    .search {
+        width: auto;
+        margin-right: 0;
+    }
+
+    /* Обновляем стили для профиля */
+    .header-controls {
+        z-index: 1001;
     }
 }
 
+/* Добавляем стили для активного состояния меню */
+.nav.active {
+    display: block;
+}
+
+.nav.active ul {
+    display: flex;
+}
+
+/* Стили для анимации бургер-меню */
+.menu-toggle.active {
+    color: #ff4444;
+}
+
+/* Main content */
 .container {
     max-width: 1200px;
     margin: 30px auto;
@@ -205,6 +269,7 @@ html, body {
     gap: 15px;
 }
 
+/* Featured recipe block */
 .featured-recipe {
     flex: 2;
     background: #fff;
@@ -282,6 +347,7 @@ html, body {
     transform: translateX(5px);
 }
 
+/* Sidebar */
 .sidebar {
     flex: 1;
     display: flex;
@@ -352,6 +418,308 @@ html, body {
 body.dark-theme .text-content a {
     color: #fff;
 }
+
+/* Chefs section */
+.famous-chefs {
+    padding: 40px 0;
+    background-color: #E5E9EC;
+}
+
+body.dark-theme .famous-chefs {
+    background-color: #1a1a1a;
+}
+
+.chefs-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.chef-card {
+    background: #fff;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+body.dark-theme .chef-card {
+    background: #333;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.chef-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.chef-image {
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+}
+
+.chef-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.chef-card:hover .chef-image img {
+    transform: scale(1.1);
+}
+
+.chef-info {
+    padding: 20px;
+}
+
+.chef-info h3 {
+    font-size: 24px;
+    margin-bottom: 8px;
+    color: #333;
+    font-family: 'Playfair Display', serif;
+}
+
+.chef-role {
+    color: #ff4444;
+    font-size: 16px;
+    margin-bottom: 12px;
+    font-weight: 500;
+}
+
+.chef-description {
+    color: #666;
+    line-height: 1.6;
+    font-size: 15px;
+}
+
+body.dark-theme .chef-info h3 {
+    color: #fff;
+}
+
+body.dark-theme .chef-description {
+    color: #ccc;
+}
+
+@media (max-width: 992px) {
+    .chefs-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        padding: 0 15px;
+    }
+}
+
+@media (max-width: 576px) {
+    .chefs-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .chef-card {
+        max-width: 100%;
+    }
+
+    .chef-image {
+        height: 200px;
+    }
+
+    .chef-info {
+        padding: 15px;
+    }
+
+    .chef-info h3 {
+        font-size: 18px;
+    }
+}
+
+/* Popular recipes section */
+.recipes-grid {
+    padding: 20px 0;
+    width: 100%;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+}
+
+.recipes-grid .container {
+    max-width: 100%;
+    padding: 0 40px;
+}
+
+.recipes-grid .section-title {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+    .recipes-grid .container {
+        padding: 0 20px;
+    }
+    
+    .slider-wrapper {
+        width: calc(100% - 40px);
+    }
+}
+
+.slider-container {
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.slider-wrapper {
+    width: calc(100% - 80px);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 25px;
+    padding: 20px 0;
+}
+
+.recipe-card {
+    flex: 0 0 400px;
+    max-width: 400px;
+    height: 600px;
+    margin: 0 15px;
+    position: relative;
+    border-radius: 15px;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: inset 0px 0px 15px 6px rgba(0, 0, 0, 0.1);
+}
+
+.recipe-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.recipe-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.9) 0%,
+        rgba(0, 0, 0, 0.7) 50%,
+        rgba(0, 0, 0, 0) 100%
+    );
+    padding: 20px;
+    color: white;
+    transform: translateY(100%);
+    transition: transform 0.5s ease;
+}
+
+.recipe-overlay h3 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.recipe-overlay p {
+    font-size: 0.9em;
+    line-height: 1.4;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease 0.2s;
+}
+
+.recipe-card:hover img {
+    transform: scale(1.1);
+}
+
+.recipe-card:hover .recipe-overlay {
+    transform: translateY(0);
+}
+
+.recipe-card:hover .recipe-overlay p {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+    .grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 15px;
+    }
+
+    .recipe-overlay {
+        transform: translateY(0);
+        background: linear-gradient(
+            to top,
+            rgba(0, 0, 0, 0.8) 0%,
+            rgba(0, 0, 0, 0.5) 100%
+        );
+    }
+
+    .recipe-overlay p {
+        display: none;
+    }
+}
+
+body.dark-theme .recipe-overlay {
+    background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.95) 0%,
+        rgba(0, 0, 0, 0.8) 50%,
+        rgba(0, 0, 0, 0.2) 100%
+    );
+}
+
+body.dark-theme .recipe-card {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 32px;
+    color: #333;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+body.dark-theme .section-title {
+    color: #fff;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Open+Sans:wght@400;600&family=Roboto:wght@300;400;500&family=Lato:wght@400;700&display=swap');
+
+.logo h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+}
+.section-title, .recipe-title {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+}
+
+.nav ul {
+    margin-left: 170px;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+}
+
+.recipe-excerpt, .recipe-overlay p {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+}
+
+.sidebar-item h3, .sidebar-excerpt {
+    font-family: 'Lato', sans-serif;
+}
+
+
 
 .footer {
     background-color: rgba(0, 0, 0, 0.9);
@@ -1218,7 +1586,7 @@ body.dark-theme .famous-chefs {
 }
 
 .chef-card {
-    background: #E5E9EC;
+    background: #fff;
     border-radius: 15px;
     overflow: hidden;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
@@ -1342,7 +1710,7 @@ body.dark-theme .chef-description {
     }
 }
 
-/* Добавля��м стили для очень маленьких экранов */
+/* Добавляем стили для очень маленьких экранов */
 @media (max-width: 480px) {
     .header {
         padding: 0 15px;
@@ -1708,5 +2076,219 @@ body.dark-theme .sidebar-item {
     .sidebar-excerpt {
         font-size: 13px;
     }
+}
+
+/* Обновляем стили для мобильного поиска */
+.mobile-search-toggle {
+    display: none;
+    color: #fff;
+    font-size: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 1001;
+}
+
+.mobile-search-container {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 1002;
+    transform: translateY(-100%);
+    transition: transform 0.3s ease;
+}
+
+.mobile-search-container.active {
+    transform: translateY(0);
+}
+
+.mobile-search-form {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.mobile-search-form input {
+    width: 100%;
+    padding: 12px 45px 12px 15px;
+    border: none;
+    border-radius: 25px;
+    background: #fff;
+    font-size: 16px;
+    outline: none;
+}
+
+.mobile-search-form button {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #ff4444;
+    padding: 8px;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .search {
+        display: none; /* Скрываем десктопный поиск */
+    }
+
+    .mobile-search-toggle {
+        display: block;
+    }
+
+    .mobile-search-container {
+        display: block;
+    }
+
+    /* Обновляем позиционирование элементов в хедере */
+    .header {
+        justify-content: space-between;
+    }
+
+    .header-controls {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+}
+
+/* Убираем крестик из полей поиска */
+.search input::-webkit-search-cancel-button,
+.search input::-webkit-search-decoration,
+.mobile-search-form input::-webkit-search-cancel-button,
+.mobile-search-form input::-webkit-search-decoration {
+    -webkit-appearance: none;
+    appearance: none;
+    display: none;
+}
+
+.search input[type="search"],
+.mobile-search-form input[type="search"] {
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+/* Для Firefox */
+.search input[type="search"]::-moz-search-cancel-button,
+.mobile-search-form input[type="search"]::-moz-search-cancel-button {
+    display: none;
+}
+
+/* Обновляем стили для переключателя темы */
+.profile-theme-toggle i {
+    transition: transform 0.3s ease;
+}
+
+/* Для свелой темы показываем луну */
+.profile-theme-toggle .fa-adjust::before {
+    content: "\f186"; /* код иконки луны */
+    color: #333;
+}
+
+/* Для темной темы показываем солнце */
+body.dark-theme .profile-theme-toggle .fa-adjust::before {
+    content: "\f185"; /* код иконки солнца */
+    color: #fff;
+}
+
+/* Стандартизируем отступы между основными секциями */
+.recipes-section,
+.famous-chefs,
+.recipes-grid,
+.national-recipes {
+    padding: 60px 0; /* Одинаковый отступ сверху и снизу для всех секций */
+}
+
+/* Убираем дублирующие отступы */
+.container {
+    margin: 20 0 0 0; /* Убираем margin-top и margin-bottom */
+    padding: 0 20px; /* Оставляем только горизонтальные отступы */
+}
+
+/* Обновляем отступы для адаптивности */
+@media (max-width: 768px) {
+    .recipes-section,
+    .famous-chefs,
+    .recipes-grid,
+    .national-recipes {
+        padding: 40px 0; /* Уменьшаем отступы на мобильных устройствах */
+    }
+}
+
+@media (max-width: 576px) {
+    .recipes-section,
+    .famous-chefs,
+    .recipes-grid,
+    .national-recipes {
+        padding: 30px 0; /* Ещё меньше отступы на маленьких экранах */
+    }
+}
+
+/* Общие стили для обрезки текста */
+.recipe-excerpt,
+.sidebar-excerpt,
+.chef-description,
+.recipe-overlay p {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Специфичные настройки для разных типов описаний */
+.recipe-excerpt {
+    -webkit-line-clamp: 2;
+}
+
+.sidebar-excerpt {
+    -webkit-line-clamp: 2;
+}
+
+.chef-description {
+    -webkit-line-clamp: 3;
+}
+
+.recipe-overlay p {
+    -webkit-line-clamp: 4;
+}
+
+/* Для поддержки Firefox и других браузеров */
+@supports not (-webkit-line-clamp: 3) {
+    .recipe-excerpt,
+    .sidebar-excerpt,
+    .chef-description,
+    .recipe-overlay p {
+        display: block;
+        max-height: 4.8em;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .recipe-excerpt::after,
+    .sidebar-excerpt::after,
+    .chef-description::after,
+    .recipe-overlay p::after {
+        content: "...";
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(to right, transparent, var(--bg-color, #fff) 50%);
+        padding-left: 20px;
+    }
+}
+
+/* Для темной темы */
+body.dark-theme {
+    --bg-color: #333;
 }
 

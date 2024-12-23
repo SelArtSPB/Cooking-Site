@@ -28,6 +28,9 @@
             </button>
         </form>
     </div>
+    <button class="mobile-search-toggle">
+        <i class="fas fa-search"></i>
+    </button>
     <div class="header-controls">
         <div class="profile-dropdown">
             <button class="profile-toggle" aria-label="Profile menu">
@@ -35,51 +38,25 @@
             </button>
             <div class="profile-menu">
                 <a href="#"><i class="fas fa-user-circle"></i> Моя страница</a>
-                <a href="#" class="profile-theme-toggle"><i class="fas fa-adjust"></i> Изменить тему</a>
-                <a href="#"><i class="fas fa-question-circle"></i> Помощь</a>
+                <a href="#" class="profile-theme-toggle">
+                    <i class="fas fa-adjust"></i>
+                    <span>Изменить тему</span>
+                </a>
+                <a href="#"><i class="fas fa-question-circle"></i> Поддержка</a>
                 <a href="#"><i class="fas fa-cog"></i> Настройки</a>
                 <a href="#"><i class="fas fa-sign-out-alt"></i> Выход</a>
             </div>
         </div>
     </div>
 </header>
-<section class="famous-chefs">
-    <div class="container">
-        <h2 class="section-title">Известные повара</h2>
-        <div class="chefs-grid">
-            <div class="chef-card">
-                <div class="chef-image">
-                    <img src="src/img/chefs/chef1.jpg" alt="Шеф-повар">
-                </div>
-                <div class="chef-info">
-                    <h3>Константин Ивлев</h3>
-                    <p class="chef-role">Шеф-повар, ресторатор</p>
-                    <p class="chef-description">Известный российский шеф-повар, телеведущий и ресторатор. Ведущий популярных кулинарных шоу, автор множества книг по кулинарии.</p>
-                </div>
-            </div>
-            <div class="chef-card">
-                <div class="chef-image">
-                    <img src="src/img/chefs/chef2.jpg" alt="Шеф-повар">
-                </div>
-                <div class="chef-info">
-                    <h3>Александр Белькович</h3>
-                    <p class="chef-role">Шеф-повар, телеведущий</p>
-                    <p class="chef-description">Популярный шеф-повар и телеведущий. Ведущий кулинарных программ, владелец нескольких ресторанов в Санкт-Петербурге.</p>
-                </div>
-            </div>
-            <div class="chef-card">
-                <div class="chef-image">
-                    <img src="src/img/chefs/chef3.jpg" alt="Шеф-повар">
-                </div>
-                <div class="chef-info">
-                    <h3>Андрей Махов</h3>
-                    <p class="chef-role">Бренд-шеф</p>
-                    <p class="chef-description">Бренд-шеф известных ресторанов русской кухни. Признанный эксперт в области традиционной русской гастрономии.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+<div class="mobile-search-container">
+    <form class="mobile-search-form">
+        <input type="search" placeholder="Поиск...">
+        <button type="submit">
+            <i class="fas fa-search"></i>
+        </button>
+    </form>
+</div>
 <section class="recipes-section">
     <div class="container">
         <h1 class="section-title">Кулинарные новости</h1>
@@ -123,6 +100,43 @@
                     </div>
                 </div>
             </aside>
+        </div>
+    </div>
+</section>
+<section class="famous-chefs">
+    <div class="container">
+        <h2 class="section-title">Известные повара</h2>
+        <div class="chefs-grid">
+            <div class="chef-card">
+                <div class="chef-image">
+                    <img src="src/img/chefs/chef1.jpg" alt="Шеф-повар">
+                </div>
+                <div class="chef-info">
+                    <h3>Константин Ивлев</h3>
+                    <p class="chef-role">Шеф-повар, ресторатор</p>
+                    <p class="chef-description">Известный российский шеф-повар, телеведущий и ресторатор. Ведущий популярных кулинарных шоу, автор множества книг по кулинарии.</p>
+                </div>
+            </div>
+            <div class="chef-card">
+                <div class="chef-image">
+                    <img src="src/img/chefs/chef2.jpg" alt="Шеф-повар">
+                </div>
+                <div class="chef-info">
+                    <h3>Александр Белькович</h3>
+                    <p class="chef-role">Шеф-повар, телеведущий</p>
+                    <p class="chef-description">Популярный шеф-повар и телеведущий. Ведущий кулинарных программ, владелец нескольких ресторанов в Санкт-Петербурге.</p>
+                </div>
+            </div>
+            <div class="chef-card">
+                <div class="chef-image">
+                    <img src="src/img/chefs/chef3.jpg" alt="Шеф-повар">
+                </div>
+                <div class="chef-info">
+                    <h3>Андрей Махов</h3>
+                    <p class="chef-role">Бренд-шеф</p>
+                    <p class="chef-description">Бренд-шеф известных ресторанов русской кухни. Признанный эксперт в области традиционной русской гастрономии.</p>
+                </div>
+            </div>
         </div>
     </div>
 </section>
@@ -181,7 +195,7 @@
                         <img src="src/img/recipes/falafel.jpg" alt="Фалафель">
                         <div class="recipe-overlay">
                             <h3>Фалафель</h3>
-                            <p>Классический фалафель с курицей, томатами, огурцами, луком и специями.</p>
+                            <p>Классический фалафель с курицей, томатами, огурцами, уком и специями.</p>
                         </div>
                     </div>
                     <div class="recipe-card">
