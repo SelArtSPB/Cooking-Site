@@ -222,3 +222,22 @@ document.querySelector('.mobile-search-form').addEventListener('submit', functio
     const searchQuery = this.querySelector('input').value;
     console.log('Поисковый запрос:', searchQuery);
 });
+
+// Плавная прокрутка для ссылок в футере
+document.querySelector('.footer-section ul').addEventListener('click', function(e) {
+    if (e.target.tagName === 'A') {
+        e.preventDefault();
+        const targetId = e.target.getAttribute('href');
+        const targetSection = document.querySelector(targetId);
+        
+        if (targetSection) {
+            const headerHeight = document.querySelector('.header').offsetHeight;
+            const targetPosition = targetSection.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+            
+            window.scrollTo({
+                top: targetPosition,
+                behavior: 'smooth'
+            });
+        }
+    }
+});

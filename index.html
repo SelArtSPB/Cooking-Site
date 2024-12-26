@@ -15,8 +15,8 @@
     <nav class="nav">
         <ul>
             <li><a href="#">Главная</a></li>
-            <li><a href="#">Новости</a></li>
-            <li><a href="#">Рецепты</a></li>
+            <li><a href="#">Каталог рецептов</a></li>
+            <li><a href="#">Рейтинг рецептов</a></li>
         </ul>
     </nav>
     <button class="menu-toggle" aria-label="Toggle menu">☰</button>
@@ -57,9 +57,10 @@
         </button>
     </form>
 </div>
-<section class="recipes-section">
+<section class="recipes-section" id="news">
     <div class="container">
         <h1 class="section-title">Кулинарные новости</h1>
+        <p class="section-description">Будьте в курсе последних кулинарных трендов! Ежедневно публикуем свежие новости из мира гастрономии, обзоры ресторанов и интересные факты о еде.</p>
         <div class="main-content">
             <article class="featured-recipe">
                 <div class="category-tag">Десерты</div>
@@ -103,24 +104,24 @@
         </div>
     </div>
 </section>
-<section class="famous-chefs">
+<section class="famous-chefs" id="chefs">
     <div class="container">
         <h2 class="section-title">Известные повара</h2>
         <p class="section-description">Учитесь у лучших! Наши эксперты делятся своими фирменными рецептами, кулинарными секретами и профессиональными техниками приготовления. Регулярно публикуем эксклюзивные мастер-классы и интервью с шеф-поварами.</p>
         <div class="chefs-grid">
             <div class="chef-card">
                 <div class="chef-image">
-                    <img src="src/img/ivlev.jpg" alt="Шеф-повар">
+                    <img src="src/img/barinov.png" alt="Шеф-повар">
                 </div>
                 <div class="chef-info">
-                    <h3>Константин Ивлев</h3>
+                    <h3>Виктор Баринов</h3>
                     <p class="chef-role">Шеф-повар, ресторатор</p>
-                    <p class="chef-description">Известный российский шеф-повар, телеведущий и ресторатор. Ведущий популярных кулинарных шоу, автор множества книг по кулинарии.</p>
+                    <p class="chef-description">Талантливый шеф-повар и ресторатор. Известен своим вспыльчивым характером и безупречным вкусом. Шеф-повар ресторана Claude Monet.</p>
                 </div>
             </div>
             <div class="chef-card">
                 <div class="chef-image">
-                    <img src="src/img/belcovish.jpg" alt="Шеф-повар">
+                    <img src="src/img/belcovish.png" alt="Шеф-повар">
                 </div>
                 <div class="chef-info">
                     <h3>Александр Белькович</h3>
@@ -130,7 +131,7 @@
             </div>
             <div class="chef-card">
                 <div class="chef-image">
-                    <img src="src/img/mahov.jpg" alt="Шеф-повар">
+                    <img src="src/img/mahov.png" alt="Шеф-повар">
                 </div>
                 <div class="chef-info">
                     <h3>Андрей Махов</h3>
@@ -141,9 +142,10 @@
         </div>
     </div>
 </section>
-<section class="recipes-grid">
+<section class="recipes-grid" id="popular">
     <div class="container">
         <h2 class="section-title">Популярные рецепты</h2>
+        <p class="section-description">Откройте для себя коллекцию наших лучших рецептов! Здесь собраны самые популярные блюда, которые высоко оценили наши пользователи. От классических до инновационных - каждый найдет что-то по вкусу.</p>
         <div class="slider-container">
             <button class="slider-button prev">
                 <i class="fas fa-chevron-left"></i>
@@ -189,7 +191,7 @@
                         <img src="src/img/recipes/chocolate.jpg" alt="Шоколадный торт">
                         <div class="recipe-overlay">
                             <h3>Шоколадный торт</h3>
-                            <p>Классический ��околадный торт с бисквитной основой, шоколадным кремом и глазурью.</p>
+                            <p>Классический шоколадный торт с бисквитной основой, шоколадным кремом и глазурью.</p>
                         </div>
                     </div>
                     <div class="recipe-card">
@@ -243,13 +245,20 @@
         <div class="slider-dots"></div>
     </div>
 </section>
-<section class="national-recipes">
+<section class="national-recipes" id="cuisines">
     <h2 class="section-title">Кухни народов мира</h2>
+    <p class="section-description">Отправьтесь в кулинарное путешествие вокруг света! Исследуйте аутентичные рецепты разных стран, узнавайте об уникальных ингредиентах и традиционных способах приготовления блюд со всего мира.</p>
     <div class="countries-grid">
-        <div class="country-card" data-country="italian">
-            <img src="src/img/countries/italian.jpg" alt="Итальянская кухня">
+        <div class="country-card" data-country="chinese">
+            <img src="src/img/countries/chinese.jpg" alt="Китайская кухня">
             <div class="country-overlay">
-                <h3>Италия</h3>
+                <h3>Китай</h3>
+            </div>
+        </div>
+        <div class="country-card" data-country="indian">
+            <img src="src/img/countries/indian.jpg" alt="Индийская кухня">
+            <div class="country-overlay">
+                <h3>Индия</h3>
             </div>
         </div>
         <div class="country-card" data-country="italian">
@@ -258,16 +267,10 @@
                 <h3>Италия</h3>
             </div>
         </div>
-        <div class="country-card" data-country="italian">
-            <img src="src/img/countries/italian.jpg" alt="Итальянская кухня">
+        <div class="country-card" data-country="mexican">
+            <img src="src/img/countries/mexican.jpg" alt="Мексиканская кухня">
             <div class="country-overlay">
-                <h3>Италия</h3>
-            </div>
-        </div>
-        <div class="country-card" data-country="japanese">
-            <img src="src/img/countries/japanese.jpg" alt="Японская кухня">
-            <div class="country-overlay">
-                <h3>Япония</h3>
+                <h3>Мексика</h3>
             </div>
         </div>
         <div class="country-card" data-country="french">
@@ -276,22 +279,22 @@
                 <h3>Франция</h3>
             </div>
         </div>
-        <div class="country-card" data-country="russian">
-            <img src="src/img/countries/russian.jpg" alt="Русская кухня">
+        <div class="country-card" data-country="japanese">
+            <img src="src/img/countries/japanese.jpg" alt="Японская кухня">
             <div class="country-overlay">
-                <h3>Россия</h3>
+                <h3>Япония</h3>
             </div>
         </div>
-        <div class="country-card" data-country="spanish">
-            <img src="src/img/countries/spanish.jpg" alt="Испанская кухня">
+        <div class="country-card" data-country="thai">
+            <img src="src/img/countries/thai.jpg" alt="Тайская кухня">
             <div class="country-overlay">
-                <h3>Испания</h3>
+                <h3>Таиланд</h3>
             </div>
         </div>
-        <div class="country-card" data-country="greek">
-            <img src="src/img/countries/greek.jpg" alt="Греческая кухня">
+        <div class="country-card" data-country="turkish">
+            <img src="src/img/countries/turkish.jpg" alt="Турецкая кухня">
             <div class="country-overlay">
-                <h3>Греция</h3>
+                <h3>Турция</h3>
             </div>
         </div>
     </div>
@@ -306,9 +309,10 @@
         <div class="footer-section">
             <h3>Разделы</h3>
             <ul>
-                <li><a href="#">Рецепты</a></li>
-                <li><a href="#">Статьи</a></li>
-                <li><a href="#">Видео</a></li>
+                <li><a href="#news">Кулинарные новости</a></li>
+                <li><a href="#chefs">Известные повара</a></li>
+                <li><a href="#popular">Популярные рецепты</a></li>
+                <li><a href="#cuisines">Кухни народов мира</a></li>
             </ul>
         </div>
         <div class="footer-section">

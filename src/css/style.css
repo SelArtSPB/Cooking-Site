@@ -1,11 +1,10 @@
-/* Reset */
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Base styles */
 body {
     display: flex;
     flex-direction: column;
@@ -40,7 +39,6 @@ body.dark-theme .section-description {
     }
 }
 
-/* Header block */
 .header {
     background-color: #000000;
     color: #fff;
@@ -124,7 +122,6 @@ body.dark-theme .section-description {
     transform: scaleX(1);
 }
 
-/* Search block */
 .search {
     position: relative;
     width: 300px;
@@ -180,7 +177,7 @@ body.dark-theme .section-description {
     font-size: 16px;
 }
 
-/* Mobile menu */
+
 .menu-toggle {
     display: none;
     font-size: 24px;
@@ -234,32 +231,24 @@ body.dark-theme .section-description {
         width: 100%;
         font-size: 18px;
     }
-
-    /* Исправляем позиционирование хедера */
     .header {
         justify-content: space-between;
         padding: 0 20px;
         position: relative;
     }
 
-    /* Обновляем стили для поиска */
     .search-line {
         position: absolute;
         right: 70px;
     }
-
     .search {
         width: auto;
         margin-right: 0;
     }
-
-    /* Обновляем стили для профиля */
     .header-controls {
         z-index: 1001;
     }
 }
-
-/* Добавляем стили для активного состояния меню */
 .nav.active {
     display: block;
 }
@@ -1989,7 +1978,7 @@ body.dark-theme .sidebar-item {
 .national-recipes,
 .recipes-section,
 .recipes-grid {
-    padding: 40px 0;
+    padding: 60px 0; /* Одинаковый отступ сверху и снизу для всех секций */
 }
 
 /* Основные шрифты */
@@ -2298,32 +2287,38 @@ body.dark-theme .profile-theme-toggle .fa-adjust::before {
 }
 
 /* Общие стили для обрезки текста */
+.text-content p,
 .recipe-excerpt,
 .sidebar-excerpt,
 .chef-description,
 .recipe-overlay p {
     display: -webkit-box;
     -webkit-line-clamp: 3;
+    line-clamp: 3; /* Add this line for compatibility */
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-/* Специфичные настройки для разных типов описаний */
+/* Specific settings for different types of descriptions */
 .recipe-excerpt {
     -webkit-line-clamp: 2;
+    line-clamp: 2; /* Add this line for compatibility */
 }
 
 .sidebar-excerpt {
     -webkit-line-clamp: 2;
+    line-clamp: 2; /* Add this line for compatibility */
 }
 
 .chef-description {
     -webkit-line-clamp: 3;
+    line-clamp: 3; /* Add this line for compatibility */
 }
 
 .recipe-overlay p {
     -webkit-line-clamp: 4;
+    line-clamp: 4; /* Add this line for compatibility */
 }
 
 /* Для поддержки Firefox и других браузеров */
@@ -2354,5 +2349,23 @@ body.dark-theme .profile-theme-toggle .fa-adjust::before {
 /* Для темной темы */
 body.dark-theme {
     --bg-color: #333;
+}
+
+@media (max-width: 992px) {
+    .recipe-card img {
+        height: 200px;
+    }
+}
+
+@media (max-width: 768px) {
+    .recipe-card img {
+        height: 150px;
+    }
+}
+
+@media (max-width: 576px) {
+    .recipe-card img {
+        height: 100px;
+    }
 }
 
