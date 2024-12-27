@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food to love | Catalog Recipe</title>
+    <link rel="stylesheet" href="src/css/catalog-recipe.css">
+    <script src="src/js/catalog-recipe.js" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <h1><a href="index.html">FOOD <span>TO LOVE</span></a></h1>
+        </div>
+        <nav class="nav">
+            <ul>
+                <li><a href="index.html">Главная</a></li>
+                <li><a href="catalog-recipe.html">Каталог рецептов</a></li>
+                <li><a href="#">Рейтинг рецептов</a></li>
+            </ul>
+        </nav>
+        <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+        <div class="search-line">
+            <form class="search">
+                <input type="search" placeholder="Искать здесь...">
+                <button type="submit">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
+        </div>
+        <button class="mobile-search-toggle">
+            <i class="fas fa-search"></i>
+        </button>
+        <div class="header-controls">
+            <div class="profile-dropdown">
+                <button class="profile-toggle" aria-label="Profile menu">
+                    <i class="fas fa-user"></i>
+                </button>
+                <div class="profile-menu">
+                    <a href="#"><i class="fas fa-user-circle"></i> Моя страница</a>
+                    <a href="#" class="profile-theme-toggle">
+                        <i class="fas fa-adjust"></i>
+                        <span>Изменить тему</span>
+                    </a>
+                    <a href="#"><i class="fas fa-question-circle"></i> Поддержка</a>
+                    <a href="#"><i class="fas fa-cog"></i> Настройки</a>
+                    <a href="#"><i class="fas fa-sign-out-alt"></i> Выход</a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="mobile-search-container">
+        <form class="mobile-search-form">
+            <input type="search" placeholder="Поиск...">
+            <button type="submit">
+                <i class="fas fa-search"></i>
+            </button>
+        </form>
+    </div>
+    <main class="main-content">
+        <!-- Здесь будет контент каталога рецептов -->
+    </main>
+</body>
+</html>

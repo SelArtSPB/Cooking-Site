@@ -176,13 +176,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 document.querySelector('.profile-theme-toggle').addEventListener('click', function(e) {
     e.preventDefault();
-    const icon = this.querySelector('i');
-    icon.style.transform = 'rotate(180deg)';
-    
-    setTimeout(() => {
-        document.body.classList.toggle('dark-theme');
-        icon.style.transform = 'rotate(0)';
-    }, 150);
+    document.body.classList.toggle('dark-theme');
 });
 
 // Добавляем обработчик для мобильного поиска
