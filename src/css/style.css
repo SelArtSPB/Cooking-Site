@@ -1,10 +1,12 @@
-
+/* Начало общих стилей */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
+/* Конец общих стилей */
 
+/* Начало стилей для body */
 body {
     display: flex;
     flex-direction: column;
@@ -12,11 +14,15 @@ body {
     background-color: #F4F6F6;
     font-family: 'Open Sans', sans-serif;
 }
+/* Конец стилей для body */
 
+/* Начало стилей для html и body */
 html, body {
     height: 100%;
 }
+/* Конец стилей для html и body */
 
+/* Начало стилей для section-description */
 .section-description {
     text-align: center;
     max-width: 800px;
@@ -26,11 +32,15 @@ html, body {
     font-family: var(--body-font);
     font-size: 16px;
 }
+/* Конец стилей для section-description */
 
+/* Начало стилей для темной темы section-description */
 body.dark-theme .section-description {
     color: #ccc;
 }
+/* Конец стилей для темной темы section-description */
 
+/* Начало медиа-запроса для section-description */
 @media (max-width: 768px) {
     .section-description {
         font-size: 14px;
@@ -38,7 +48,9 @@ body.dark-theme .section-description {
         margin-bottom: 30px;
     }
 }
+/* Конец медиа-запроса для section-description */
 
+/* Начало стилей для header */
 .header {
     background-color: #000000;
     color: #fff;
@@ -53,11 +65,15 @@ body.dark-theme .section-description {
     z-index: 1000;
     transition: background-color 0.3s ease;
 }
+/* Конец стилей для header */
 
+/* Начало стилей для header при прокрутке */
 .header.scrolled {
     background-color: #000000;
 }
+/* Конец стилей для header при прокрутке */
 
+/* Начало стилей для логотипа в header */
 .header .logo {
     flex: 0 0 auto;
 }
@@ -70,8 +86,9 @@ body.dark-theme .section-description {
 .header .logo span {
     color: #ff4444;
 }
+/* Конец стилей для логотипа в header */
 
-/* Navigation */
+/* Начало стилей для навигации */
 .nav {
     flex: 1;
     display: flex;
@@ -120,7 +137,9 @@ body.dark-theme .section-description {
 .nav a:hover::after {
     transform: scaleX(1);
 }
+/* Конец стилей для навигации */
 
+/* Начало стилей для поиска */
 .search {
     position: relative;
     width: 300px;
@@ -175,8 +194,9 @@ body.dark-theme .section-description {
     color: #F9F0DA;
     font-size: 16px;
 }
+/* Конец стилей для поиска */
 
-
+/* Начало стилей для переключателя меню */
 .menu-toggle {
     display: none;
     font-size: 24px;
@@ -187,7 +207,9 @@ body.dark-theme .section-description {
     padding: 10px;
     z-index: 1001;
 }
+/* Конец стилей для переключателя меню */
 
+/* Начало медиа-запроса для мобильных устройств */
 @media (max-width: 768px) {
     .menu-toggle {
         display: block;
@@ -248,6 +270,9 @@ body.dark-theme .section-description {
         z-index: 1001;
     }
 }
+/* Конец медиа-запроса для мобильных устройств */
+
+/* Начало стилей для активной навигации */
 .nav.active {
     display: block;
 }
@@ -255,13 +280,15 @@ body.dark-theme .section-description {
 .nav.active ul {
     display: flex;
 }
+/* Конец стилей для активной навигации */
 
-/* Стили для анимации бургер-меню */
+/* Начало стилей для анимации бургер-меню */
 .menu-toggle.active {
     color: #ff4444;
 }
+/* Конец стилей для анимации бургер-меню */
 
-/* Main content */
+/* Начало стилей для основного контента */
 .container {
     max-width: 1200px;
     margin: 30px auto;
@@ -278,8 +305,9 @@ body.dark-theme .section-description {
     display: flex;
     gap: 15px;
 }
+/* Конец стилей для основного контента */
 
-/* Featured recipe block */
+/* Начало стилей для блока с избранным рецептом */
 .featured-recipe {
     flex: 2;
     background: #fff;
@@ -356,8 +384,9 @@ body.dark-theme .section-description {
 .read-more:hover .arrow {
     transform: translateX(5px);
 }
+/* Конец стилей для блока с избранным рецептом */
 
-/* Sidebar */
+/* Начало стилей для боковой панели */
 .sidebar {
     flex: 1;
     display: flex;
@@ -394,8 +423,9 @@ body.dark-theme .section-description {
 .sidebar-item:hover img {
     transform: scale(1.1);
 }
+/* Конец стилей для боковой панели */
 
-
+/* Начало стилей для текстового контента */
 .text-content {
     flex: 1;
     display: flex;
@@ -428,8 +458,9 @@ body.dark-theme .section-description {
 body.dark-theme .text-content a {
     color: #fff;
 }
+/* Конец стилей для текстового контента */
 
-/* Chefs section */
+/* Начало стилей для секции шеф-поваров */
 .famous-chefs {
     padding: 40px 0;
     background-color: #E5E9EC;
@@ -512,7 +543,9 @@ body.dark-theme .chef-info h3 {
 body.dark-theme .chef-description {
     color: #ccc;
 }
+/* Конец стилей для секции шеф-поваров */
 
+/* Начало медиа-запроса для шеф-поваров */
 @media (max-width: 992px) {
     .chefs-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -543,8 +576,9 @@ body.dark-theme .chef-description {
         font-size: 18px;
     }
 }
+/* Конец медиа-запроса для шеф-поваров */
 
-/* Popular recipes section */
+/* Начало стилей для секции популярных рецептов */
 .recipes-grid {
     padding: 20px 0;
     width: 100%;
@@ -688,7 +722,9 @@ body.dark-theme .recipe-overlay {
 body.dark-theme .recipe-card {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
+/* Конец стилей для секции популярных рецептов */
 
+/* Начало стилей для заголовков секций */
 .section-title {
     text-align: center;
     margin-bottom: 20px;
@@ -701,36 +737,49 @@ body.dark-theme .recipe-card {
 body.dark-theme .section-title {
     color: #fff;
 }
+/* Конец стилей для заголовков секций */
 
+/* Начало импорта шрифтов */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Open+Sans:wght@400;600&family=Roboto:wght@300;400;500&family=Lato:wght@400;700&display=swap');
+/* Конец импорта шрифтов */
 
+/* Начало стилей для логотипа */
 .logo h1 {
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
 }
+/* Конец стилей для логотипа */
+
+/* Начало стилей для заголовков секций и рецептов */
 .section-title, .recipe-title {
     font-family: 'Playfair Display', serif;
     font-weight: 700;
 }
+/* Конец стилей для заголовков секций и рецептов */
 
+/* Начало стилей для навигации */
 .nav ul {
     margin-left: 170px;
     font-family: 'Open Sans', sans-serif;
     font-weight: 600;
 }
+/* Конец стилей для навигации */
 
+/* Начало стилей для отрывков рецептов и наложений */
 .recipe-excerpt, .recipe-overlay p {
     font-family: 'Roboto', sans-serif;
     font-weight: 400;
     line-height: 1.6;
 }
+/* Конец стилей для отрывков рецептов и наложений */
 
+/* Начало стилей для боковой панели */
 .sidebar-item h3, .sidebar-excerpt {
     font-family: 'Lato', sans-serif;
 }
+/* Конец стилей для боковой панели */
 
-
-
+/* Начало стилей для футера */
 .footer {
     background-color: rgba(0, 0, 0, 0.9);
     color: #fff;
@@ -843,7 +892,9 @@ body.dark-theme .section-title {
         gap: 10px;
     }
 }
+/* Конец стилей для футера */
 
+/* Начало стилей для переключателя темы */
 .theme-toggle {
     background: none;
     border: none;
@@ -881,12 +932,16 @@ body.dark-theme .section-title {
 .theme-toggle.dark .moon {
     opacity: 1;
 }
+/* Конец стилей для переключателя темы */
 
+/* Начало анимации fadeIn */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(-10px); }
     to { opacity: 1; transform: translateY(0); }
 }
+/* Конец анимации fadeIn */
 
+/* Начало медиа-запроса для мобильных устройств */
 @media (max-width: 768px) {
     .nav .dropdown-content {
         position: static;
@@ -899,7 +954,9 @@ body.dark-theme .section-title {
         margin: 10px auto;
     }
 }
+/* Конец медиа-запроса для мобильных устройств */
 
+/* Начало стилей для темной темы */
 body.dark-theme {
     background-color: #1a1a1a;
     color: #ffffff;
@@ -935,7 +992,9 @@ body.dark-theme .read-more {
 body.dark-theme .read-more:hover {
     color: #ff8888;
 }
+/* Конец стилей для темной темы */
 
+/* Начало стилей для сетки рецептов */
 .recipes-grid {
     padding: 20px 0;
     width: 100%;
@@ -1079,7 +1138,9 @@ body.dark-theme .recipe-overlay {
 body.dark-theme .recipe-card {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
+/* Конец стилей для сетки рецептов */
 
+/* Начало стилей для заголовков секций */
 .section-title {
     text-align: center;
     margin-bottom: 20px;
@@ -1092,40 +1153,55 @@ body.dark-theme .recipe-card {
 body.dark-theme .section-title {
     color: #fff;
 }
+/* Конец стилей для заголовков секций */
 
+/* Начало импорта шрифтов */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Open+Sans:wght@400;600&family=Roboto:wght@300;400;500&family=Lato:wght@400;700&display=swap');
+/* Конец импорта шрифтов */
 
+/* Начало стилей для логотипа */
 .logo h1 {
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
 }
+/* Конец стилей для логотипа */
+
+/* Начало стилей для заголовков секций и рецептов */
 .section-title, .recipe-title {
     font-family: 'Playfair Display', serif;
     font-weight: 700;
 }
+/* Конец стилей для заголовков секций и рецептов */
 
+/* Начало стилей для навигации */
 .nav ul {
     margin-left: 170px;
     font-family: 'Open Sans', sans-serif;
     font-weight: 600;
 }
+/* Конец стилей для навигации */
 
+/* Начало стилей для отрывков рецептов и наложений */
 .recipe-excerpt, .recipe-overlay p {
     font-family: 'Roboto', sans-serif;
     font-weight: 400;
     line-height: 1.6;
 }
+/* Конец стилей для отрывков рецептов и наложений */
 
+/* Начало стилей для боковой панели */
 .sidebar-item h3, .sidebar-excerpt {
     font-family: 'Lato', sans-serif;
 }
+/* Конец стилей для боковой панели */
 
-
-
+/* Начало стилей для футера */
 .footer {
     font-family: 'Open Sans', sans-serif;
 }
+/* Конец стилей для футера */
 
+/* Начало стилей для слайдера */
 .slider-container {
     position: relative;
     margin: 0 auto;
@@ -1262,8 +1338,9 @@ body.dark-theme .dot.active {
 .slider-track:active {
     cursor: grabbing;
 }
+/* Конец стилей для слайдера */
 
-/* Rounded corners for divs */
+/* Начало стилей для закругленных углов */
 .container,
 .featured-recipe,
 .sidebar-item,
@@ -1278,7 +1355,6 @@ body.dark-theme .dot.active {
     border-radius: 12px;
 }
 
-/* Rounded corners for buttons */
 button,
 .search button,
 .menu-toggle,
@@ -1288,33 +1364,30 @@ button,
     border-radius: 100%;
 }
 
-/* Special treatment for search input */
 .search input {
-    border-radius: 21px; /* Half of the height (42px) for pill shape */
+    border-radius: 21px;
 }
 
-/* Keep slider buttons circular */
 .slider-button {
     border-radius: 50%;
 }
 
-/* Rounded corners for navigation items */
 .nav a {
     border-radius: 6px;
 }
 
-/* Category tag adjustment */
 .category-tag {
     border-radius: 25px;
 }
 
-/* Dark theme adjustments */
 body.dark-theme .container,
 body.dark-theme .featured-recipe,
 body.dark-theme .sidebar-item {
     border-radius: 12px;
 }
+/* Конец стилей для закругленных углов */
 
+/* Начало медиа-запроса для основного контента */
 @media (max-width: 768px) {
     .main-content {
         flex-direction: column;
@@ -1329,7 +1402,9 @@ body.dark-theme .sidebar-item {
         min-height: auto;
     }
 }
+/* Конец медиа-запроса для основного контента */
 
+/* Начало стилей для контролов хедера */
 .header-controls {
     flex: 0 0 auto;
     display: flex;
@@ -1400,7 +1475,6 @@ body.dark-theme .sidebar-item {
     width: 20px;
 }
 
-/* Темная тема */
 body.dark-theme .profile-menu {
     background: #333;
 }
@@ -1432,7 +1506,9 @@ body.dark-theme .profile-menu a:hover {
         transform: translateY(0);
     }
 }
+/* Конец стилей для контролов хедера */
 
+/* Начало медиа-запроса для карточек рецептов */
 @media (max-width: 1600px) {
     .recipe-card {
         flex: 0 0 350px;
@@ -1464,7 +1540,9 @@ body.dark-theme .profile-menu a:hover {
         height: 300px;
     }
 }
+/* Конец медиа-запроса для карточек рецептов */
 
+/* Начало стилей для национальных рецептов */
 .national-recipes {
     width: 100%;
     background-color: #f9f9f9;
@@ -1580,7 +1658,6 @@ body.dark-theme .national-recipes {
         margin: 0;
     }
 
-    /* Стилизация скроллбара для Webkit браузеров */
     .countries-grid::-webkit-scrollbar {
         width: 6px;
     }
@@ -1599,7 +1676,6 @@ body.dark-theme .national-recipes {
         background: #ff6666;
     }
 
-    /* Для темной темы */
     body.dark-theme .countries-grid::-webkit-scrollbar-track {
         background: #333;
     }
@@ -1609,7 +1685,6 @@ body.dark-theme .national-recipes {
     }
 }
 
-/* Дополнительные стили для очень маленьких экранов */
 @media (max-width: 480px) {
     .countries-grid {
         max-height: 500px;
@@ -1620,7 +1695,9 @@ body.dark-theme .national-recipes {
         height: 180px;
     }
 }
+/* Конец стилей для национальных рецептов */
 
+/* Начало стилей для секции шеф-поваров */
 .famous-chefs {
     padding: 40px 0;
     background-color: #E5E9EC;
@@ -1734,8 +1811,9 @@ body.dark-theme .chef-description {
         font-size: 18px;
     }
 }
+/* Конец стилей для секции шеф-поваров */
 
-/* Обновляем стили хедера для мобильных устройств */
+/* Начало обновления стилей хедера для мобильных устройств */
 @media (max-width: 768px) {
     .header {
         padding: 0 20px;
@@ -1755,14 +1833,14 @@ body.dark-theme .chef-description {
         width: 200px;
     }
 
-    /* Исправляем отступ для навигации */
     .nav ul {
         margin-left: 0;
         padding: 15px 0;
     }
 }
+/* Конец обновления стилей хедера для мобильных устройств */
 
-/* Добавляем стили для очень маленьких экранов */
+/* Начало добавления стилей для очень маленьких экранов */
 @media (max-width: 480px) {
     .header {
         padding: 0 15px;
@@ -1770,15 +1848,16 @@ body.dark-theme .chef-description {
     }
 
     .search {
-        display: none; /* Скрываем поиск на очень маленьких экранах */
+        display: none;
     }
 
     .header .logo h1 {
         font-size: 18px;
     }
 }
+/* Конец добавления стилей для очень маленьких экранов */
 
-/* Обновляем стили для основного контента */
+/* Начало обновления стилей для основного контента */
 @media (max-width: 992px) {
     .main-content {
         flex-direction: column;
@@ -1813,8 +1892,9 @@ body.dark-theme .chef-description {
         font-size: 20px;
     }
 }
+/* Конец обновления стилей для основного контента */
 
-/* Обновляем стили для секции национальных кухонь */
+/* Начало обновления стилей для секции национальных кухонь */
 @media (max-width: 992px) {
     .countries-grid {
         grid-template-columns: repeat(3, 1fr);
@@ -1842,8 +1922,9 @@ body.dark-theme .chef-description {
         height: 200px;
     }
 }
+/* Конец обновления стилей для секции национальных кухонь */
 
-/* Обновляем стили для футера */
+/* Начало обновления стилей для футера */
 @media (max-width: 768px) {
     .footer-content {
         flex-direction: column;
@@ -1869,8 +1950,9 @@ body.dark-theme .chef-description {
         justify-content: center;
     }
 }
+/* Конец обновления стилей для футера */
 
-/* Обновляем стили для контейнеров */
+/* Начало обновления стилей для контейнеров */
 @media (max-width: 1200px) {
     .container {
         padding: 15px;
@@ -1889,8 +1971,9 @@ body.dark-theme .chef-description {
         margin: 10px auto;
     }
 }
+/* Конец обновления стилей для контейнеров */
 
-/* Обновляем стили для профиля и меню */
+/* Начало обновления стилей для профиля и меню */
 @media (max-width: 768px) {
     .profile-menu {
         width: 100%;
@@ -1907,7 +1990,9 @@ body.dark-theme .chef-description {
         gap: 10px;
     }
 }
+/* Конец обновления стилей для профиля и меню */
 
+/* Начало медиа-запроса для сетки стран */
 @media (max-width: 992px) {
     .countries-grid {
         grid-template-columns: repeat(auto-fit, minmax(250px, 300px));
@@ -1933,8 +2018,9 @@ body.dark-theme .chef-description {
     content: '';
     grid-column: 1 / -1;
 }
+/* Конец медиа-запроса для сетки стран */
 
-/* Обновляем цвет фона для всех основных блоков */
+/* Начало обновления цвета фона для всех основных блоков */
 .famous-chefs {
     background-color: #E5E9EC;
 }
@@ -1959,7 +2045,6 @@ body.dark-theme .chef-description {
     background-color: #E5E9EC;
 }
 
-/* Для темной темы */
 body.dark-theme .famous-chefs,
 body.dark-theme .national-recipes,
 body.dark-theme .recipes-section,
@@ -1971,46 +2056,52 @@ body.dark-theme .featured-recipe,
 body.dark-theme .sidebar-item {
     background-color: #333;
 }
+/* Конец обновления цвета фона для всех основных блоков */
 
-/* Добавляем отступы для лучшего визуального разделения секций */
+/* Начало добавления отступов для лучшего визуального разделения секций */
 .famous-chefs,
 .national-recipes,
 .recipes-section,
 .recipes-grid {
-    padding: 60px 0; /* Одинаковый отступ сверху и снизу для всех секций */
+    padding: 60px 0;
 }
+/* Конец добавления отступов для лучшего визуального разделения секций */
 
-/* Основные шрифты */
+/* Начало основных шрифтов */
 :root {
     --heading-font: 'Playfair Display', serif;
     --body-font: 'Open Sans', sans-serif;
     --nav-font: 'Montserrat', sans-serif;
     --accent-font: 'Lato', sans-serif;
 }
+/* Конец основных шрифтов */
 
-/* Логотип */
+/* Начало стилей для логотипа */
 .logo h1 {
     font-family: var(--nav-font);
     font-size: 28px;
     font-weight: 700;
 }
+/* Конец стилей для логотипа */
 
-/* Навигация */
+/* Начало стилей для навигации */
 .nav a {
     font-family: var(--nav-font);
     font-size: 16px;
     font-weight: 500;
 }
+/* Конец стилей для навигации */
 
-/* Заголовки секций */
+/* Начало стилей для заголовков секций */
 .section-title {
     font-family: var(--heading-font);
     font-size: 36px;
     font-weight: 700;
     margin-bottom: 30px;
 }
+/* Конец стилей для заголовков секций */
 
-/* Карточки шеф-поваров */
+/* Начало стилей для карточек шеф-поваров */
 .chef-info h3 {
     font-family: var(--heading-font);
     font-size: 24px;
@@ -2028,15 +2119,17 @@ body.dark-theme .sidebar-item {
     font-size: 15px;
     line-height: 1.6;
 }
+/* Конец стилей для карточек шеф-поваров */
 
-/* Карточки стран */
+/* Начало стилей для карточек стран */
 .country-overlay h3 {
     font-family: var(--heading-font);
     font-size: 28px;
     font-weight: 600;
 }
+/* Конец стилей для карточек стран */
 
-/* Рецепты */
+/* Начало стилей для рецептов */
 .recipe-title {
     font-family: var(--heading-font);
     font-size: 24px;
@@ -2049,8 +2142,9 @@ body.dark-theme .sidebar-item {
     font-size: 15px;
     line-height: 1.6;
 }
+/* Конец стилей для рецептов */
 
-/* Сайдбар */
+/* Начало стилей для боковой панели */
 .sidebar-item h3 {
     font-family: var(--accent-font);
     font-size: 16px;
@@ -2063,8 +2157,9 @@ body.dark-theme .sidebar-item {
     font-size: 14px;
     line-height: 1.4;
 }
+/* Конец стилей для боковой панели */
 
-/* Медиа-запросы для адаптивной типографики */
+/* Начало медиа-запросов для адаптивной типографики */
 @media (max-width: 1200px) {
     .section-title {
         font-size: 32px;
@@ -2129,8 +2224,9 @@ body.dark-theme .sidebar-item {
         font-size: 13px;
     }
 }
+/* Конец медиа-запросов для адаптивной типографики */
 
-/* Обновляем стили для мобильного поиска */
+/* Начало обновления стилей для мобильного поиска */
 .mobile-search-toggle {
     display: none;
     color: #fff;
@@ -2190,7 +2286,7 @@ body.dark-theme .sidebar-item {
 
 @media (max-width: 768px) {
     .search {
-        display: none; /* Скрываем десктопный поиск */
+        display: none;
     }
 
     .mobile-search-toggle {
@@ -2201,7 +2297,6 @@ body.dark-theme .sidebar-item {
         display: block;
     }
 
-    /* Обновляем позиционирование элементов в хедере */
     .header {
         justify-content: space-between;
     }
@@ -2212,8 +2307,9 @@ body.dark-theme .sidebar-item {
         gap: 10px;
     }
 }
+/* Конец обновления стилей для мобильного поиска */
 
-/* Убираем крестик из полей поиска */
+/* Начало удаления крестика из полей поиска */
 .search input::-webkit-search-cancel-button,
 .search input::-webkit-search-decoration,
 .mobile-search-form input::-webkit-search-cancel-button,
@@ -2229,50 +2325,47 @@ body.dark-theme .sidebar-item {
     appearance: none;
 }
 
-/* Для Firefox */
 .search input[type="search"]::-moz-search-cancel-button,
 .mobile-search-form input[type="search"]::-moz-search-cancel-button {
     display: none;
 }
+/* Конец удаления крестика из полей поиска */
 
-/* Обновляем стили для переключателя темы */
+/* Начало обновления стилей для переключателя темы */
 .profile-theme-toggle i {
     transition: transform 0.3s ease;
 }
 
-/* Для свелой темы показываем луну */
 .profile-theme-toggle .fa-adjust::before {
-    content: "\f186"; /* код иконки луны */
+    content: "\f186";
     color: #333;
 }
 
-/* Для темной темы показываем солнце */
 body.dark-theme .profile-theme-toggle .fa-adjust::before {
-    content: "\f185"; /* код иконки солнца */
+    content: "\f185";
     color: #fff;
 }
+/* Конец обновления стилей для переключателя темы */
 
-/* Стандартизируем отступы между основными секциями */
+/* Начало стандартизации отступов между основными секциями */
 .recipes-section,
 .famous-chefs,
 .recipes-grid,
 .national-recipes {
-    padding: 60px 0; /* Одинаковый отступ сверху и снизу для всех секций */
+    padding: 60px 0;
 }
 
-/* Убираем дублирующие отступы */
 .container {
-    margin: 20 0 0 0; /* Убираем margin-top и margin-bottom */
-    padding: 0 20px; /* Оставляем только горизонтальные отступы */
+    margin: 20 0 0 0;
+    padding: 0 20px;
 }
 
-/* Обновляем отступы для адаптивности */
 @media (max-width: 768px) {
     .recipes-section,
     .famous-chefs,
     .recipes-grid,
     .national-recipes {
-        padding: 40px 0; /* Уменьшаем отступы на мобильных устройствах */
+        padding: 40px 0;
     }
 }
 
@@ -2281,11 +2374,12 @@ body.dark-theme .profile-theme-toggle .fa-adjust::before {
     .famous-chefs,
     .recipes-grid,
     .national-recipes {
-        padding: 30px 0; /* Ещё меньше отступы на маленьких экранах */
+        padding: 30px 0;
     }
 }
+/* Конец стандартизации отступов между основными секциями */
 
-/* Общие стили для обрезки текста */
+/* Начало общих стилей для обрезки текста */
 .text-content p,
 .recipe-excerpt,
 .sidebar-excerpt,
@@ -2293,34 +2387,32 @@ body.dark-theme .profile-theme-toggle .fa-adjust::before {
 .recipe-overlay p {
     display: -webkit-box;
     -webkit-line-clamp: 3;
-    line-clamp: 3; /* Add this line for compatibility */
+    line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-/* Specific settings for different types of descriptions */
 .recipe-excerpt {
     -webkit-line-clamp: 2;
-    line-clamp: 2; /* Add this line for compatibility */
+    line-clamp: 2;
 }
 
 .sidebar-excerpt {
     -webkit-line-clamp: 2;
-    line-clamp: 2; /* Add this line for compatibility */
+    line-clamp: 2;
 }
 
 .chef-description {
     -webkit-line-clamp: 3;
-    line-clamp: 3; /* Add this line for compatibility */
+    line-clamp: 3;
 }
 
 .recipe-overlay p {
     -webkit-line-clamp: 4;
-    line-clamp: 4; /* Add this line for compatibility */
+    line-clamp: 4;
 }
 
-/* Для поддержки Firefox и других браузеров */
 @supports not (-webkit-line-clamp: 3) {
     .recipe-excerpt,
     .sidebar-excerpt,
@@ -2345,11 +2437,12 @@ body.dark-theme .profile-theme-toggle .fa-adjust::before {
     }
 }
 
-/* Для темной темы */
 body.dark-theme {
     --bg-color: #333;
 }
+/* Конец общих стилей для обрезки текста */
 
+/* Начало медиа-запроса для изображений карточек рецептов */
 @media (max-width: 992px) {
     .recipe-card img {
         height: 200px;
@@ -2367,4 +2460,4 @@ body.dark-theme {
         height: 100px;
     }
 }
-
+/* Конец медиа-запроса для изображений карточек рецептов */
