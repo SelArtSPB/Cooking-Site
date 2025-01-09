@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Food to Love</title>
+    <link rel="stylesheet" href="src/css/profile.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+<header class="header">
+    <div class="logo">
+        <h1>FOOD <span>TO LOVE</span></h1>
+    </div>
+    <nav class="nav">
+        <ul>
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="catalog-recipe.html">Каталог рецептов</a></li>
+        </ul>
+    </nav>
+    <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+    <div class="search-line">
+        <form class="search">
+            <input type="search" placeholder="Искать здесь...">
+            <button type="submit">
+                <i class="fas fa-search"></i>
+            </button>
+        </form>
+    </div>
+    <button class="mobile-search-toggle">
+        <i class="fas fa-search"></i>
+    </button>
+    <div class="header-controls">
+        <div class="profile-dropdown">
+            <button class="profile-toggle" aria-label="Profile menu">
+                <i class="fas fa-user"></i>
+            </button>
+            <div class="profile-menu">
+                <a href="profile.html"><i class="fas fa-user-circle"></i> Моя страница</a>
+                <a href="#" class="profile-theme-toggle">
+                    <i class="fas fa-adjust"></i>
+                    <span>Изменить тему</span>
+                </a>
+                <a href="#"><i class="fas fa-question-circle"></i> Поддержка</a>
+                <a href="#"><i class="fas fa-cog"></i> Настройки</a>
+                <a href="#"><i class="fas fa-sign-out-alt"></i> Выход</a>
+                <!-- <div class="auth-menu">
+                    <a href="#"><i class="fas fa-sign-in-alt"></i> Войти</a>
+                    <a href="#"><i class="fas fa-user-plus"></i> Зарегистрироваться</a>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</header>
+<div class="profile-border">
+    <h1 class="title-text">МОЙ ПРОФИЛЬ</h1>
+    <div class="custom">
+        <div class="settings-icon">
+            <a href="#" class="settings-link">
+                <i class="fas fa-cog"></i>
+            </a>
+        </div>
+    </div>
+    <div class="profile-card">
+        <div class="card-image">
+            <img src="src/img/profile-cat.jpg" alt="Фото профиля">
+        </div>
+        <div class="sideway-text">
+            <h1>Артём Селивёрстов</h1>
+            <p3>@artemS</p3>
+            <h4>Меня зовут Артём, я простой домашний кулинар, ищу на этом сайте простые рецепты и делюсь своими идеями.</h4>
+        </div>
+    </div>
+</div>
+
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-section">
+            <h3>О нас</h3>
+            <p>Food to Love - ваш надежный помощник в мире кулинарии. Мы собираем лучшие рецепты и делимся секретами приготовления.</p>
+        </div>
+        <div class="footer-section">
+            <h3>Разделы</h3>
+            <ul>
+                <li><a href="#news">Кулинарные новости</a></li>
+                <li><a href="#chefs">Известные повара</a></li>
+                <li><a href="#popular">Популярные рецепты</a></li>
+                <li><a href="#cuisines">Кухни народов мира</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h3>Контакты</h3>
+            <ul class="social-links">
+                <li><a href="#"><i class="fab fa-vk"></i> ВКонтакте</a></li>
+                <li><a href="#"><i class="fab fa-telegram-plane"></i> Telegram</a></li>
+                <li><a href="#"><i class="fab fa-youtube"></i> YouTube</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2024 Food to Love. Все права защищены.</p>
+        <div class="footer-links">
+            <a href="#">Пользовательское соглашение</a>
+            <a href="#">Политика конфиденциальности</a>
+            <a href="#">Условия использования</a>
+        </div>
+    </div>
+</footer>
+    <script src="src/js/profile.js"></script>
+</body>
+</html>
+

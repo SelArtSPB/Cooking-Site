@@ -1,0 +1,2463 @@
+/* Начало общих стилей */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+/* Конец общих стилей */
+
+/* Начало стилей для body */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #F4F6F6;
+    font-family: 'Open Sans', sans-serif;
+}
+/* Конец стилей для body */
+
+/* Начало стилей для html и body */
+html, body {
+    height: 100%;
+}
+/* Конец стилей для html и body */
+
+/* Начало стилей для section-description */
+.section-description {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 40px;
+    color: #666;
+    line-height: 1.6;
+    font-family: var(--body-font);
+    font-size: 16px;
+}
+/* Конец стилей для section-description */
+
+/* Начало стилей для темной темы section-description */
+body.dark-theme .section-description {
+    color: #ccc;
+}
+/* Конец стилей для темной темы section-description */
+
+/* Начало медиа-запроса для section-description */
+@media (max-width: 768px) {
+    .section-description {
+        font-size: 14px;
+        padding: 0 20px;
+        margin-bottom: 30px;
+    }
+}
+/* Конец медиа-запроса для section-description */
+
+/* Начало стилей для header */
+.header {
+    background-color: #000000;
+    color: #fff;
+    padding: 0 40px;
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    transition: background-color 0.3s ease;
+}
+/* Конец стилей для header */
+
+/* Начало стилей для header при прокрутке */
+.header.scrolled {
+    background-color: #000000;
+}
+/* Конец стилей для header при прокрутке */
+
+/* Начало стилей для логотипа в header */
+.header .logo {
+    flex: 0 0 auto;
+}
+
+.header .logo h1 {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.header .logo span {
+    color: #ff4444;
+}
+/* Конец стилей для логотипа в header */
+
+/* Начало стилей для навигации */
+.nav {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    max-width: 600px;
+}
+
+.nav ul {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    align-items: center;
+    width: 100%;
+}
+
+.nav a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    position: relative;
+    transition: color 0.3s ease;
+    font-family:Intro, sans-serif;
+}
+
+.nav a:hover {
+    color: #ff4444;
+}
+
+.nav a::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background-color: #ff4444;
+    left: 0;
+    bottom: -5px;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.nav a:hover::after {
+    transform: scaleX(1);
+}
+/* Конец стилей для навигации */
+
+/* Начало стилей для поиска */
+.search {
+    position: relative;
+    width: 300px;
+    margin: 0 auto;
+    height: 42px;
+    margin-right: 20px;
+}
+
+.search input {
+    height: 42px;
+    width: 0;
+    padding: 0 42px 0 15px;
+    border: none;
+    border-bottom: 2px solid transparent;
+    outline: none;
+    background: transparent;
+    transition: width 0.4s cubic-bezier(0, 0.8, 0, 1);
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 2;
+    color: white;
+}
+
+.search input:focus {
+    width: 300px;
+    z-index: 1;
+    border-bottom: 2px solid #ff4444;
+}
+
+.search button {
+    background: #ff4444;
+    border: none;
+    height: 42px;
+    width: 42px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+}
+
+.search button:hover {
+    background: #ff6666;
+}
+
+.search button i {
+    color: #F9F0DA;
+    font-size: 16px;
+}
+/* Конец стилей для поиска */
+
+/* Начало стилей для переключателя меню */
+.menu-toggle {
+    display: none;
+    font-size: 24px;
+    color: #fff;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 1001;
+}
+/* Конец стилей для переключателя меню */
+
+/* Начало медиа-запроса для мобильных устройств */
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+    }
+
+    .nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.95);
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        z-index: 1000;
+    }
+
+    .nav.active {
+        transform: translateX(0);
+    }
+
+    .nav ul {
+        margin: 0;
+        padding: 80px 20px 20px;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .nav ul li {
+        width: 100%;
+        text-align: center;
+    }
+
+    .nav a {
+        display: block;
+        padding: 15px;
+        width: 100%;
+        font-size: 18px;
+    }
+    .header {
+        justify-content: space-between;
+        padding: 0 20px;
+        position: relative;
+    }
+
+    .search-line {
+        position: absolute;
+        right: 70px;
+    }
+    .search {
+        width: auto;
+        margin-right: 0;
+    }
+    .header-controls {
+        z-index: 1001;
+    }
+}
+/* Конец медиа-запроса для мобильных устройств */
+
+/* Начало стилей для активной навигации */
+.nav.active {
+    display: block;
+}
+
+.nav.active ul {
+    display: flex;
+}
+/* Конец стилей для активной навигации */
+
+/* Начало стилей для анимации бургер-меню */
+.menu-toggle.active {
+    color: #ff4444;
+}
+/* Конец стилей для анимации бургер-меню */
+
+/* Начало стилей для основного контента */
+.container {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 20px;
+    flex: 1 0 auto;
+}
+
+.container h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.main-content {
+    display: flex;
+    gap: 15px;
+}
+/* Конец стилей для основного контента */
+
+/* Начало стилей для блока с избранным рецептом */
+.featured-recipe {
+    flex: 2;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.featured-recipe:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.category-tag {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: #ff4444;
+    color: white;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 14px;
+    z-index: 2;
+}
+
+.featured-image {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.featured-recipe:hover .featured-image {
+    transform: scale(1.05);
+}
+
+.recipe-info {
+    padding: 20px;
+}
+
+.recipe-title {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #333;
+    line-height: 1.3;
+}
+
+.recipe-excerpt {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.read-more {
+    display: inline-flex;
+    align-items: center;
+    color: #ff4444;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.read-more .arrow {
+    margin-left: 5px;
+    transition: transform 0.3s ease;
+}
+
+.read-more:hover {
+    color: #ff6666;
+}
+
+.read-more:hover .arrow {
+    transform: translateX(5px);
+}
+/* Конец стилей для блока с избранным рецептом */
+
+/* Начало стилей для боковой панели */
+.sidebar {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.sidebar-item {
+    display: flex;
+    gap: 15px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    align-items: flex-start;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: calc((100% - 30px) / 4);
+}
+
+.sidebar-item:hover {
+    transform: translateX(5px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.sidebar-item img {
+    width: 80px;
+    height: 80px;
+    border-radius: 8px;
+    object-fit: cover;
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+}
+
+.sidebar-item:hover img {
+    transform: scale(1.1);
+}
+/* Конец стилей для боковой панели */
+
+/* Начало стилей для текстового контента */
+.text-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    overflow: hidden;
+}
+
+.text-content h3 {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.3;
+}
+
+.text-content p {
+    margin: 0;
+    font-size: 14px;
+    color: #666;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.text-content a {
+    color: rgb(51, 51, 51);
+    text-decoration: none;
+}
+
+body.dark-theme .text-content a {
+    color: #fff;
+}
+/* Конец стилей для текстового контента */
+
+/* Начало стилей для секции шеф-поваров */
+.famous-chefs {
+    padding: 40px 0;
+    background-color: #E5E9EC;
+}
+
+body.dark-theme .famous-chefs {
+    background-color: #1a1a1a;
+}
+
+.chefs-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.chef-card {
+    background: #fff;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+body.dark-theme .chef-card {
+    background: #333;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.chef-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.chef-image {
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+}
+
+.chef-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.chef-card:hover .chef-image img {
+    transform: scale(1.1);
+}
+
+.chef-info {
+    padding: 20px;
+}
+
+.chef-info h3 {
+    font-size: 24px;
+    margin-bottom: 8px;
+    color: #333;
+    font-family: 'Playfair Display', serif;
+}
+
+.chef-role {
+    color: #ff4444;
+    font-size: 16px;
+    margin-bottom: 12px;
+    font-weight: 500;
+}
+
+.chef-description {
+    color: #666;
+    line-height: 1.6;
+    font-size: 15px;
+}
+
+body.dark-theme .chef-info h3 {
+    color: #fff;
+}
+
+body.dark-theme .chef-description {
+    color: #ccc;
+}
+/* Конец стилей для секции шеф-поваров */
+
+/* Начало медиа-запроса для шеф-поваров */
+@media (max-width: 992px) {
+    .chefs-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        padding: 0 15px;
+    }
+}
+
+@media (max-width: 576px) {
+    .chefs-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .chef-card {
+        max-width: 100%;
+    }
+
+    .chef-image {
+        height: 200px;
+    }
+
+    .chef-info {
+        padding: 15px;
+    }
+
+    .chef-info h3 {
+        font-size: 18px;
+    }
+}
+/* Конец медиа-запроса для шеф-поваров */
+
+/* Начало стилей для секции популярных рецептов */
+.recipes-grid {
+    padding: 20px 0;
+    width: 100%;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+}
+
+.recipes-grid .container {
+    max-width: 100%;
+    padding: 0 40px;
+}
+
+.recipes-grid .section-title {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+    .recipes-grid .container {
+        padding: 0 20px;
+    }
+    
+    .slider-wrapper {
+        width: calc(100% - 40px);
+    }
+}
+
+.slider-container {
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.slider-wrapper {
+    width: calc(100% - 80px);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 25px;
+    padding: 20px 0;
+}
+
+.recipe-card {
+    flex: 0 0 400px;
+    max-width: 400px;
+    height: 600px;
+    margin: 0 15px;
+    position: relative;
+    border-radius: 15px;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: inset 0px 0px 15px 6px rgba(0, 0, 0, 0.1);
+}
+
+.recipe-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.recipe-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.9) 0%,
+        rgba(0, 0, 0, 0.7) 50%,
+        rgba(0, 0, 0, 0) 100%
+    );
+    padding: 20px;
+    color: white;
+    transform: translateY(100%);
+    transition: transform 0.5s ease;
+}
+
+.recipe-overlay h3 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.recipe-overlay p {
+    font-size: 0.9em;
+    line-height: 1.4;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease 0.2s;
+}
+
+.recipe-card:hover img {
+    transform: scale(1.1);
+}
+
+.recipe-card:hover .recipe-overlay {
+    transform: translateY(0);
+}
+
+.recipe-card:hover .recipe-overlay p {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+    .grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 15px;
+    }
+
+    .recipe-overlay {
+        transform: translateY(0);
+        background: linear-gradient(
+            to top,
+            rgba(0, 0, 0, 0.8) 0%,
+            rgba(0, 0, 0, 0.5) 100%
+        );
+    }
+
+    .recipe-overlay p {
+        display: none;
+    }
+}
+
+body.dark-theme .recipe-overlay {
+    background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.95) 0%,
+        rgba(0, 0, 0, 0.8) 50%,
+        rgba(0, 0, 0, 0.2) 100%
+    );
+}
+
+body.dark-theme .recipe-card {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+/* Конец стилей для секции популярных рецептов */
+
+/* Начало стилей для заголовков секций */
+.section-title {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 32px;
+    color: #333;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+body.dark-theme .section-title {
+    color: #fff;
+}
+/* Конец стилей для заголовков секций */
+
+/* Начало импорта шрифтов */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Open+Sans:wght@400;600&family=Roboto:wght@300;400;500&family=Lato:wght@400;700&display=swap');
+/* Конец импорта шрифтов */
+
+/* Начало стилей для логотипа */
+.logo h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+}
+/* Конец стилей для логотипа */
+
+/* Начало стилей для заголовков секций и рецептов */
+.section-title, .recipe-title {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+}
+/* Конец стилей для заголовков секций и рецептов */
+
+/* Начало стилей для навигации */
+.nav ul {
+    margin-left: 170px;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+}
+/* Конец стилей для навигации */
+
+/* Начало стилей для отрывков рецептов и наложений */
+.recipe-excerpt, .recipe-overlay p {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+}
+/* Конец стилей для отрывков рецептов и наложений */
+
+/* Начало стилей для боковой панели */
+.sidebar-item h3, .sidebar-excerpt {
+    font-family: 'Lato', sans-serif;
+}
+/* Конец стилей для боковой панели */
+
+/* Начало стилей для футера */
+.footer {
+    background-color: rgba(0, 0, 0, 0.9);
+    color: #fff;
+    padding: 30px 0 20px;
+    margin-top: auto;
+    flex-shrink: 0;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+    gap: 20px;
+}
+
+.footer-section {
+    flex: 1;
+}
+
+.footer-section h3 {
+    color: #ff4444;
+    margin-bottom: 20px;
+    font-size: 18px;
+}
+
+.footer-section p {
+    line-height: 1.6;
+    color: #ccc;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    margin-bottom: 10px;
+}
+
+.footer-section ul li a {
+    color: #ccc;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-section ul li a:hover {
+    color: #ff4444;
+}
+
+.social-links li a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.social-links li a i {
+    width: 20px;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-bottom p {
+    color: #888;
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+.footer-links a {
+    color: #888;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: #ff4444;
+}
+
+@media (max-width: 768px) {
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .footer-section {
+        margin-bottom: 30px;
+    }
+
+    .social-links li a {
+        justify-content: center;
+    }
+
+    .footer-links {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+/* Конец стилей для футера */
+
+/* Начало стилей для переключателя темы */
+.theme-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    position: relative;
+    margin-left: 20px;
+}
+
+.theme-toggle .sun,
+.theme-toggle .moon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: 0.3s ease;
+}
+
+.theme-toggle .sun {
+    color: #ffffff;
+    font-size: 24px;
+}
+
+.theme-toggle .moon {
+    color: #ffffff;
+    font-size: 20px;
+    opacity: 0;
+}
+
+.theme-toggle.dark .sun {
+    opacity: 0;
+}
+
+.theme-toggle.dark .moon {
+    opacity: 1;
+}
+/* Конец стилей для переключателя темы */
+
+/* Начало анимации fadeIn */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+/* Конец анимации fadeIn */
+
+/* Начало медиа-запроса для мобильных устройств */
+@media (max-width: 768px) {
+    .nav .dropdown-content {
+        position: static;
+        background-color: transparent;
+        box-shadow: none;
+        padding-left: 20px;
+    }
+    
+    .theme-toggle {
+        margin: 10px auto;
+    }
+}
+/* Конец медиа-запроса для мобильных устройств */
+
+/* Начало стилей для темной темы */
+body.dark-theme {
+    background-color: #1a1a1a;
+    color: #ffffff;
+}
+
+body.dark-theme .container {
+    background-color: #1a1a1a;
+}
+
+body.dark-theme .featured-recipe,
+body.dark-theme .sidebar-item {
+    background-color: #333;
+    color: #fff;
+}
+
+body.dark-theme .recipe-info p,
+body.dark-theme .text-content p {
+    color: #ccc;
+}
+
+body.dark-theme .recipe-title {
+    color: #fff;
+}
+
+body.dark-theme .recipe-excerpt {
+    color: #ccc;
+}
+
+body.dark-theme .read-more {
+    color: #ff6666;
+}
+
+body.dark-theme .read-more:hover {
+    color: #ff8888;
+}
+/* Конец стилей для темной темы */
+
+/* Начало стилей для сетки рецептов */
+.recipes-grid {
+    padding: 20px 0;
+    width: 100%;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+}
+
+.recipes-grid .container {
+    max-width: 100%;
+    padding: 0 40px;
+}
+
+.recipes-grid .section-title {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+    .recipes-grid .container {
+        padding: 0 20px;
+    }
+    
+    .slider-wrapper {
+        width: calc(100% - 40px);
+    }
+}
+
+.slider-container {
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.slider-wrapper {
+    width: calc(100% - 80px);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 25px;
+    padding: 20px 0;
+}
+
+.recipe-card {
+    flex: 0 0 400px;
+    max-width: 400px;
+    height: 600px;
+    margin: 0 15px;
+    position: relative;
+    border-radius: 15px;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: inset 0px 0px 15px 6px rgba(0, 0, 0, 0.1);
+}
+
+.recipe-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.recipe-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.9) 0%,
+        rgba(0, 0, 0, 0.7) 50%,
+        rgba(0, 0, 0, 0) 100%
+    );
+    padding: 20px;
+    color: white;
+    transform: translateY(100%);
+    transition: transform 0.5s ease;
+}
+
+.recipe-overlay h3 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.recipe-overlay p {
+    font-size: 0.9em;
+    line-height: 1.4;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease 0.2s;
+}
+
+.recipe-card:hover img {
+    transform: scale(1.1);
+}
+
+.recipe-card:hover .recipe-overlay {
+    transform: translateY(0);
+}
+
+.recipe-card:hover .recipe-overlay p {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+    .grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 15px;
+    }
+
+    .recipe-overlay {
+        transform: translateY(0);
+        background: linear-gradient(
+            to top,
+            rgba(0, 0, 0, 0.8) 0%,
+            rgba(0, 0, 0, 0.5) 100%
+        );
+    }
+
+    .recipe-overlay p {
+        display: none;
+    }
+}
+
+body.dark-theme .recipe-overlay {
+    background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.95) 0%,
+        rgba(0, 0, 0, 0.8) 50%,
+        rgba(0, 0, 0, 0.2) 100%
+    );
+}
+
+body.dark-theme .recipe-card {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+/* Конец стилей для сетки рецептов */
+
+/* Начало стилей для заголовков секций */
+.section-title {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 32px;
+    color: #333;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+body.dark-theme .section-title {
+    color: #fff;
+}
+/* Конец стилей для заголовков секций */
+
+/* Начало импорта шрифтов */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Open+Sans:wght@400;600&family=Roboto:wght@300;400;500&family=Lato:wght@400;700&display=swap');
+/* Конец импорта шрифтов */
+
+/* Начало стилей для логотипа */
+.logo h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+}
+/* Конец стилей для логотипа */
+
+/* Начало стилей для заголовков секций и рецептов */
+.section-title, .recipe-title {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+}
+/* Конец стилей для заголовков секций и рецептов */
+
+/* Начало стилей для навигации */
+.nav ul {
+    margin-left: 170px;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+}
+/* Конец стилей для навигации */
+
+/* Начало стилей для отрывков рецептов и наложений */
+.recipe-excerpt, .recipe-overlay p {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+}
+/* Конец стилей для отрывков рецептов и наложений */
+
+/* Начало стилей для боковой панели */
+.sidebar-item h3, .sidebar-excerpt {
+    font-family: 'Lato', sans-serif;
+}
+/* Конец стилей для боковой панели */
+
+/* Начало стилей для футера */
+.footer {
+    font-family: 'Open Sans', sans-serif;
+}
+/* Конец стилей для футера */
+
+/* Начало стилей для слайдера */
+.slider-container {
+    position: relative;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.slider-wrapper {
+    overflow: hidden;
+    margin: 0 40px;
+    width: calc(100% - 80px);
+}
+
+.slider-track {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    width: max-content;
+    height: 100%;
+}
+
+.slider-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 68, 68, 0.8);
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+.slider-button:hover {
+    background: rgba(255, 68, 68, 1);
+}
+
+.slider-button.prev {
+    left: 0;
+}
+
+.slider-button.next {
+    right: 0;
+}
+
+.slider-dots {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #ccc;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.dot.active {
+    background: #ff4444;
+}
+
+.recipe-card {
+    flex: 0 0 calc(25% - 20px);
+    max-width: calc(25% - 20px);
+    margin: 0 10px;
+}
+
+body.dark-theme .slider-button {
+    background: rgba(255, 68, 68, 0.6);
+}
+
+body.dark-theme .slider-button:hover {
+    background: rgba(255, 68, 68, 0.8);
+}
+
+body.dark-theme .dot {
+    background: #666;
+}
+
+body.dark-theme .dot.active {
+    background: #ff4444;
+}
+
+@media (max-width: 768px) {
+    .slider-wrapper {
+        margin: 0 30px;
+    }
+    
+    .slider-button {
+        width: 30px;
+        height: 30px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .recipe-card {
+        flex: 0 0 calc(33.333% - 20px);
+        max-width: calc(33.333% - 20px);
+    }
+}
+
+@media (max-width: 992px) {
+    .recipe-card {
+        flex: 0 0 calc(50% - 20px);
+        max-width: calc(50% - 20px);
+    }
+}
+
+@media (max-width: 576px) {
+    .recipe-card {
+        flex: 0 0 calc(100% - 20px);
+        max-width: calc(100% - 20px);
+    }
+    
+    .slider-wrapper {
+        margin: 0 20px;
+        width: calc(100% - 40px);
+    }
+    
+    .slider-button {
+        display: none;
+    }
+}
+
+.slider-track {
+    cursor: grab;
+}
+
+.slider-track:active {
+    cursor: grabbing;
+}
+/* Конец стилей для слайдера */
+
+/* Начало стилей для закругленных углов */
+.container,
+.featured-recipe,
+.sidebar-item,
+.recipe-info,
+.footer-section,
+.search,
+.nav ul,
+.slider-container,
+.slider-wrapper,
+.footer-content,
+.footer-bottom {
+    border-radius: 12px;
+}
+
+button,
+.search button,
+.menu-toggle,
+.theme-toggle,
+.read-more,
+.slider-button {
+    border-radius: 100%;
+}
+
+.search input {
+    border-radius: 21px;
+}
+
+.slider-button {
+    border-radius: 50%;
+}
+
+.nav a {
+    border-radius: 6px;
+}
+
+.category-tag {
+    border-radius: 25px;
+}
+
+body.dark-theme .container,
+body.dark-theme .featured-recipe,
+body.dark-theme .sidebar-item {
+    border-radius: 12px;
+}
+/* Конец стилей для закругленных углов */
+
+/* Начало медиа-запроса для основного контента */
+@media (max-width: 768px) {
+    .main-content {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        margin-top: 20px;
+    }
+
+    .sidebar-item {
+        height: 110px;
+        min-height: auto;
+    }
+}
+/* Конец медиа-запроса для основного контента */
+
+/* Начало стилей для контролов хедера */
+.header-controls {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.profile-dropdown {
+    position: relative;
+}
+
+.profile-toggle {
+    background: none;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.profile-toggle:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.profile-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    min-width: 200px;
+    padding: 8px 0;
+    margin-top: 10px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+}
+
+.profile-menu.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.profile-menu a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 20px;
+    color: #333;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.profile-menu a:hover {
+    background-color: #f5f5f5;
+}
+
+.profile-menu i {
+    width: 20px;
+}
+
+body.dark-theme .profile-menu {
+    background: #333;
+}
+
+body.dark-theme .profile-menu a {
+    color: #fff;
+}
+
+body.dark-theme .profile-menu a:hover {
+    background-color: #444;
+}
+
+@media (max-width: 768px) {
+    .header-controls {
+        gap: 10px;
+    }
+    
+    .profile-menu {
+        position: fixed;
+        top: auto;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        border-radius: 12px 12px 0 0;
+        transform: translateY(100%);
+    }
+    
+    .profile-menu.active {
+        transform: translateY(0);
+    }
+}
+/* Конец стилей для контролов хедера */
+
+/* Начало медиа-запроса для карточек рецептов */
+@media (max-width: 1600px) {
+    .recipe-card {
+        flex: 0 0 350px;
+        max-width: 350px;
+        height: 350px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .recipe-card {
+        flex: 0 0 300px;
+        max-width: 300px;
+        height: 300px;
+    }
+}
+
+@media (max-width: 992px) {
+    .recipe-card {
+        flex: 0 0 250px;
+        max-width: 250px;
+        height: 250px;
+    }
+}   
+
+@media (max-width: 576px) {
+    .recipe-card {
+        flex: 0 0 calc(100% - 30px);
+        max-width: calc(100% - 30px);
+        height: 300px;
+    }
+}
+/* Конец медиа-запроса для карточек рецептов */
+
+/* Начало стилей для национальных рецептов */
+.national-recipes {
+    width: 100%;
+    background-color: #f9f9f9;
+}
+
+body.dark-theme .national-recipes {
+    background-color: #222;
+}
+
+.national-recipes .section-title {
+    max-width: 1200px;
+    margin: 0 auto 20px;
+    padding: 20px;
+}
+
+.countries-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 0 20px;
+    max-width: 1600px;
+    margin: 0 auto;
+}
+
+.country-card {
+    flex: 0 0 350px;
+    position: relative;
+    height: 280px;
+    overflow: hidden;
+    cursor: pointer;
+    border-radius: 12px;
+}
+
+.country-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.country-card:hover img {
+    transform: scale(1.1);
+}
+
+.country-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.8) 0%,
+        rgba(0, 0, 0, 0.6) 50%,
+        rgba(0, 0, 0, 0) 100%
+    );
+    color: white;
+}
+
+.country-overlay h3 {
+    font-size: 24px;
+    font-family: 'Open Sans', sans-serif;
+    margin: 0;
+}
+
+@media (max-width: 1600px) {
+    .country-card {
+        flex: 0 0 330px;
+        height: 260px;
+    }
+}
+
+@media (max-width: 1400px) {
+    .country-card {
+        flex: 0 0 300px;
+        height: 240px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .country-card {
+        flex: 0 0 280px;
+        height: 220px;
+    }
+}
+
+@media (max-width: 992px) {
+    .country-card {
+        flex: 0 0 320px;
+        height: 250px;
+    }
+}
+
+@media (max-width: 768px) {
+    .countries-grid {
+        display: flex;
+        flex-direction: column;
+        max-height: 600px;
+        overflow-y: auto;
+        padding: 0 15px;
+        gap: 15px;
+        margin: 0 auto;
+        scrollbar-width: thin;
+        scrollbar-color: #ff4444 #f1f1f1;
+    }
+
+    .country-card {
+        flex: 0 0 200px;
+        width: 100%;
+        max-width: 100%;
+        height: 200px;
+        margin: 0;
+    }
+
+    .countries-grid::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .countries-grid::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 3px;
+    }
+
+    .countries-grid::-webkit-scrollbar-thumb {
+        background: #ff4444;
+        border-radius: 3px;
+    }
+
+    .countries-grid::-webkit-scrollbar-thumb:hover {
+        background: #ff6666;
+    }
+
+    body.dark-theme .countries-grid::-webkit-scrollbar-track {
+        background: #333;
+    }
+
+    body.dark-theme .countries-grid {
+        scrollbar-color: #ff4444 #333;
+    }
+}
+
+@media (max-width: 480px) {
+    .countries-grid {
+        max-height: 500px;
+    }
+
+    .country-card {
+        flex: 0 0 180px;
+        height: 180px;
+    }
+}
+/* Конец стилей для национальных рецептов */
+
+/* Начало стилей для секции шеф-поваров */
+.famous-chefs {
+    padding: 40px 0;
+    background-color: #E5E9EC;
+}
+
+body.dark-theme .famous-chefs {
+    background-color: #1a1a1a;
+}
+
+.chefs-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.chef-card {
+    background: #fff;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+body.dark-theme .chef-card {
+    background: #333;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.chef-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.chef-image {
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+}
+
+.chef-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.chef-card:hover .chef-image img {
+    transform: scale(1.1);
+}
+
+.chef-info {
+    padding: 20px;
+}
+
+.chef-info h3 {
+    font-size: 24px;
+    margin-bottom: 8px;
+    color: #333;
+    font-family: 'Playfair Display', serif;
+}
+
+.chef-role {
+    color: #ff4444;
+    font-size: 16px;
+    margin-bottom: 12px;
+    font-weight: 500;
+}
+
+.chef-description {
+    color: #666;
+    line-height: 1.6;
+    font-size: 15px;
+}
+
+body.dark-theme .chef-info h3 {
+    color: #fff;
+}
+
+body.dark-theme .chef-description {
+    color: #ccc;
+}
+
+@media (max-width: 992px) {
+    .chefs-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        padding: 0 15px;
+    }
+}
+
+@media (max-width: 576px) {
+    .chefs-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .chef-card {
+        max-width: 100%;
+    }
+
+    .chef-image {
+        height: 200px;
+    }
+
+    .chef-info {
+        padding: 15px;
+    }
+
+    .chef-info h3 {
+        font-size: 18px;
+    }
+}
+/* Конец стилей для секции шеф-поваров */
+
+/* Начало обновления стилей хедера для мобильных устройств */
+@media (max-width: 768px) {
+    .header {
+        padding: 0 20px;
+        height: 70px;
+    }
+
+    .header .logo h1 {
+        font-size: 20px;
+    }
+
+    .search {
+        width: 200px;
+        margin-right: 10px;
+    }
+
+    .search input:focus {
+        width: 200px;
+    }
+
+    .nav ul {
+        margin-left: 0;
+        padding: 15px 0;
+    }
+}
+/* Конец обновления стилей хедера для мобильных устройств */
+
+/* Начало добавления стилей для очень маленьких экранов */
+@media (max-width: 480px) {
+    .header {
+        padding: 0 15px;
+        height: 60px;
+    }
+
+    .search {
+        display: none;
+    }
+
+    .header .logo h1 {
+        font-size: 18px;
+    }
+}
+/* Конец добавления стилей для очень маленьких экранов */
+
+/* Начало обновления стилей для основного контента */
+@media (max-width: 992px) {
+    .main-content {
+        flex-direction: column;
+    }
+
+    .featured-recipe {
+        margin-bottom: 20px;
+    }
+
+    .sidebar {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+
+    .sidebar-item {
+        height: auto;
+        min-height: 100px;
+    }
+}
+
+@media (max-width: 576px) {
+    .sidebar {
+        grid-template-columns: 1fr;
+    }
+
+    .featured-image {
+        height: 200px;
+    }
+
+    .recipe-title {
+        font-size: 20px;
+    }
+}
+/* Конец обновления стилей для основного контента */
+
+/* Начало обновления стилей для секции национальных кухонь */
+@media (max-width: 992px) {
+    .countries-grid {
+        grid-template-columns: repeat(3, 1fr);
+        padding: 0 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    .countries-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+
+    .country-card {
+        height: 180px;
+    }
+}
+
+@media (max-width: 480px) {
+    .countries-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .country-card {
+        height: 200px;
+    }
+}
+/* Конец обновления стилей для секции национальных кухонь */
+
+/* Начало обновления стилей для футера */
+@media (max-width: 768px) {
+    .footer-content {
+        flex-direction: column;
+        padding: 0 15px;
+    }
+
+    .footer-section {
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .footer-bottom {
+        padding: 15px;
+        margin-top: 20px;
+    }
+
+    .footer-links {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .social-links {
+        justify-content: center;
+    }
+}
+/* Конец обновления стилей для футера */
+
+/* Начало обновления стилей для контейнеров */
+@media (max-width: 1200px) {
+    .container {
+        padding: 15px;
+        margin: 15px auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .section-title {
+        font-size: 24px;
+        margin-bottom: 15px;
+    }
+
+    .container {
+        padding: 10px;
+        margin: 10px auto;
+    }
+}
+/* Конец обновления стилей для контейнеров */
+
+/* Начало обновления стилей для профиля и меню */
+@media (max-width: 768px) {
+    .profile-menu {
+        width: 100%;
+        max-width: none;
+        border-radius: 12px 12px 0 0;
+    }
+
+    .profile-menu a {
+        padding: 15px 20px;
+        justify-content: center;
+    }
+
+    .header-controls {
+        gap: 10px;
+    }
+}
+/* Конец обновления стилей для профиля и меню */
+
+/* Начало медиа-запроса для сетки стран */
+@media (max-width: 992px) {
+    .countries-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 300px));
+        justify-content: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .countries-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 300px));
+        gap: 15px;
+        padding: 0 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .countries-grid {
+        grid-template-columns: minmax(250px, 300px);
+    }
+}
+
+.countries-grid::after {
+    content: '';
+    grid-column: 1 / -1;
+}
+/* Конец медиа-запроса для сетки стран */
+
+/* Начало обновления цвета фона для всех основных блоков */
+.famous-chefs {
+    background-color: #E5E9EC;
+}
+
+.national-recipes {
+    background-color: #E5E9EC;
+}
+
+.recipes-section {
+    background-color: #E5E9EC;
+}
+
+.featured-recipe {
+    background-color: #fff;
+}
+
+.sidebar-item {
+    background-color: #fff;
+}
+
+.recipes-grid {
+    background-color: #E5E9EC;
+}
+
+body.dark-theme .famous-chefs,
+body.dark-theme .national-recipes,
+body.dark-theme .recipes-section,
+body.dark-theme .recipes-grid {
+    background-color: #1a1a1a;
+}
+
+body.dark-theme .featured-recipe,
+body.dark-theme .sidebar-item {
+    background-color: #333;
+}
+/* Конец обновления цвета фона для всех основных блоков */
+
+/* Начало добавления отступов для лучшего визуального разделения секций */
+.famous-chefs,
+.national-recipes,
+.recipes-section,
+.recipes-grid {
+    padding: 60px 0;
+}
+/* Конец добавления отступов для лучшего визуального разделения секций */
+
+/* Начало основных шрифтов */
+:root {
+    --heading-font: 'Playfair Display', serif;
+    --body-font: 'Open Sans', sans-serif;
+    --nav-font: 'Montserrat', sans-serif;
+    --accent-font: 'Lato', sans-serif;
+}
+/* Конец основных шрифтов */
+
+/* Начало стилей для логотипа */
+.logo h1 {
+    font-family: var(--nav-font);
+    font-size: 28px;
+    font-weight: 700;
+}
+/* Конец стилей для логотипа */
+
+/* Начало стилей для навигации */
+.nav a {
+    font-family: var(--nav-font);
+    font-size: 16px;
+    font-weight: 500;
+}
+/* Конец стилей для навигации */
+
+/* Начало стилей для заголовков секций */
+.section-title {
+    font-family: var(--heading-font);
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 30px;
+}
+/* Конец стилей для заголовков секций */
+
+/* Начало стилей для карточек шеф-поваров */
+.chef-info h3 {
+    font-family: var(--heading-font);
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.chef-role {
+    font-family: var(--accent-font);
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.chef-description {
+    font-family: var(--body-font);
+    font-size: 15px;
+    line-height: 1.6;
+}
+/* Конец стилей для карточек шеф-поваров */
+
+/* Начало стилей для карточек стран */
+.country-overlay h3 {
+    font-family: var(--heading-font);
+    font-size: 28px;
+    font-weight: 600;
+}
+/* Конец стилей для карточек стран */
+
+/* Начало стилей для рецептов */
+.recipe-title {
+    font-family: var(--heading-font);
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.recipe-excerpt {
+    font-family: var(--body-font);
+    font-size: 15px;
+    line-height: 1.6;
+}
+/* Конец стилей для рецептов */
+
+/* Начало стилей для боковой панели */
+.sidebar-item h3 {
+    font-family: var(--accent-font);
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.sidebar-excerpt {
+    font-family: var(--body-font);
+    font-size: 14px;
+    line-height: 1.4;
+}
+/* Конец стилей для боковой панели */
+
+/* Начало медиа-запросов для адаптивной типографики */
+@media (max-width: 1200px) {
+    .section-title {
+        font-size: 32px;
+    }
+    
+    .country-overlay h3 {
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 992px) {
+    .section-title {
+        font-size: 28px;
+    }
+    
+    .chef-info h3 {
+        font-size: 22px;
+    }
+    
+    .recipe-title {
+        font-size: 22px;
+    }
+}
+
+@media (max-width: 768px) {
+    .section-title {
+        font-size: 24px;
+    }
+    
+    .country-overlay h3 {
+        font-size: 20px;
+    }
+    
+    .chef-info h3 {
+        font-size: 20px;
+    }
+    
+    .recipe-title {
+        font-size: 20px;
+    }
+    
+    .chef-description,
+    .recipe-excerpt {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 576px) {
+    .section-title {
+        font-size: 22px;
+    }
+    
+    .country-overlay h3 {
+        font-size: 18px;
+    }
+    
+    .sidebar-item h3 {
+        font-size: 15px;
+    }
+    
+    .sidebar-excerpt {
+        font-size: 13px;
+    }
+}
+/* Конец медиа-запросов для адаптивной типографики */
+
+/* Начало обновления стилей для мобильного поиска */
+.mobile-search-toggle {
+    display: none;
+    color: #fff;
+    font-size: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 1001;
+}
+
+.mobile-search-container {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 1002;
+    transform: translateY(-100%);
+    transition: transform 0.3s ease;
+}
+
+.mobile-search-container.active {
+    transform: translateY(0);
+}
+
+.mobile-search-form {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.mobile-search-form input {
+    width: 100%;
+    padding: 12px 45px 12px 15px;
+    border: none;
+    border-radius: 25px;
+    background: #fff;
+    font-size: 16px;
+    outline: none;
+}
+
+.mobile-search-form button {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #ff4444;
+    padding: 8px;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .search {
+        display: none;
+    }
+
+    .mobile-search-toggle {
+        display: block;
+    }
+
+    .mobile-search-container {
+        display: block;
+    }
+
+    .header {
+        justify-content: space-between;
+    }
+
+    .header-controls {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+}
+/* Конец обновления стилей для мобильного поиска */
+
+/* Начало удаления крестика из полей поиска */
+.search input::-webkit-search-cancel-button,
+.search input::-webkit-search-decoration,
+.mobile-search-form input::-webkit-search-cancel-button,
+.mobile-search-form input::-webkit-search-decoration {
+    -webkit-appearance: none;
+    appearance: none;
+    display: none;
+}
+
+.search input[type="search"],
+.mobile-search-form input[type="search"] {
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.search input[type="search"]::-moz-search-cancel-button,
+.mobile-search-form input[type="search"]::-moz-search-cancel-button {
+    display: none;
+}
+/* Конец удаления крестика из полей поиска */
+
+/* Начало обновления стилей для переключателя темы */
+.profile-theme-toggle i {
+    transition: transform 0.3s ease;
+}
+
+.profile-theme-toggle .fa-adjust::before {
+    content: "\f186";
+    color: #333;
+}
+
+body.dark-theme .profile-theme-toggle .fa-adjust::before {
+    content: "\f185";
+    color: #fff;
+}
+/* Конец обновления стилей для переключателя темы */
+
+/* Начало стандартизации отступов между основными секциями */
+.recipes-section,
+.famous-chefs,
+.recipes-grid,
+.national-recipes {
+    padding: 60px 0;
+}
+
+.container {
+    margin: 20 0 0 0;
+    padding: 0 20px;
+}
+
+@media (max-width: 768px) {
+    .recipes-section,
+    .famous-chefs,
+    .recipes-grid,
+    .national-recipes {
+        padding: 40px 0;
+    }
+}
+
+@media (max-width: 576px) {
+    .recipes-section,
+    .famous-chefs,
+    .recipes-grid,
+    .national-recipes {
+        padding: 30px 0;
+    }
+}
+/* Конец стандартизации отступов между основными секциями */
+
+/* Начало общих стилей для обрезки текста */
+.text-content p,
+.recipe-excerpt,
+.sidebar-excerpt,
+.chef-description,
+.recipe-overlay p {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.recipe-excerpt {
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+}
+
+.sidebar-excerpt {
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+}
+
+.chef-description {
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+}
+
+.recipe-overlay p {
+    -webkit-line-clamp: 4;
+    line-clamp: 4;
+}
+
+@supports not (-webkit-line-clamp: 3) {
+    .recipe-excerpt,
+    .sidebar-excerpt,
+    .chef-description,
+    .recipe-overlay p {
+        display: block;
+        max-height: 4.8em;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .recipe-excerpt::after,
+    .sidebar-excerpt::after,
+    .chef-description::after,
+    .recipe-overlay p::after {
+        content: "...";
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(to right, transparent, var(--bg-color, #fff) 50%);
+        padding-left: 20px;
+    }
+}
+
+body.dark-theme {
+    --bg-color: #333;
+}
+/* Конец общих стилей для обрезки текста */
+
+/* Начало медиа-запроса для изображений карточек рецептов */
+@media (max-width: 992px) {
+    .recipe-card img {
+        height: 200px;
+    }
+}
+
+@media (max-width: 768px) {
+    .recipe-card img {
+        height: 150px;
+    }
+}
+
+@media (max-width: 576px) {
+    .recipe-card img {
+        height: 100px;
+    }
+}
+/* Конец медиа-запроса для изображений карточек рецептов */
