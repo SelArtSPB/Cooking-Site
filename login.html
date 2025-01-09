@@ -36,57 +36,53 @@
                 <i class="fas fa-user"></i>
             </button>
             <div class="profile-menu">
-                <a href="profile.html"><i class="fas fa-user-circle"></i> Моя страница</a>
-                <a href="#" class="profile-theme-toggle">
-                    <i class="fas fa-adjust"></i>
-                    <span>Изменить тему</span>
-                </a>
-                <a href="#"><i class="fas fa-question-circle"></i> Поддержка</a>
-                <a href="#"><i class="fas fa-cog"></i> Настройки</a>
-                <a href="#"><i class="fas fa-sign-out-alt"></i> Выход</a>
-                <!-- <div class="auth-menu">
+                <div class="auth-menu">
+                    <a href="#" class="profile-theme-toggle">
+                        <i class="fas fa-adjust"></i>
+                        <span>Изменить тему</span>
+                    </a>
                     <a href="#"><i class="fas fa-sign-in-alt"></i> Войти</a>
                     <a href="#"><i class="fas fa-user-plus"></i> Зарегистрироваться</a>
-                </div> -->
+                </div>
             </div>
         </div>
     </div>
 </header>
-
-
-<footer class="footer">
-    <div class="footer-content">
-        <div class="footer-section">
-            <h3>О нас</h3>
-            <p>Food to Love - ваш надежный помощник в мире кулинарии. Мы собираем лучшие рецепты и делимся секретами приготовления.</p>
+<div class="login-card">
+    <div class="card">
+        <h1>Вход</h1>
+        <div class="input-block">
+            <label for="login">Логин:</label>
+            <input type="text" id="login" name="login" required>
         </div>
-        <div class="footer-section">
-            <h3>Разделы</h3>
-            <ul>
-                <li><a href="#news">Кулинарные новости</a></li>
-                <li><a href="#chefs">Известные повара</a></li>
-                <li><a href="#popular">Популярные рецепты</a></li>
-                <li><a href="#cuisines">Кухни народов мира</a></li>
-            </ul>
+        <div class="input-block">
+            <label for="password">Пароль:</label>
+            <input type="password" id="password" name="password" required>
         </div>
-        <div class="footer-section">
-            <h3>Контакты</h3>
-            <ul class="social-links">
-                <li><a href="#"><i class="fab fa-vk"></i> ВКонтакте</a></li>
-                <li><a href="#"><i class="fab fa-telegram-plane"></i> Telegram</a></li>
-                <li><a href="#"><i class="fab fa-youtube"></i> YouTube</a></li>
-            </ul>
+        <div class="forgot-password">
+            <a href="#">Забыли пароль?</a>
+        </div>
+        <button type="submit" class="login-btn">Войти</button>
+        
+        <div class="social-login">
+            <p>Или войдите через:</p>
+            <div class="social-buttons">
+                <button class="social-btn google">
+                    <i class="fab fa-google"></i>
+                    <span>Google</span>
+                </button>
+                <button class="social-btn vk">
+                    <i class="fab fa-vk"></i>
+                    <span>ВКонтакте</span>
+                </button>
+                <button class="social-btn mail">
+                    <i class="fas fa-envelope"></i>
+                    <span>Mail.ru</span>
+                </button>
+            </div>
         </div>
     </div>
-    <div class="footer-bottom">
-        <p>&copy; 2024 Food to Love. Все права защищены.</p>
-        <div class="footer-links">
-            <a href="#">Пользовательское соглашение</a>
-            <a href="#">Политика конфиденциальности</a>
-            <a href="#">Условия использования</a>
-        </div>
-    </div>
-</footer>
+</div>
     <script src="src/js/login.js"></script>
 </body>
 </html>
