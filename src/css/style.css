@@ -461,10 +461,6 @@ body.dark-theme .text-content a {
 /* Конец стилей для текстового контента */
 
 /* Начало стилей для секции шеф-поваров */
-.famous-chefs {
-    padding: 40px 0;
-    background-color: #E5E9EC;
-}
 
 body.dark-theme .famous-chefs {
     background-color: #1a1a1a;
@@ -1698,10 +1694,6 @@ body.dark-theme .national-recipes {
 /* Конец стилей для национальных рецептов */
 
 /* Начало стилей для секции шеф-поваров */
-.famous-chefs {
-    padding: 40px 0;
-    background-color: #E5E9EC;
-}
 
 body.dark-theme .famous-chefs {
     background-color: #1a1a1a;
@@ -2020,31 +2012,6 @@ body.dark-theme .chef-description {
 }
 /* Конец медиа-запроса для сетки стран */
 
-/* Начало обновления цвета фона для всех основных блоков */
-.famous-chefs {
-    background-color: #E5E9EC;
-}
-
-.national-recipes {
-    background-color: #E5E9EC;
-}
-
-.recipes-section {
-    background-color: #E5E9EC;
-}
-
-.featured-recipe {
-    background-color: #fff;
-}
-
-.sidebar-item {
-    background-color: #fff;
-}
-
-.recipes-grid {
-    background-color: #E5E9EC;
-}
-
 body.dark-theme .famous-chefs,
 body.dark-theme .national-recipes,
 body.dark-theme .recipes-section,
@@ -2063,7 +2030,7 @@ body.dark-theme .sidebar-item {
 .national-recipes,
 .recipes-section,
 .recipes-grid {
-    padding: 60px 0;
+    margin-top: 79px;
 }
 /* Конец добавления отступов для лучшего визуального разделения секций */
 
@@ -2094,9 +2061,9 @@ body.dark-theme .sidebar-item {
 
 /* Начало стилей для заголовков секций */
 .section-title {
-    font-family: var(--heading-font);
+    font-family: 'Playfair Display', regular;
     font-size: 36px;
-    font-weight: 700;
+    font-weight: 400;
     margin-bottom: 30px;
 }
 /* Конец стилей для заголовков секций */
@@ -2348,13 +2315,6 @@ body.dark-theme .profile-theme-toggle .fa-adjust::before {
 /* Конец обновления стилей для переключателя темы */
 
 /* Начало стандартизации отступов между основными секциями */
-.recipes-section,
-.famous-chefs,
-.recipes-grid,
-.national-recipes {
-    padding: 60px 0;
-}
-
 .container {
     margin: 20 0 0 0;
     padding: 0 20px;
