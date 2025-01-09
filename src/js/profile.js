@@ -1,3 +1,116 @@
+const RECIPES_PER_PAGE = 2; // Количество рецептов на странице
+
+// Пример данных рецептов (в реальном проекте это будет загружаться с сервера)
+const allRecipes = [
+    {
+        image: "src/img/red-cake.jpg",
+        title: "Кровавая Мери",
+        rating: 5,
+        author: "@artemS"
+    },
+    {
+        image: "src/img/cezar.avif",
+        title: "Салат цезарь",
+        rating: 5,
+        author: "@artemS"
+    },
+    {
+        image: "src/img/pasta.jpg",
+        title: "Паста Карбонара",
+        rating: 4,
+        author: "@artemS"
+    },
+    {
+        image: "src/img/borsch.jpg",
+        title: "Борщ",
+        rating: 5,
+        author: "@artemS"
+    }
+    // Добавьте больше рецептов по необходимости
+];
+
+function createRecipeCard(recipe) {
+    return `
+        <div class="recipe-item">
+            <div class="recipe-image">
+                <img src="${recipe.image}" alt="${recipe.title}">
+            </div>
+            <div class="recipe-content">
+                <h3>${recipe.title}</h3>
+                <div class="recipe-details">
+                    <div class="recipe-rating">
+                        <span>Оценка:</span>
+                        <div class="stars">
+                            ${Array(recipe.rating).fill('<i class="fas fa-star"></i>').join('')}
+                        </div>
+                    </div>
+                    <div class="recipe-author">
+                        <span>Автор:</span>
+                        <span class="author-name">${recipe.author}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+function displayRecipes(page) {
+    const recipeContainer = document.querySelector('.recipe-row');
+    const start = (page - 1) * RECIPES_PER_PAGE;
+    const end = start + RECIPES_PER_PAGE;
+    const recipesToShow = allRecipes.slice(start, end);
+    
+    recipeContainer.innerHTML = recipesToShow.map(recipe => createRecipeCard(recipe)).join('');
+    updatePagination(page);
+}
+
+function updatePagination(currentPage) {
+    const totalPages = Math.ceil(allRecipes.length / RECIPES_PER_PAGE);
+    const pagination = document.querySelector('.pagination');
+    const paginationHTML = [];
+
+    // Кнопка "Назад"
+    paginationHTML.push(`
+        <a href="#" class="pagination-item ${currentPage === 1 ? 'disabled' : ''}" 
+           ${currentPage === 1 ? '' : `onclick="changePage(${currentPage - 1})"'`}>
+            <i class="fas fa-chevron-left"></i>
+        </a>
+    `);
+
+    // Номера страниц
+    for (let i = 1; i <= totalPages; i++) {
+        paginationHTML.push(`
+            <a href="#" class="pagination-item ${currentPage === i ? 'active' : ''}" 
+               onclick="changePage(${i})">
+                ${i}
+            </a>
+        `);
+    }
+
+    // Кнопка "Вперед"
+    paginationHTML.push(`
+        <a href="#" class="pagination-item ${currentPage === totalPages ? 'disabled' : ''}"
+           ${currentPage === totalPages ? '' : `onclick="changePage(${currentPage + 1})"`}>
+            <i class="fas fa-chevron-right"></i>
+        </a>
+    `);
+
+    pagination.innerHTML = paginationHTML.join('');
+}
+
+function changePage(page) {
+    displayRecipes(page);
+    window.scrollTo({
+        top: document.querySelector('.profile-recipte').offsetTop - 100,
+        behavior: 'smooth'
+    });
+}
+
+// Инициализация при загрузке страницы
+document.addEventListener('DOMContentLoaded', () => {
+    displayRecipes(1);
+});
+
 document.querySelector('.menu-toggle').addEventListener('click', function() {
     this.classList.toggle('active');
     document.querySelector('.nav').classList.toggle('active');

@@ -1045,7 +1045,7 @@ body.dark-theme .profile-theme-toggle .fa-adjust::before {
 .profile-recipte {
     width: 100%;
     height: auto;
-    min-height: 650px;
+    min-height: 700px;
 }
 
 .recipe-container {
@@ -1186,3 +1186,57 @@ body.dark-theme {
         height: 180px;
     }
 }
+
+/* Начало стилей пагинации */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 30px 0;
+    gap: 8px;
+}
+
+.pagination-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    background-color: var(--card-bg, white);
+    color: var(--text-color, #333);
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.pagination-item:hover {
+    background-color: #ff4444;
+    color: white;
+}
+
+.pagination-item.active {
+    background-color: #ff4444;
+    color: white;
+}
+
+.pagination-item.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Медиа запросы для пагинации */
+@media (max-width: 576px) {
+    .pagination {
+        gap: 4px;
+    }
+
+    .pagination-item {
+        width: 35px;
+        height: 35px;
+        font-size: 14px;
+    }
+}
+/* Конец стилей пагинации */
