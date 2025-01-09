@@ -2467,54 +2467,69 @@ body.dark-theme {
 .profile-border {
     margin-top: 79px;
     width: 100%;
-    height: 400px;
-    padding: 0 165px 0 165px;
+    height: auto;
+    padding: 0 165px;
 }
+
 /* профиль */
-.title-text{
+.title-text {
     text-align: center;
     margin-top: 25px;
-    color: #333;
+    color: var(--text-color, #333);
     font-family: 'Playfair Display', regular;
     font-size: 36px;
     font-weight: 400;
 }
+
 .settings-link {
-    color: #333;
+    color: var(--text-color, #333);
     font-size: 24px;
     transition: transform 0.3s ease;
     display: inline-block;
 }
-.settings-icon{
+
+.settings-icon {
     display: flex;
     justify-content: flex-end;
 }
-.profile-card{
+
+.profile-card {
     display: flex;
     justify-content: space-evenly;
-    background-color: white;
+    background-color: var(--card-bg, white);
     margin: 0 auto;
-    width: 850px;
-    height: 300px;
+    width: 100%;
+    max-width: 850px;
+    min-height: 300px;
     border-radius: 15px;
-    padding: 10px 10px 10px 10px;
+    padding: 20px;
+    flex-wrap: wrap;
 }
-.card-image{
-    padding: 15px 15px 15px 15px;
+
+.card-image {
+    padding: 15px;
 }
-.card-image img{
+
+.card-image img {
     border-radius: 180px;
+    max-width: 250px;
+    height: auto;
 }
-.sideway-text{
-    padding: 25px
+
+.sideway-text {
+    padding: 25px;
+    flex: 1;
+    min-width: 280px;
 }
-.sideway-text h1{
-    color: #333;
+
+.sideway-text h1 {
+    color: var(--text-color, #333);
     font-family: 'Playfair Display', regular;
     font-size: 24px;
     font-weight: 600;
     margin-bottom: 5px;
 }
+
 .sideway-text h4 {
     margin-top: 15px;
     font-family: 'Open Sans', sans-serif;
@@ -2522,19 +2537,20 @@ body.dark-theme {
     font-size: 15px;
     max-width: 350px;
     line-height: 1.6;
-    color: #666;
+    color: var(--text-secondary, #666);
 }
-/* конец профиль */
+
 /* Страницы с рецептами */
-.profile-recipte{
+.profile-recipte {
     width: 100%;
-    height: 1200px;
+    height: auto;
+    min-height: 650px;
 }
+
 .recipe-container {
     max-width: 850px;
     height: auto;
-    margin: 28px auto 25px auto;
-
+    margin: 28px auto 25px;
     padding: 20px;
     border-radius: 15px;
 }
@@ -2552,7 +2568,7 @@ body.dark-theme {
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    background-color: white;
+    background-color: var(--card-bg, white);
 }
 
 .recipe-image {
@@ -2569,7 +2585,6 @@ body.dark-theme {
     object-fit: contain;
     border-radius: 15px;
     position: absolute;
-
 }
 
 .recipe-content {
@@ -2582,7 +2597,9 @@ body.dark-theme {
 .recipe-content h3 {
     text-align: center;
     margin-bottom: 15px;
+    color: var(--text-color, #333);
 }
+
 .recipe-details {
     margin-top: 15px;
     display: flex;
@@ -2595,6 +2612,7 @@ body.dark-theme {
     display: flex;
     align-items: center;
     gap: 8px;
+    color: var(--text-color, #333);
 }
 
 .stars {
@@ -2607,11 +2625,63 @@ body.dark-theme {
     display: flex;
     align-items: center;
     gap: 8px;
+    color: var(--text-color, #333);
 }
 
 .author-name {
-    color: #666;
+    color: var(--text-secondary, #666);
 }
 
+/* Темная тема */
+body.dark-theme {
+    --text-color: #fff;
+    --text-secondary: #ccc;
+    --card-bg: #444;
+}
 
+/* Медиа запросы */
+@media (max-width: 1200px) {
+    .profile-border {
+        padding: 0 50px;
+    }
+}
 
+@media (max-width: 992px) {
+    .profile-card {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .sideway-text {
+        padding: 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    .profile-border {
+        padding: 0 20px;
+    }
+    
+    .title-text {
+        font-size: 28px;
+    }
+    
+    .recipe-image {
+        height: 220px;
+    }
+}
+
+@media (max-width: 576px) {
+    .card-image img {
+        max-width: 200px;
+    }
+    
+    .recipe-content {
+        padding: 15px;
+    }
+    
+    .recipe-image {
+        height: 180px;
+    }
+}
