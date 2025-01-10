@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Food to Love</title>
+    <link rel="stylesheet" href="src/css/login.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+<header class="header">
+    <div class="logo">
+        <h1>FOOD <span>TO LOVE</span></h1>
+    </div>
+    <nav class="nav">
+        <ul>
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="catalog-recipe.html">Каталог рецептов</a></li>
+        </ul>
+    </nav>
+    <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+    <div class="search-line">
+        <form class="search">
+            <input type="search" placeholder="Искать здесь...">
+            <button type="submit">
+                <i class="fas fa-search"></i>
+            </button>
+        </form>
+    </div>
+    <button class="mobile-search-toggle">
+        <i class="fas fa-search"></i>
+    </button>
+    <div class="header-controls">
+        <div class="profile-dropdown">
+            <button class="profile-toggle" aria-label="Profile menu">
+                <i class="fas fa-user"></i>
+            </button>
+            <div class="profile-menu">
+                <div class="auth-menu">
+                    <a href="#" class="profile-theme-toggle">
+                        <i class="fas fa-adjust"></i>
+                        <span>Изменить тему</span>
+                    </a>
+                    <a href="#"><i class="fas fa-sign-in-alt"></i> Войти</a>
+                    <a href="#"><i class="fas fa-user-plus"></i> Зарегистрироваться</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="login-card">
+    <div class="card">
+        <h1>Регистрация</h1>
+        <div class="input-block">
+            <label for="login">Почта:</label>
+            <input type="text" id="login" name="login" required>
+        </div>
+        <div class="input-block">
+            <label for="login">Логин:</label>
+            <input type="text" id="login" name="login" required>
+        </div>
+        <div class="input-block">
+            <label for="password">Пароль:</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <div class="input-block">
+            <label for="password">Повторите пароль:</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <button type="submit" class="login-btn">Зарегестрироваться</button>
+        
+        <div class="social-login">
+            <p>Или регистрация через:</p>
+            <div class="social-buttons">
+                <button class="social-btn google">
+                    <i class="fab fa-google"></i>
+                    <span>Google</span>
+                </button>
+                <button class="social-btn vk">
+                    <i class="fab fa-vk"></i>
+                    <span>ВКонтакте</span>
+                </button>
+                <button class="social-btn mail">
+                    <i class="fas fa-envelope"></i>
+                    <span>Mail.ru</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+    <script src="src/js/login.js"></script>
+</body>
+</html>
+
