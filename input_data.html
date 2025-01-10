@@ -41,7 +41,6 @@
                     <i class="fas fa-adjust"></i>
                     <span>Изменить тему</span>
                 </a>
-                <a href="#"><i class="fas fa-question-circle"></i> Поддержка</a>
                 <a href="#"><i class="fas fa-cog"></i> Настройки</a>
                 <a href="#"><i class="fas fa-sign-out-alt"></i> Выход</a>
                 <!-- <div class="auth-menu">
@@ -55,20 +54,67 @@
 
 
 <div class="start-data">
-
+    <div class="insert-image">
+        <input type="file" id="recipe-image" accept="image/*" style="display: none;">
+        <label for="recipe-image" class="image-upload-label">
+            <i class="fas fa-camera"></i>
+            <span>Нажмите, чтобы добавить фото</span>
+        </label>
+        <div class="image-preview"></div>
+    </div>
+    <div class="side-block">
+        <div class="input-group">
+            <input type="text" class="input-name-recipe" placeholder="Название рецепта">
+        </div>
+        <div class="input-group">
+            <input type="text" class="input-time-recipe" placeholder="Время приготовления">
+        </div>
+        <div class="input-group">
+            <textarea class="input-description-recipe" placeholder="Краткое описание рецепта" rows="6"></textarea>
+        </div>
+        <div class="input-group">
+            <input type="text" 
+                   class="input-country-recipe" 
+                   list="country-list" 
+                   placeholder="Укажите страну происхождения">
+            <datalist id="country-list">
+                <option value="Русская кухня">
+                <option value="Итальянская кухня">
+                <option value="Французская кухня">
+                <option value="Японская кухня">
+                <option value="Китайская кухня">
+            </datalist>
+        </div>
+        <div class="input-group">
+            <input type="text" 
+                   class="input-type-recipe" 
+                   list="type-list" 
+                   placeholder="Укажите тип блюда">
+            <datalist id="type-list">
+                <option value="Основное блюдо">
+                <option value="Суп">
+                <option value="Десерт">
+                <option value="Салат">
+                <option value="Закуска">
+                <option value="Напиток">
+            </datalist>
+        </div>
+    </div>
 </div>
-<div class="discriprion">
-
+<div class="order">
+    <div class="input-box-order">
+        <textarea placeholder="Введите подробную инструкцию рецепта..." rows="15"></textarea>
+    </div>
 </div>
 <div class="button-pick">
     <a href="#">
         <div class="save-send">
-            <h1>сохранть и отправить на модерацию</h1>
+            <h1>Cохранть и отправить на модерацию</h1>
         </div>
     </a> 
     <a href="#">
         <div class="save-draft">
-            <h1>сохранть в черновик</h1>
+            <h1>Cохранть в черновик</h1>
         </div>
     </a> 
 </div>
