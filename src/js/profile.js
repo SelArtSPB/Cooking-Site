@@ -31,7 +31,7 @@ const allRecipes = [
 
 function createRecipeCard(recipe) {
     return `
-        <div class="recipe-item">
+        <a href="data_view.html" class="recipe-item">
             <div class="recipe-image">
                 <img src="${recipe.image}" alt="${recipe.title}">
             </div>
@@ -50,7 +50,7 @@ function createRecipeCard(recipe) {
                     </div>
                 </div>
             </div>
-        </div>
+        </a>
     `;
 }
 
