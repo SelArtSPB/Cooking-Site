@@ -1267,8 +1267,7 @@ body.dark-theme .section-title {
 }
 
 .recipe-card {
-    flex: 0 0 calc(25% - 20px);
-    max-width: calc(25% - 20px);
+    flex: 0 0 calc(50% - 20px);
     margin: 0 10px;
 }
 
@@ -1301,22 +1300,19 @@ body.dark-theme .dot.active {
 
 @media (max-width: 1200px) {
     .recipe-card {
-        flex: 0 0 calc(33.333% - 20px);
-        max-width: calc(33.333% - 20px);
+        flex: 0 0 calc(50% - 20px);
     }
 }
 
 @media (max-width: 992px) {
     .recipe-card {
         flex: 0 0 calc(50% - 20px);
-        max-width: calc(50% - 20px);
     }
 }
 
 @media (max-width: 576px) {
     .recipe-card {
         flex: 0 0 calc(100% - 20px);
-        max-width: calc(100% - 20px);
     }
     
     .slider-wrapper {
@@ -1509,7 +1505,6 @@ body.dark-theme .profile-menu a:hover {
 /* Начало медиа-запроса для карточек рецептов */
 @media (max-width: 1600px) {
     .recipe-card {
-        flex: 0 0 350px;
         max-width: 350px;
         height: 350px;
     }
@@ -1517,7 +1512,6 @@ body.dark-theme .profile-menu a:hover {
 
 @media (max-width: 1200px) {
     .recipe-card {
-        flex: 0 0 300px;
         max-width: 300px;
         height: 300px;
     }
@@ -1525,7 +1519,6 @@ body.dark-theme .profile-menu a:hover {
 
 @media (max-width: 992px) {
     .recipe-card {
-        flex: 0 0 250px;
         max-width: 250px;
         height: 250px;
     }
@@ -1533,8 +1526,6 @@ body.dark-theme .profile-menu a:hover {
 
 @media (max-width: 576px) {
     .recipe-card {
-        flex: 0 0 calc(100% - 30px);
-        max-width: calc(100% - 30px);
         height: 300px;
     }
 }
@@ -1543,7 +1534,6 @@ body.dark-theme .profile-menu a:hover {
 /* Начало стилей для национальных рецептов */
 .national-recipes {
     width: 100%;
-    background-color: #f9f9f9;
 }
 
 body.dark-theme .national-recipes {
@@ -1561,9 +1551,8 @@ body.dark-theme .national-recipes {
     flex-wrap: wrap;
     justify-content: center;
     gap: 20px;
-    padding: 0 20px;
-    max-width: 1600px;
-    margin: 0 auto;
+    padding: 20px 0 20px 0;
+    width: 100%;
 }
 
 .country-card {
@@ -2403,32 +2392,3 @@ body.dark-theme {
     --bg-color: #333;
 }
 /* Конец общих стилей для обрезки текста */
-
-/* Начало медиа-запроса для изображений карточек рецептов */
-@media (max-width: 1200px) {
-    .recipe-card img {
-        width: 100%; /* Расширяем изображение до ширины контейнера для планшетов */
-        height: auto; /* Автоматическая высота для сохранения пропорций */
-    }
-}
-@media (max-width: 992px) {
-    .recipe-card img {
-        width: 100%; /* Расширяем изображение до ширины контейнера для планшетов */
-        height: auto; /* Автоматическая высота для сохранения пропорций */
-    }
-}
-
-@media (max-width: 768px) {
-    .recipe-card img {
-        width: 100%; /* Расширяем изображение до ширины контейнера для мобильных устройств */
-        height: auto; /* Автоматическая высота для сохранения пропорций */
-    }
-}
-
-@media (max-width: 576px) {
-    .recipe-card img {
-        width: 100%; /* Расширяем изображение до ширины контейнера для очень маленьких экранов */
-        height: auto; /* Автоматическая высота для сохранения пропорций */
-    }
-}
-/* Конец медиа-запроса для изображений карточек рецептов */

@@ -235,3 +235,39 @@ document.querySelector('.footer-section ul').addEventListener('click', function(
         }
     }
 });
+
+
+// Функция для получения параметров из URL
+function getQueryParam(param) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param);
+}
+
+// Установить выбранное значение фильтра по стране
+function applyCountryFilter() {
+    const countryParam = getQueryParam('country'); // Получаем параметр 'country'
+    if (countryParam) {
+        const countrySelect = document.getElementById('country'); // Выбираем <select> для стран
+        countrySelect.value = countryParam; // Устанавливаем значение
+
+        // Если есть логика для фильтрации рецептов, запускаем её
+        updateRecipeDisplay(countryParam);
+    }
+}
+
+// Обновить отображаемые рецепты (пример функции)
+function updateRecipeDisplay(country) {
+    const recipes = document.querySelectorAll('.recipe-item'); // Получаем все рецепты
+    recipes.forEach((recipe) => {
+        // Проверяем, соответствует ли рецепт выбранной стране (например, по data-country атрибуту)
+        const recipeCountry = recipe.getAttribute('data-country');
+        if (country && recipeCountry !== country) {
+            recipe.style.display = 'none'; // Скрыть рецепт
+        } else {
+            recipe.style.display = 'block'; // Показать рецепт
+        }
+    });
+}
+
+// Вызываем функцию при загрузке страницы
+document.addEventListener('DOMContentLoaded', applyCountryFilter);

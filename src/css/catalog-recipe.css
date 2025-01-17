@@ -1046,16 +1046,16 @@ body.dark-theme .profile-theme-toggle .fa-adjust::before {
 .recipe-container {
     max-width: 850px;
     height: auto;
-    margin: 28px auto 25px;
     padding: 20px;
     border-radius: 15px;
 }
 
 .recipe-row {
     display: flex;
-    justify-content: space-between;
-    gap: 30px;
+    justify-content:space-evenly;
+    gap: 20px;
     flex-wrap: wrap;
+    margin: 0 45px 30px 45px;
 }
 
 .recipe-item {

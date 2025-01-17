@@ -9,9 +9,9 @@
 </head>
 <body>
 <header class="header">
-    <div class="logo">
+    <a href="index.html" style="text-decoration: none; color: inherit;"><div class="logo" >
         <h1>FOOD <span>TO LOVE</span></h1>
-    </div>
+    </div></a>
     <nav class="nav">
         <ul>
             <li><a href="index.html">Главная</a></li>
@@ -36,18 +36,14 @@
                 <i class="fas fa-user"></i>
             </button>
             <div class="profile-menu">
-                <a href="profile.html"><i class="fas fa-user-circle"></i> Моя страница</a>
                 <a href="#" class="profile-theme-toggle">
                     <i class="fas fa-adjust"></i>
                     <span>Изменить тему</span>
                 </a>
-                <a href="#"><i class="fas fa-question-circle"></i> Поддержка</a>
-                <a href="#"><i class="fas fa-cog"></i> Настройки</a>
-                <a href="#"><i class="fas fa-sign-out-alt"></i> Выход</a>
-                <!-- <div class="auth-menu">
+                <div class="auth-menu">
                     <a href="#"><i class="fas fa-sign-in-alt"></i> Войти</a>
                     <a href="#"><i class="fas fa-user-plus"></i> Зарегистрироваться</a>
-                </div> -->
+                </div>
             </div>
         </div>
     </div>
@@ -62,9 +58,14 @@
                     <select id="country" class="filter-input">
                         <option value="">Все страны</option>
                         <option value="russian">Русская кухня</option>
-                        <option value="italian">Итальянская кухня</option>
+                        <option value="italian">Китайская кухня</option>
+                        <option value="french">Индийская кухня</option>
+                        <option value="japanese">Итальянская кухня</option>
+                        <option value="mexican">Мексиканская кухня</option>
                         <option value="french">Французская кухня</option>
                         <option value="japanese">Японская кухня</option>
+                        <option value="thai">Тайская кухня</option>
+                        <option value="turkish">Турецкая кухня</option>
                     </select>
                 </div>
                 <div class="filter-item">
@@ -141,7 +142,7 @@
                 </div>
             </div>
         </div>
-        <div class="recipe-item">
+        <div class="recipe-item" data-country="italian">
             <div class="recipe-image">
                 <img src="src/img/cezar.avif" alt="Рецепт 2">
             </div>
@@ -165,7 +166,7 @@
                 </div>
             </div>
         </div>
-        <div class="recipe-item">
+        <div class="recipe-item" data-country="indian">
             <div class="recipe-image">
                 <img src="src/img/red-cake.jpg" alt="Рецепт 3">
             </div>
@@ -193,12 +194,12 @@
 </div>
 <div class="recipe-container"></div>
     <div class="recipe-row">
-        <div class="recipe-item">
+        <div class="recipe-item" data-country="mexican">
             <div class="recipe-image">
                 <img src="src/img/red-cake.jpg" alt="Рецепт 1">
             </div>
             <div class="recipe-content">
-                <h3>Кровавая Мери</h3>
+                <h3>Кровавая</h3>
                 <div class="recipe-details">
                     <div class="recipe-rating">
                         <span>Оценка:</span>
@@ -217,12 +218,12 @@
                 </div>
             </div>
         </div>
-        <div class="recipe-item">
+        <div class="recipe-item" data-country="japanese">
             <div class="recipe-image">
-                <img src="src/img/cezar.avif" alt="Рецепт 2">
+                <img src="src/img/sushi.jpg" alt="Суши">
             </div>
             <div class="recipe-content">
-                <h3>Салат цезарь</h3>
+                <h3>Суши</h3>
                 <div class="recipe-details">
                     <div class="recipe-rating">
                         <span>Оценка:</span>

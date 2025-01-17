@@ -978,7 +978,7 @@ body.dark-theme .profile-theme-toggle .fa-adjust::before {
 .card {
     width: 100%;
     max-width: 800px;
-    min-height: 1000px;
+    height: 720px;
     background-color: var(--card-bg, white);
     border-radius: 15px;
     padding: 45px 85px 25px;
@@ -1128,7 +1128,7 @@ body.dark-theme {
 
 /* Адаптивность */
 @media (max-width: 768px) {
-    .card {
+    .login-card {
         padding: 30px 40px 20px;
     }
     
@@ -1139,11 +1139,7 @@ body.dark-theme {
 
 @media (max-width: 576px) {
     .login-card {
-        padding: 30px 10px;
-    }
-    
-    .card {
-        padding: 20px 20px 15px;
+        padding: 0 10px 0 10px;
     }
     
     .input-block {
