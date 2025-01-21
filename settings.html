@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings</title>
+    <link rel="stylesheet" href="src/css/settings.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <header class="header">
+        <a href="index.html" style="text-decoration: none; color: inherit;"><div class="logo" >
+            <h1>FOOD <span>TO LOVE</span></h1>
+        </div></a>
+        <nav class="nav">
+            <ul>
+                <li><a href="index.html">Главная</a></li>
+                <li><a href="catalog-recipe.html">Каталог рецептов</a></li>
+            </ul>
+        </nav>
+        <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+        <div class="search-line">
+            <form class="search">
+                <input type="search" placeholder="Искать здесь...">
+                <button type="submit">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
+        </div>
+        <button class="mobile-search-toggle">
+            <i class="fas fa-search"></i>
+        </button>
+        <div class="header-controls">
+            <div class="profile-dropdown">
+                <button class="profile-toggle" aria-label="Profile menu">
+                    <i class="fas fa-user"></i>
+                </button>
+                <div class="profile-menu">
+                    <a href="profile.html"><i class="fas fa-user-circle"></i> Моя страница</a>
+                    <a href="#" class="profile-theme-toggle">
+                        <i class="fas fa-adjust"></i>
+                        <span>Изменить тему</span>
+                    </a>
+                    <a href="input_data.html"><i class="fas fa-plus"></i>Создать рецепт</a>
+                    <a href="settings.html"><i class="fas fa-cog"></i> Настройки</a>
+                    <a href="#"><i class="fas fa-sign-out-alt"></i> Выход</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>О нас</h3>
+                <p>Food to Love - ваш надежный помощник в мире кулинарии. Мы собираем лучшие рецепты и делимся секретами приготовления.</p>
+            </div>
+            <div class="footer-section">
+            </div>
+            <div class="footer-section">
+                <h3>Контакты</h3>
+                <ul class="social-links">
+                    <li><a href="#"><i class="fab fa-vk"></i> ВКонтакте</a></li>
+                    <li><a href="#"><i class="fab fa-telegram-plane"></i> Telegram</a></li>
+                    <li><a href="#"><i class="fab fa-youtube"></i> YouTube</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Food to Love. Все права защищены.</p>
+            <div class="footer-links">
+                <a href="#">Пользовательское соглашение</a>
+                <a href="#">Политика конфиденциальности</a>
+                <a href="#">Условия использования</a>
+            </div>
+        </div>
+    </footer>
+    <script src="src/js/setting.js"></script>
+</body>
+</html>
