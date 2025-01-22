@@ -963,221 +963,310 @@ body.dark-theme .profile-theme-toggle .fa-adjust::before {
 }
 /* Конец обновления стилей для переключателя темы */
 
-/* фильтр каталога */
-
-.catalog-filter {
+/* Улучшенный контейнер настроек */
+.settings-container {
+    margin-top: 78px;
     width: 100%;
-    height: 700px;
-    border-radius: 15px;
-    margin-top: 79px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px;
 }
 
-.catalog-filter h1 {
+/* Заголовок настроек */
+.settings-container h1 {
     text-align: center;
     margin-top: 25px;
+    margin-bottom: 25px;
     color: var(--text-color, #333);
     font-family: 'Playfair Display', regular;
     font-size: 36px;
     font-weight: 400;
 }
 
-.card-border {
-    width: 950px;
-    height: 220px;
-    background-color: white;
-    margin: 30px auto;
-    display: flex;
-    justify-content: center;
+/* Карточка настроек */
+.settings-card {
     border-radius: 15px;
-}
-
-.filter-container {
-    width: 100%;
-    padding: 30px;
-}
-
-.filter-row {
     display: flex;
-    justify-content: space-between;
-    margin-bottom: 25px;
+    background-color: #fff;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
 }
 
-.filter-item {
+/* Стили для секций настроек */
+.settings-card div {
     display: flex;
     flex-direction: column;
-    width: 30%;
+    gap: 10px;
+}
+.settings-card h2{
+    font-family: var(--heading-font);
+    font-size: 24px;
+    font-weight: 600;
 }
 
-.filter-item label {
-    margin-bottom: 8px;
-    color: var(--text-color, #333);
-    font-family: 'Open Sans', sans-serif;
-    font-size: 14px;
-}
-
-.filter-input {
+/* Текстовые поля */
+.settings-card input[type="text"] {
     padding: 10px;
-    border: 1px solid #ddd;
+    font-size: 16px;
+    border: 1px solid #ccc;
     border-radius: 8px;
-    font-family: 'Open Sans', sans-serif;
-    font-size: 14px;
-    color: var(--text-color, #333);
-    background-color: var(--card-bg, white);
     transition: border-color 0.3s ease;
 }
 
-.filter-input:focus {
+.settings-card input[type="text"]:focus {
+    border-color: #ff4444;
     outline: none;
-    border-color: #ff4444;
 }
 
-.filter-input:hover {
-    border-color: #ff4444;
-}
-/* конец филтра */
-
-/* рецепты */
-.profile-recipte {
-    width: 100%;
-    height: auto;
-    min-height: 700px;
-}
-
-.recipe-container {
-    max-width: 850px;
-    height: auto;
-    padding: 20px;
-    border-radius: 15px;
-}
-
-.recipe-row {
-    display: flex;
-    justify-content:space-evenly;
-    gap: 20px;
-    flex-wrap: wrap;
-    margin: 0 45px 30px 45px;
-}
-
-.recipe-item {
-    flex: 1;
-    min-width: 280px;
+/* Кнопка загрузки изображения */
+#new-img-input {
+    padding: 8px;
+    border: 1px solid #ccc;
     border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    background-color: var(--card-bg, white);
+    font-size: 16px;
+    cursor: pointer;
 }
 
-.recipe-image {
-    width: 100%;
-    height: 280px;
-    overflow: hidden;
-    position: relative;
+/* Кнопка сохранения */
+.save-settings-btn {
+    padding: 12px;
+    font-size: 18px;
+    background: #ff4444;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    margin-top: 20px;
 }
 
-.recipe-image img {
-    padding: 15px;
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    border-radius: 15px;
-    position: absolute;
+.save-settings-btn:hover {
+    background: #ff6666;
 }
 
-.recipe-content {
-    padding: 25px;
-    min-height: 180px;
-    display: flex;
-    flex-direction: column;
-}
+/* Адаптивность */
+@media (max-width: 768px) {
+    .settings-container {
+        width: 90%;
+        padding: 15px;
+    }
 
-.recipe-content h3 {
-    text-align: center;
-    margin-bottom: 15px;
-    color: var(--text-color, #333);
-}
+    .settings-container h1 {
+        font-size: 24px;
+    }
 
-.recipe-details {
-    margin-top: 15px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
-}
-
-.recipe-rating {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: var(--text-color, #333);
-}
-
-.stars {
-    display: flex;
-    gap: 2px;
-    color: #ffd700;
-}
-
-.recipe-author {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: var(--text-color, #333);
-}
-
-.author-name {
-    color: var(--text-secondary, #666);
-}
-
-/* Темная тема */
-body.dark-theme {
-    --text-color: #fff;
-    --text-secondary: #ccc;
-    --card-bg: #444;
-}
-
-/* Медиа запросы */
-@media (max-width: 1200px) {
-    .profile-border {
-        padding: 0 50px;
+    .save-settings-btn {
+        font-size: 16px;
+        padding: 10px;
     }
 }
 
-@media (max-width: 992px) {
-    .profile-card {
+/* Контейнер кнопок */
+.settings-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    padding: 0 20px;
+}
+
+/* Общие стили кнопок */
+.settings-buttons button {
+    padding: 12px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+/* Кнопка "Сохранить" */
+.save-btn {
+    background: #ff4444;
+    color: #fff;
+}
+
+.save-btn:hover {
+    background: #ff6666;
+}
+
+.save-btn:active {
+    transform: scale(0.95);
+}
+
+/* Кнопка "Отменить" */
+.cancel-btn {
+    background: #ccc;
+    color: #333;
+}
+
+.cancel-btn:hover {
+    background: #bbb;
+}
+
+.cancel-btn:active {
+    transform: scale(0.95);
+}
+
+/* Адаптивность для мобильных */
+@media (max-width: 768px) {
+    .settings-buttons {
         flex-direction: column;
-        align-items: center;
+        gap: 10px;
+        padding: 0;
+    }
+
+    .settings-buttons button {
+        width: 100%;
         text-align: center;
     }
-    
-    .sideway-text {
-        padding: 15px;
-    }
+}
+/* Секция изменения почты */
+.settings-card-change-email {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
-@media (max-width: 768px) {
-    .profile-border {
-        padding: 0 20px;
-    }
-    
-    .title-text {
-        font-size: 28px;
-    }
-    
-    .recipe-image {
-        height: 220px;
-    }
+/* Секция изменения пароля */
+.settings-card-change-password {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
-@media (max-width: 576px) {
-    .card-image img {
-        max-width: 200px;
-    }
-    
-    .recipe-content {
-        padding: 15px;
-    }
-    
-    .recipe-image {
-        height: 180px;
-    }
+/* Поля ввода для почты и пароля */
+.settings-card-change-email input,
+.settings-card-change-password input {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    transition: border-color 0.3s ease;
+}
+
+.settings-card-change-email input:focus,
+.settings-card-change-password input:focus {
+    border-color: #ff4444;
+    outline: none;
+}
+
+/* Блок тёмной темы */
+.settings-card-theme {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Переключатель тёмной темы */
+.theme-switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+}
+
+.theme-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    border-radius: 24px;
+    transition: 0.4s;
+}
+
+.slider::before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    border-radius: 50%;
+    transition: 0.4s;
+}
+
+input:checked + .slider {
+    background-color: #ff4444;
+}
+
+input:checked + .slider::before {
+    transform: translateX(26px);
+}
+
+/* Тёмная тема для контейнера настроек */
+body.dark-theme .settings-container {
+    background-color: #222;
+    color: #fff;
+}
+
+/* Тёмная тема для заголовка */
+body.dark-theme .settings-container h1 {
+    color: #fff;
+}
+
+/* Тёмная тема для карточки настроек */
+body.dark-theme .settings-card {
+    background-color: #333;
+    border: 1px solid #444;
+}
+
+/* Тёмная тема для заголовков секций */
+body.dark-theme .settings-card h2 {
+    color: #fff;
+}
+
+/* Тёмная тема для полей ввода */
+body.dark-theme .settings-card input {
+    background-color: #444;
+    border: 1px solid #555;
+    color: #fff;
+}
+
+body.dark-theme .settings-card input::placeholder {
+    color: #bbb;
+}
+
+/* Тёмная тема для кнопки загрузки изображения */
+body.dark-theme #new-img-input {
+    background-color: #444;
+    border: 1px solid #555;
+    color: #fff;
+}
+
+/* Тёмная тема для кнопок */
+body.dark-theme .save-btn {
+    background: #ff6666;
+}
+
+body.dark-theme .save-btn:hover {
+    background: #ff8888;
+}
+
+body.dark-theme .cancel-btn {
+    background: #666;
+    color: #fff;
+}
+
+body.dark-theme .cancel-btn:hover {
+    background: #888;
+}
+
+/* Тёмная тема для переключателя темы */
+body.dark-theme .slider {
+    background-color: #555;
+}
+
+body.dark-theme input:checked + .slider {
+    background-color: #ff6666;
 }

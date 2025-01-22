@@ -975,7 +975,6 @@ body.dark-theme .profile-theme-toggle .fa-adjust::before {
 .catalog-filter h1 {
     text-align: center;
     margin-top: 25px;
-    color: var(--text-color, #333);
     font-family: 'Playfair Display', regular;
     font-size: 36px;
     font-weight: 400;
@@ -1128,13 +1127,113 @@ body.dark-theme .profile-theme-toggle .fa-adjust::before {
 .author-name {
     color: var(--text-secondary, #666);
 }
+/* Адаптивность фильтра каталога */
 
-/* Темная тема */
-body.dark-theme {
-    --text-color: #fff;
-    --text-secondary: #ccc;
-    --card-bg: #444;
+/* Для планшетов и небольших экранов */
+@media (max-width: 992px) {
+    .card-border {
+        width: 90%;
+        height: auto;
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    .filter-row {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .filter-item {
+        width: 100%;
+    }
 }
+
+/* Для мобильных устройств */
+@media (max-width: 576px) {
+    .catalog-filter h1 {
+        font-size: 28px;
+    }
+
+    .card-border {
+        width: 95%;
+        padding: 15px;
+    }
+
+    .filter-container {
+        padding: 15px;
+    }
+
+    .filter-item {
+        width: 100%;
+    }
+
+    .filter-input {
+        font-size: 14px;
+        padding: 8px;
+    }
+}
+
+/* Темный фон для фильтра */
+body.dark-theme .catalog-filter {
+    color: #fff;
+}
+
+/* Темный фон для карточки фильтра */
+body.dark-theme .card-border {
+    background-color: #333;
+    border: 1px solid #444;
+}
+
+/* Темный цвет заголовков */
+body.dark-theme .catalog-filter h1,
+body.dark-theme .filter-item label {
+    color: #fff;
+}
+
+/* Темные поля ввода */
+body.dark-theme .filter-input {
+    background-color: #444;
+    border: 1px solid #555;
+    color: #fff;
+}
+
+body.dark-theme .filter-input::placeholder {
+    color: #bbb;
+}
+
+/* Темный фон для блока рецептов */
+body.dark-theme .recipe-container {
+    background-color: #222;
+}
+
+/* Темный фон карточек рецептов */
+body.dark-theme .recipe-item {
+    background-color: #333;
+    border: 1px solid #444;
+}
+
+/* Темные заголовки рецептов */
+body.dark-theme .recipe-content h3 {
+    color: #fff;
+}
+
+/* Темный цвет рейтинга и автора */
+body.dark-theme .recipe-rating,
+body.dark-theme .recipe-author {
+    color: #ccc;
+}
+
+/* Цвет звездочек рейтинга */
+body.dark-theme .stars {
+    color: #ffd700;
+}
+
+/* Темный фон для футера */
+body.dark-theme .footer {
+    background-color: #111;
+    color: #ccc;
+}
+
 
 /* Медиа запросы */
 @media (max-width: 1200px) {
