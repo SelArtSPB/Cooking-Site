@@ -1015,7 +1015,7 @@ body.dark-theme .profile-theme-toggle .fa-adjust::before {
 
 @media (min-width: 768px) {
     .order {
-        padding: 0 325px;
+        padding: 0 225px;
     }
 }
 .input-box-order {
@@ -1081,7 +1081,7 @@ body.dark-theme {
 
 .start-data {
     margin-top: 100px;
-    padding: 0 325px;
+    padding: 0 225px;
     display: flex;
     gap: 30px;
 }

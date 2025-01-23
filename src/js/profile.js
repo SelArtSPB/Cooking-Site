@@ -1,58 +1,5 @@
-const RECIPES_PER_PAGE = 2; // Количество рецептов на странице
 
-// Пример данных рецептов (в реальном проекте это будет загружаться с сервера)
-const allRecipes = [
-    {
-        image: "src/img/red-cake.jpg",
-        title: "Кровавая Мери",
-        rating: 5,
-        author: "@artemS"
-    },
-    {
-        image: "src/img/cezar.avif",
-        title: "Салат цезарь",
-        rating: 5,
-        author: "@artemS"
-    },
-    {
-        image: "src/img/pasta.jpg",
-        title: "Паста Карбонара",
-        rating: 4,
-        author: "@artemS"
-    },
-    {
-        image: "src/img/borsch.jpg",
-        title: "Борщ",
-        rating: 5,
-        author: "@artemS"
-    }
-    // Добавьте больше рецептов по необходимости
-];
 
-function createRecipeCard(recipe) {
-    return `
-        <a href="data_view.html" class="recipe-item">
-            <div class="recipe-image">
-                <img src="${recipe.image}" alt="${recipe.title}">
-            </div>
-            <div class="recipe-content">
-                <h3>${recipe.title}</h3>
-                <div class="recipe-details">
-                    <div class="recipe-rating">
-                        <span>Оценка:</span>
-                        <div class="stars">
-                            ${Array(recipe.rating).fill('<i class="fas fa-star"></i>').join('')}
-                        </div>
-                    </div>
-                    <div class="recipe-author">
-                        <span>Автор:</span>
-                        <span class="author-name">${recipe.author}</span>
-                    </div>
-                </div>
-            </div>
-        </a>
-    `;
-}
 
 function displayRecipes(page) {
     const recipeContainer = document.querySelector('.recipe-row');
