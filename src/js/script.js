@@ -244,8 +244,10 @@ document.querySelectorAll('.recipe-card').forEach(card => {
         const type = this.dataset.type;
         const author = this.dataset.author;
         const recipe = this.dataset.recipe;
+        const image = this.dataset.image; // Новый параметр
 
-        const url = `data_view.html?title=${encodeURIComponent(title)}&description=${encodeURIComponent(description)}&cookingTime=${encodeURIComponent(cookingTime)}&country=${encodeURIComponent(country)}&type=${encodeURIComponent(type)}&author=${encodeURIComponent(author)}&recipe=${encodeURIComponent(recipe)}`;
+        const url = `data_view.html?title=${encodeURIComponent(title)}&description=${encodeURIComponent(description)}&cookingTime=${encodeURIComponent(cookingTime)}&country=${encodeURIComponent(country)}&type=${encodeURIComponent(type)}&author=${encodeURIComponent(author)}&recipe=${encodeURIComponent(recipe)}&image=${encodeURIComponent(image)}`;
         window.location.href = url;
     });
 });
+

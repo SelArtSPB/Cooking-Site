@@ -209,13 +209,6 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
-// Обработка отправки формы поиска
-document.querySelector('.mobile-search-form').addEventListener('submit', function(e) {
-    e.preventDefault();
-    // Здесь добавьте логику обработки поиска
-    const searchQuery = this.querySelector('input').value;
-    console.log('Поисковый запрос:', searchQuery);
-});
 
 // Плавная прокрутка для ссылок в футере
 document.querySelector('.footer-section ul').addEventListener('click', function(e) {
@@ -245,13 +238,27 @@ document.addEventListener('DOMContentLoaded', () => {
     const cookingTime = params.get('cookingTime') || 'Неизвестно';
     const country = params.get('country') || 'Неизвестно';
     const type = params.get('type') || 'Не указано';
-    const author = params.get('author') || '@Admins';
     const recipe = params.get('recipe') || 'Рецепт отсутствует';
+    const image = params.get('image') || 'src/img/default.jpg'; // Значение по умолчанию
+    const author = params.get('author') || 'Автор не указан'; // Значение по умолчанию
 
-    document.querySelector('.start-data h1').textContent = title;
-    document.querySelector('.start-data h3:nth-child(1)').textContent = `Время готовки: ${cookingTime}`;
-    document.querySelector('.start-data h3:nth-child(2)').textContent = description;
-    document.querySelector('.start-data h3:nth-child(3)').textContent = `Страна: ${country}`;
-    document.querySelector('.start-data h3:nth-child(4)').textContent = `Тип блюда: ${type}`;
-    document.querySelector('.order h3').textContent = `Рецепт: ${recipe}`;
+    // Установка данных в элементы
+    document.querySelector('.dish-title').textContent = title;
+    document.querySelector('.cooking-time').textContent = `Время готовки: ${cookingTime}`;
+    document.querySelector('.description').textContent = description;
+    document.querySelector('.country').textContent = `Страна: ${country}`;
+    document.querySelector('.type').textContent = `Тип блюда: ${type}`;
+    document.querySelector('.recipe').textContent = recipe;
+
+    // Установка изображения
+    const imageElement = document.querySelector('.insert-image img');
+    imageElement.src = image;
+    imageElement.alt = title; // Устанавливаем альтернативный текст
+
+    // Установка автора
+    const authorElement = document.querySelector('.author');
+    if (authorElement) {
+        authorElement.textContent = `Автор: ${author}`;
+    }
 });
+

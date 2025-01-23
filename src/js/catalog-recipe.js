@@ -237,19 +237,4 @@ document.querySelector('.footer-section ul').addEventListener('click', function(
 });
 
 
-function getQueryParam(param) {
-    const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get(param);
-}
-
-function applyCountryFilter() {
-    const countryParam = getQueryParam('country');
-    if (countryParam) {
-        const countrySelect = document.getElementById('country');
-        countrySelect.value = countryParam;
-        updateRecipeDisplay(countryParam);
-    }
-}
-
-document.addEventListener('DOMContentLoaded', applyCountryFilter);
 
