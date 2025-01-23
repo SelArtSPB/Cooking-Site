@@ -1262,3 +1262,14 @@ body.dark-theme .input-group input[list]:focus {
         font-size: 15px; /* Уменьшаем размер текста */
     }
 }
+
+.start-data h1 {
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+.order h3 {
+    white-space: pre-wrap;
+    line-height: 1.6;
+    margin-top: 20px;
+}

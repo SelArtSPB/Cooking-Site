@@ -235,3 +235,23 @@ document.querySelector('.footer-section ul').addEventListener('click', function(
         }
     }
 });
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    const params = new URLSearchParams(window.location.search);
+
+    const title = params.get('title') || 'Название не указано';
+    const description = params.get('description') || 'Описание отсутствует';
+    const cookingTime = params.get('cookingTime') || 'Неизвестно';
+    const country = params.get('country') || 'Неизвестно';
+    const type = params.get('type') || 'Не указано';
+    const author = params.get('author') || '@Admins';
+    const recipe = params.get('recipe') || 'Рецепт отсутствует';
+
+    document.querySelector('.start-data h1').textContent = title;
+    document.querySelector('.start-data h3:nth-child(1)').textContent = `Время готовки: ${cookingTime}`;
+    document.querySelector('.start-data h3:nth-child(2)').textContent = description;
+    document.querySelector('.start-data h3:nth-child(3)').textContent = `Страна: ${country}`;
+    document.querySelector('.start-data h3:nth-child(4)').textContent = `Тип блюда: ${type}`;
+    document.querySelector('.order h3').textContent = `Рецепт: ${recipe}`;
+});

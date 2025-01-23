@@ -235,3 +235,17 @@ document.querySelector('.footer-section ul').addEventListener('click', function(
         }
     }
 });
+document.querySelectorAll('.recipe-card').forEach(card => {
+    card.addEventListener('click', function () {
+        const title = this.dataset.title;
+        const description = this.dataset.description;
+        const cookingTime = this.dataset.cookingTime;
+        const country = this.dataset.country;
+        const type = this.dataset.type;
+        const author = this.dataset.author;
+        const recipe = this.dataset.recipe;
+
+        const url = `data_view.html?title=${encodeURIComponent(title)}&description=${encodeURIComponent(description)}&cookingTime=${encodeURIComponent(cookingTime)}&country=${encodeURIComponent(country)}&type=${encodeURIComponent(type)}&author=${encodeURIComponent(author)}&recipe=${encodeURIComponent(recipe)}`;
+        window.location.href = url;
+    });
+});
