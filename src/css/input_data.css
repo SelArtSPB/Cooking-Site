@@ -1080,10 +1080,29 @@ body.dark-theme {
 /* блок основных данных */
 
 .start-data {
-    margin-top: 100px;
     padding: 0 225px;
     display: flex;
     gap: 30px;
+    margin-bottom: 25px;
+}
+.start-title {
+    margin-top: 120px; /* Отступ сверху */
+    margin-bottom: 25px;
+    text-align: center; /* Центрирование заголовка */
+}
+
+.start-title h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px; /* Размер текста */
+    font-weight: 400; /* Вес шрифта */
+    text-transform: uppercase; /* Верхний регистр */
+    color: #333; /* Основной цвет */
+    letter-spacing: 1px; /* Межбуквенный интервал */
+}
+
+/* Темная тема для заголовка */
+body.dark-theme .start-title h2 {
+    color: #fff; /* Белый цвет текста в темной теме */
 }
 
 .insert-image {
@@ -1261,4 +1280,201 @@ body.dark-theme .input-group input[list]:focus {
     .button-pick h1 {
         font-size: 15px; /* Уменьшаем размер текста */
     }
+}
+.cooking-steps {
+    padding: 0 225px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.cooking-step {
+    position: relative;
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+    margin: 20px 0 20px 0 ;
+}
+
+.cooking-step-delete {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    background-color: #ff4444;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.cooking-step-delete:hover {
+    background-color: #ff6666;
+    transform: scale(1.1);
+}
+
+body.dark-theme .cooking-step-delete {
+    background-color: #ff6666;
+}
+
+body.dark-theme .cooking-step-delete:hover {
+    background-color: #ff8888;
+}
+
+
+.cooking-step-number {
+    font-size: 20px;
+    font-weight: bold;
+    color: #ff4444;
+    flex: 0 0 30px;
+    text-align: center;
+}
+
+.cooking-step img {
+    width: 200px;
+    height: 200px;
+    border-radius: 10px;
+    object-fit: cover;
+    border: 2px solid #ccc;
+}
+.cooking-steps h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    font-weight: 400;
+    text-align: center;
+    color: #333;
+    text-transform: uppercase;
+    margin-bottom: 25px;
+    letter-spacing: 1px;
+}
+/* Тёмная тема для заголовка "Этапы готовки" */
+body.dark-theme .cooking-steps h2 {
+    color: #fff; /* Цвет текста для темной темы */
+}
+
+/* Тёмная тема для кнопки добавления этапа */
+body.dark-theme #add-step-button {
+    background-color: #444; /* Фон кнопки */
+    color: #fff; /* Цвет текста */
+    border: 1px solid #666; /* Граница кнопки */
+}
+
+body.dark-theme #add-step-button:hover {
+    background-color: #555; /* Фон кнопки при наведении */
+    color: #fff; /* Цвет текста при наведении */
+    border-color: #888; /* Граница при наведении */
+}
+
+
+.cooking-step label {
+    flex: 0 0 200px;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px dashed #ccc;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.cooking-step label:hover {
+    background-color: #f0f0f0;
+}
+
+.cooking-step textarea {
+    flex: 1;
+    padding: 12px 15px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-family: var(--body-font);
+    font-size: 16px;
+    resize: vertical;
+    min-height: 200px;
+}
+
+/* Темная тема */
+body.dark-theme .cooking-step img,
+body.dark-theme .cooking-step label {
+    border-color: #444;
+}
+
+body.dark-theme .cooking-step label {
+    background-color: #2a2a2a;
+    color: #ccc;
+}
+
+body.dark-theme .cooking-step label:hover {
+    background-color: #333;
+}
+
+body.dark-theme .cooking-step textarea {
+    background-color: #2a2a2a;
+    border-color: #444;
+    color: #fff;
+}
+
+/* Адаптивность */
+@media (max-width: 1200px) {
+    .cooking-steps {
+        padding: 0 20px;
+    }
+
+    .cooking-step {
+        gap: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .cooking-steps {
+        gap: 20px;
+    }
+
+    .cooking-step {
+        flex-direction: column;
+    }
+
+    .cooking-step img,
+    .cooking-step label {
+        width: 100%;
+        height: auto;
+    }
+
+    .cooking-step textarea {
+        min-height: 120px;
+    }
+}
+
+@media (max-width: 480px) {
+    .cooking-steps {
+        padding: 0 15px;
+    }
+
+    .cooking-step textarea {
+        min-height: 100px;
+    }
+}
+#add-step-button {
+    width: 100%;
+    min-height: 55px;
+    padding: 10px 15px;
+    background-color: var(--button-bg-color, white);
+    border-radius: 100px;
+    text-align: center;
+    font-family: var(--body-font);
+    font-size: 17px;
+    font-weight: 500;
+    border: 1px solid var(--button-border-color, black);
+    cursor: pointer;
+}
+
+#add-step-button:hover {
+    background-color: #f0f0f0;
 }

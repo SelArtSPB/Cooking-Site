@@ -209,13 +209,6 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
-// Обработка отправки формы поиска
-document.querySelector('.mobile-search-form').addEventListener('submit', function(e) {
-    e.preventDefault();
-    // Здесь добавьте логику обработки поиска
-    const searchQuery = this.querySelector('input').value;
-    console.log('Поисковый запрос:', searchQuery);
-});
 
 // Плавная прокрутка для ссылок в футере
 document.querySelector('.footer-section ul').addEventListener('click', function(e) {
@@ -235,3 +228,78 @@ document.querySelector('.footer-section ul').addEventListener('click', function(
         }
     }
 });
+document.getElementById('add-step-button').addEventListener('click', function () {
+    const stepsContainer = document.getElementById('steps-container');
+
+    // Определяем номер этапа
+    const stepNumber = stepsContainer.children.length + 1;
+
+    // Создание нового этапа
+    const stepDiv = document.createElement('div');
+    stepDiv.classList.add('cooking-step');
+
+    // Номер этапа
+    const stepNumberEl = document.createElement('span');
+    stepNumberEl.classList.add('cooking-step-number');
+    stepNumberEl.textContent = `${stepNumber}.`;
+
+    // Поле для изображения
+    const imgInput = document.createElement('input');
+    imgInput.type = 'file';
+    imgInput.accept = 'image/*';
+    imgInput.style.display = 'none';
+
+    const imgLabel = document.createElement('label');
+    imgLabel.textContent = 'Добавить изображение';
+    imgLabel.addEventListener('click', () => imgInput.click());
+
+    const imgPreview = document.createElement('img');
+    imgPreview.style.display = 'none';
+
+    imgInput.addEventListener('change', function () {
+        const file = this.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                imgPreview.src = e.target.result;
+                imgPreview.style.display = 'block';
+                imgLabel.style.display = 'none';
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    // Поле для текста
+    const textArea = document.createElement('textarea');
+    textArea.placeholder = 'Описание этапа';
+
+    // Кнопка удаления
+    const deleteButton = document.createElement('button');
+    deleteButton.classList.add('cooking-step-delete');
+    deleteButton.textContent = '×';
+
+    deleteButton.addEventListener('click', function () {
+        stepDiv.remove();
+        updateStepNumbers();
+    });
+
+    // Добавление элементов в div
+    stepDiv.appendChild(stepNumberEl);
+    stepDiv.appendChild(imgInput);
+    stepDiv.appendChild(imgLabel);
+    stepDiv.appendChild(imgPreview);
+    stepDiv.appendChild(textArea);
+    stepDiv.appendChild(deleteButton);
+
+    // Добавление этапа в контейнер
+    stepsContainer.appendChild(stepDiv);
+});
+
+// Функция для обновления номеров этапов
+function updateStepNumbers() {
+    const steps = document.querySelectorAll('.cooking-step');
+    steps.forEach((step, index) => {
+        const numberEl = step.querySelector('.cooking-step-number');
+        numberEl.textContent = `${index + 1}.`;
+    });
+}
