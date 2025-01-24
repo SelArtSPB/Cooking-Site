@@ -2392,3 +2392,115 @@ body.dark-theme {
     --bg-color: #333;
 }
 /* Конец общих стилей для обрезки текста */
+
+
+.modal {
+    display: none; /* Скрываем окно по умолчанию */
+    position: fixed; /* Фиксируем относительно окна браузера */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); /* Затемнение фона */
+    z-index: 1000;
+    justify-content: center;
+    align-items: center; /* Центрирование окна по вертикали */
+    overflow-y: auto; /* Добавляем прокрутку, если контент больше экрана */
+    padding: 20px; /* Отступы для удобства на мобильных устройствах */
+}
+
+.modal-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    max-width: 400px; /* Максимальная ширина окна */
+    width: 100%; /* Адаптивная ширина */
+    box-sizing: border-box;
+    transform: translateY(-50%);
+    position: relative;
+}
+
+
+
+/* Стили для текста и кнопок */
+.modal-content h2 {
+    margin-bottom: 15px;
+    font-size: 20px;
+}
+
+.modal-content p {
+    margin-bottom: 20px;
+    font-size: 16px;
+    color: #555;
+}
+
+.modal-content button {
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#telegram-button {
+    background-color: #0088cc;
+    color: #fff;
+}
+
+#close-modal {
+    background-color: #ccc;
+    color: #333;
+}
+
+#telegram-button:hover {
+    background-color: #006699;
+}
+
+#close-modal:hover {
+    background-color: #aaa;
+}
+
+/* --- Адаптивность --- */
+
+/* Для экранов до 768px (планшеты и телефоны) */
+@media (max-width: 768px) {
+    .modal-content {
+        padding: 15px;
+        max-width: 90%; /* Увеличиваем ширину для небольших экранов */
+    }
+
+    .modal-content h2 {
+        font-size: 18px; /* Уменьшаем заголовок */
+    }
+
+    .modal-content p {
+        font-size: 14px; /* Уменьшаем текст */
+    }
+
+    .modal-content button {
+        font-size: 14px; /* Уменьшаем кнопки */
+        padding: 8px 15px; /* Уменьшаем отступы кнопок */
+    }
+}
+
+/* Для экранов до 480px (телефоны) */
+@media (max-width: 480px) {
+    .modal-content {
+        padding: 10px;
+    }
+
+    .modal-content h2 {
+        font-size: 16px;
+    }
+
+    .modal-content p {
+        font-size: 12px;
+    }
+
+    .modal-content button {
+        font-size: 12px;
+        padding: 6px 10px;
+    }
+}

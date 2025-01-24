@@ -251,3 +251,66 @@ document.querySelectorAll('.recipe-card').forEach(card => {
     });
 });
 
+document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('telegram-modal');
+    const closeModalButton = document.getElementById('close-modal');
+    const telegramButton = document.getElementById('telegram-button');
+    const newsSection = document.querySelector('#news');
+
+    // Показываем модальное окно при клике на карточки или ссылки новостей
+    newsSection.addEventListener('click', (e) => {
+        const target = e.target.closest('.featured-recipe, .sidebar-item, .sidebar-link');
+        if (target) {
+            e.preventDefault(); // Предотвращаем переход по ссылке
+            showModal();
+        }
+    });
+
+    // Функция для отображения модального окна
+    function showModal() {
+        modal.style.display = 'flex'; // Показываем модальное окно
+        centerModal(); // Центрируем окно
+    }
+
+    // Центрирование окна
+    function centerModal() {
+        const modalContent = modal.querySelector('.modal-content');
+        const viewportHeight = window.innerHeight; // Высота видимой части экрана
+        const modalHeight = modalContent.offsetHeight; // Высота модального окна
+
+        // Устанавливаем смещение для центрирования
+        if (modalHeight < viewportHeight) {
+            modalContent.style.marginTop = `${(viewportHeight - modalHeight) / 2}px`;
+        } else {
+            modalContent.style.marginTop = '0'; // Если модальное окно больше экрана, убираем центрирование
+        }
+    }
+
+    // Закрытие модального окна
+    closeModalButton.addEventListener('click', () => {
+        modal.style.display = 'none'; // Скрываем окно
+    });
+
+    // Кнопка перехода на Telegram
+    telegramButton.addEventListener('click', () => {
+        window.open('https://t.me/YourTelegramChannel', '_blank');
+    });
+
+    // Закрытие модального окна при клике вне области контента
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
+
+    // Центрируем модальное окно при изменении размера окна
+    window.addEventListener('resize', () => {
+        if (modal.style.display === 'flex') {
+            centerModal(); // Пересчитываем позицию
+        }
+    });
+});
+
+
+
+
