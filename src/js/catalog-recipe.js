@@ -179,28 +179,8 @@ document.querySelector('.profile-theme-toggle').addEventListener('click', functi
     document.body.classList.toggle('dark-theme');
 });
 
-// Добавляем обработчик для мобильного поиска
-document.querySelector('.mobile-search-toggle').addEventListener('click', function() {
-    const searchContainer = document.querySelector('.mobile-search-container');
-    searchContainer.classList.toggle('active');
-    
-    if (searchContainer.classList.contains('active')) {
-        // Фокусируемся на поле ввода
-        searchContainer.querySelector('input').focus();
-    }
-});
 
-// Закрываем поиск при клике вне его
-document.addEventListener('click', (e) => {
-    const searchContainer = document.querySelector('.mobile-search-container');
-    const searchToggle = document.querySelector('.mobile-search-toggle');
-    
-    if (!searchContainer.contains(e.target) && 
-        !searchToggle.contains(e.target) && 
-        searchContainer.classList.contains('active')) {
-        searchContainer.classList.remove('active');
-    }
-});
+
 
 // Закрываем поиск при нажатии Escape
 document.addEventListener('keydown', (e) => {
@@ -209,13 +189,7 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
-// Обработка отправки формы поиска
-document.querySelector('.mobile-search-form').addEventListener('submit', function(e) {
-    e.preventDefault();
-    // Здесь добавьте логику обработки поиска
-    const searchQuery = this.querySelector('input').value;
-    console.log('Поисковый запрос:', searchQuery);
-});
+
 
 // Плавная прокрутка для ссылок в футере
 document.querySelector('.footer-section ul').addEventListener('click', function(e) {
@@ -238,3 +212,39 @@ document.querySelector('.footer-section ul').addEventListener('click', function(
 
 
 
+// Получение параметров из URL
+const urlParams = new URLSearchParams(window.location.search);
+const selectedCountry = urlParams.get('country');
+
+// Ссылка на элементы фильтра
+const countryFilter = document.getElementById('country');
+const dateFilter = document.getElementById('date');
+const timeFilter = document.getElementById('time');
+const typeFilter = document.getElementById('type');
+
+// Установить выбранную страну, если параметр передан
+if (selectedCountry) {
+    countryFilter.value = selectedCountry;
+}
+
+// Функция для применения фильтров
+function applyFilters() {
+    const filters = {
+        country: countryFilter.value,
+        date: dateFilter.value,
+        time: timeFilter.value,
+        type: typeFilter.value,
+    };
+
+    // Здесь можно заменить на функцию загрузки рецептов или отправку данных на сервер
+    console.log('Применённые фильтры:', filters);
+
+    // Пример: добавление фильтров в URL (для обновления страницы с применёнными фильтрами)
+    const queryParams = new URLSearchParams(filters).toString();
+    window.location.href = `catalog-recipe.html?${queryParams}`;
+}
+
+// Событие на изменение фильтров
+[countryFilter, dateFilter, timeFilter, typeFilter].forEach((filter) => {
+    filter.addEventListener('change', applyFilters);
+});
