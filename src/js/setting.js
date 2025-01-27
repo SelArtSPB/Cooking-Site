@@ -209,29 +209,56 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
-// Обработка отправки формы поиска
-document.querySelector('.mobile-search-form').addEventListener('submit', function(e) {
-    e.preventDefault();
-    // Здесь добавьте логику обработки поиска
-    const searchQuery = this.querySelector('input').value;
-    console.log('Поисковый запрос:', searchQuery);
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    const saveBtn = document.querySelector(".save-btn");
+    
+    // Загружаем текущие данные из localStorage
+    let profileData = JSON.parse(localStorage.getItem("profileData")) || {
+        name: "Пользователь",
+        tag: "@user",
+        email: "",
+        description: "Описание",
+        password: "",
+        image: "src/img/user.png"
+    };
+
+    // Обновляем поля ввода текущими значениями
+    document.querySelector(".settings-card-change-name input").value = profileData.name;
+    document.querySelector(".settings-card-change-autor input").value = profileData.tag;
+    document.querySelector(".settings-card-change-email input").value = profileData.email;
+    document.querySelector(".settings-card-change-discription input").value = profileData.description;
+
+    saveBtn.addEventListener("click", () => {
+        const newName = document.querySelector(".settings-card-change-name input").value.trim();
+        const newTag = document.querySelector(".settings-card-change-autor input").value.trim();
+        const newEmail = document.querySelector(".settings-card-change-email input").value.trim();
+        const newDescription = document.querySelector(".settings-card-change-discription input").value.trim();
+        const fileInput = document.querySelector("#new-img-input");
+
+        // Обновляем объект profileData новыми данными
+        profileData.name = newName || profileData.name;
+        profileData.tag = newTag || profileData.tag;
+        profileData.email = newEmail || profileData.email;
+        profileData.description = newDescription || profileData.description;
+
+        // Если выбрано новое изображение, читаем его как Data URL и сохраняем
+        if (fileInput.files.length > 0) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                profileData.image = e.target.result;
+                saveProfileData(profileData);
+            };
+            reader.readAsDataURL(fileInput.files[0]);
+        } else {
+            saveProfileData(profileData);
+        }
+    });
 });
 
-// Плавная прокрутка для ссылок в футере
-document.querySelector('.footer-section ul').addEventListener('click', function(e) {
-    if (e.target.tagName === 'A') {
-        e.preventDefault();
-        const targetId = e.target.getAttribute('href');
-        const targetSection = document.querySelector(targetId);
-        
-        if (targetSection) {
-            const headerHeight = document.querySelector('.header').offsetHeight;
-            const targetPosition = targetSection.getBoundingClientRect().top + window.pageYOffset - headerHeight;
-            
-            window.scrollTo({
-                top: targetPosition,
-                behavior: 'smooth'
-            });
-        }
-    }
-});
+function saveProfileData(data) {
+    localStorage.setItem("profileData", JSON.stringify(data));
+    alert("Настройки сохранены!");
+}
+

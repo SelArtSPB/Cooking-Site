@@ -269,13 +269,6 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
-// Обработка отправки формы поиска
-document.querySelector('.mobile-search-form').addEventListener('submit', function(e) {
-    e.preventDefault();
-    // Здесь добавьте логику обработки поиска
-    const searchQuery = this.querySelector('input').value;
-    console.log('Поисковый запрос:', searchQuery);
-});
 
 // Плавная прокрутка для ссылок в футере
 document.querySelector('.footer-section ul').addEventListener('click', function(e) {
@@ -293,5 +286,18 @@ document.querySelector('.footer-section ul').addEventListener('click', function(
                 behavior: 'smooth'
             });
         }
+    }
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+    let profileData = JSON.parse(localStorage.getItem("profileData"));
+
+    if (profileData) {
+        document.querySelector(".sideway-text h1").textContent = profileData.name;
+        document.querySelector(".sideway-text p3").textContent = profileData.tag;
+        document.querySelector(".sideway-text h4").textContent = profileData.description;
+
+        const profileImage = document.querySelector(".card-image img");
+        profileImage.src = profileData.image || "src/img/profile-cat.jpg";
     }
 });
