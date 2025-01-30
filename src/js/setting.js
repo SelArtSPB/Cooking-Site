@@ -187,16 +187,9 @@ document.querySelector('.mobile-search-toggle').addEventListener('click', functi
     }
 });
 
-// Закрываем поиск при клике вне его
-document.addEventListener('click', (e) => {
-    const searchContainer = document.querySelector('.mobile-search-container');
-    const searchToggle = document.querySelector('.mobile-search-toggle');
-    
-    if (!searchContainer.contains(e.target) && 
-        !searchToggle.contains(e.target) && 
-        searchContainer.classList.contains('active')) {
-        searchContainer.classList.remove('active');
-    }
+document.querySelector('.profile-theme-toggle').addEventListener('click', function(e) {
+    e.preventDefault();
+    document.body.classList.toggle('dark-theme');
 });
 
 // Закрываем поиск при нажатии Escape
