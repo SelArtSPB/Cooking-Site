@@ -18,8 +18,16 @@ body {
 
 /* Начало стилей для html и body */
 html, body {
-    height: 100%;
+    overflow-y: scroll; /* Оставляет прокрутку, но скрывает скроллбар */
+    scrollbar-width: none; /* Для Firefox */
 }
+
+html::-webkit-scrollbar, 
+body::-webkit-scrollbar {
+    display: none; /* Для Chrome, Safari и Edge */
+}
+
+
 /* Конец стилей для html и body */
 
 /* Начало стилей для section-description */
@@ -161,6 +169,7 @@ body.dark-theme .section-description {
     top: 0;
     right: 0;
     z-index: 2;
+    border-radius: 21px;
     color: white;
 }
 
