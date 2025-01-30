@@ -259,6 +259,28 @@ document.getElementById('add-step-button').addEventListener('click', function ()
         }
     });
 
+    document.addEventListener('DOMContentLoaded', function () {
+        const themeToggle = document.querySelector('.profile-theme-toggle');
+        const darkThemeClass = 'dark-theme';
+    
+        // Проверяем, была ли ранее включена тёмная тема
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add(darkThemeClass);
+        }
+    
+        themeToggle.addEventListener('click', function (e) {
+            e.preventDefault();
+            document.body.classList.toggle(darkThemeClass);
+    
+            // Сохраняем состояние в localStorage
+            if (document.body.classList.contains(darkThemeClass)) {
+                localStorage.setItem('theme', 'dark');
+            } else {
+                localStorage.setItem('theme', 'light');
+            }
+        });
+    });
+    
     // Поле для текста
     const textArea = document.createElement('textarea');
     textArea.placeholder = 'Описание этапа';

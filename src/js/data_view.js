@@ -230,35 +230,29 @@ document.querySelector('.footer-section ul').addEventListener('click', function(
 });
 
 
+
 document.addEventListener('DOMContentLoaded', () => {
     const params = new URLSearchParams(window.location.search);
-
-    const title = params.get('title') || 'Название не указано';
-    const description = params.get('description') || 'Описание отсутствует';
-    const cookingTime = params.get('cookingTime') || 'Неизвестно';
-    const country = params.get('country') || 'Неизвестно';
-    const type = params.get('type') || 'Не указано';
-    const recipe = params.get('recipe') || 'Рецепт отсутствует';
-    const image = params.get('image') || 'src/img/default.jpg'; // Значение по умолчанию
-    const author = params.get('author') || 'Автор не указан'; // Значение по умолчанию
-
-    // Установка данных в элементы
-    document.querySelector('.dish-title').textContent = title;
-    document.querySelector('.cooking-time').textContent = `Время готовки: ${cookingTime}`;
-    document.querySelector('.description').textContent = description;
-    document.querySelector('.country').textContent = `Страна: ${country}`;
-    document.querySelector('.type').textContent = `Тип блюда: ${type}`;
-    document.querySelector('.recipe').textContent = recipe;
-
-    // Установка изображения
-    const imageElement = document.querySelector('.insert-image img');
-    imageElement.src = image;
-    imageElement.alt = title; // Устанавливаем альтернативный текст
-
-    // Установка автора
-    const authorElement = document.querySelector('.author');
-    if (authorElement) {
-        authorElement.textContent = `Автор: ${author}`;
-    }
-});
-
+    
+    // Получаем данные напрямую из URL
+    const recipeData = {
+      title: params.get('title'),
+      description: params.get('description'),
+      cookingTime: params.get('cookingTime'),
+      country: params.get('country'),
+      type: params.get('type'),
+      author: params.get('author'),
+      recipe: params.get('recipe'),
+      image: params.get('image')
+    };
+  
+    // Заполняем данные
+    document.querySelector('.dish-title').textContent = recipeData.title;
+    document.querySelector('.cooking-time').textContent = `Время готовки: ${recipeData.cookingTime}`;
+    document.querySelector('.description').textContent = recipeData.description;
+    document.querySelector('.country').textContent = `Страна: ${recipeData.country}`;
+    document.querySelector('.type').textContent = `Тип блюда: ${recipeData.type}`;
+    document.querySelector('.author').textContent = `Автор: ${recipeData.author}`;
+    document.querySelector('.recipe').textContent = recipeData.recipe;
+    document.querySelector('.insert-image img').src = recipeData.image;
+  });

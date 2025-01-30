@@ -235,3 +235,4 @@ document.querySelector('.footer-section ul').addEventListener('click', function(
         }
     }
 });
+

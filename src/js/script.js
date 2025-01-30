@@ -293,7 +293,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Кнопка перехода на Telegram
     telegramButton.addEventListener('click', () => {
-        window.open('https://t.me/YourTelegramChannel', '_blank');
+        window.open('https://t.me/FoodToLove', '_blank');
     });
 
     // Закрытие модального окна при клике вне области контента
