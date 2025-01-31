@@ -175,6 +175,22 @@ function applyFilters() {
     }, 100);
 }
 
+document.querySelectorAll('.recipe-card').forEach(card => {
+    card.addEventListener('click', function () {
+        const title = this.dataset.title;
+        const description = this.dataset.description;
+        const cookingTime = this.dataset.cookingTime;
+        const country = this.dataset.country;
+        const type = this.dataset.type;
+        const author = this.dataset.author;
+        const recipe = this.dataset.recipe;
+        const image = this.dataset.image; // Новый параметр
+
+        const url = `data_view.html?title=${encodeURIComponent(title)}&description=${encodeURIComponent(description)}&cookingTime=${encodeURIComponent(cookingTime)}&country=${encodeURIComponent(country)}&type=${encodeURIComponent(type)}&author=${encodeURIComponent(author)}&recipe=${encodeURIComponent(recipe)}&image=${encodeURIComponent(image)}`;
+        window.location.href = url;
+    });
+});
+
 document.addEventListener("DOMContentLoaded", function () {
     const countryFilter = document.getElementById("country");
     const timeFilter = document.getElementById("time");
