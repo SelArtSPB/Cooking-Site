@@ -26,7 +26,172 @@ html::-webkit-scrollbar,
 body::-webkit-scrollbar {
     display: none; /* Для Chrome, Safari и Edge */
 }
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+    padding: 20px 0;
+}
 
+.recipe-card {
+    position: relative;
+    border-radius: 15px;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 400px;
+}
+
+.recipe-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.recipe-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.recipe-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.9) 0%,
+        rgba(0, 0, 0, 0.7) 50%,
+        rgba(0, 0, 0, 0) 100%
+    );
+    padding: 20px;
+    color: white;
+    transform: translateY(100%);
+    transition: transform 0.5s ease;
+}
+
+.recipe-overlay h3 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    font-weight: 600;
+    font-family: 'Playfair Display', serif;
+}
+
+.recipe-overlay p {
+    font-size: 1em;
+    line-height: 1.6;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease 0.2s;
+    font-family: 'Roboto', sans-serif;
+}
+
+.recipe-card:hover img {
+    transform: scale(1.05);
+}
+
+.recipe-card:hover .recipe-overlay {
+    transform: translateY(0);
+}
+
+.recipe-card:hover .recipe-overlay p {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (max-width: 992px) {
+    .grid-container {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 20px;
+    }
+    
+    .recipe-card {
+        height: 500px;
+    }
+}
+
+@media (max-width: 768px) {
+    .grid-container {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 15px;
+    }
+    
+    .recipe-card {
+        height: 400px;
+    }
+    
+    .recipe-overlay {
+        padding: 15px;
+        transform: translateY(0);
+        background: linear-gradient(
+            to top,
+            rgba(0, 0, 0, 0.8) 0%,
+            rgba(0, 0, 0, 0.5) 100%
+        );
+    }
+    
+    .recipe-overlay p {
+        display: none;
+    }
+}
+
+body.dark-theme .recipe-card {
+    background: #333;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-theme .recipe-overlay {
+    background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.95) 0%,
+        rgba(0, 0, 0, 0.8) 50%,
+        rgba(0, 0, 0, 0.2) 100%
+    );
+}
+/* Стили пагинации */
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 30px;
+    padding: 20px 0;
+}
+
+.pagination-button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    background: #f0f0f0;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.pagination-button:hover {
+    background: #ff4444;
+    color: white;
+}
+
+.pagination-button.active {
+    background: #ff4444;
+    color: white;
+}
+
+body.dark-theme .pagination-button {
+    background: #333;
+    color: #fff;
+}
+
+body.dark-theme .pagination-button:hover {
+    background: #ff6666;
+}
+.recipe-card {
+    display: none; /* Скрываем все карточки по умолчанию */
+}
+
+/* Показываем карточки только через JavaScript */
 /* Конец стилей для html и body */
 
 /* Начало стилей для section-description */
@@ -1062,7 +1227,7 @@ body.dark-theme .profile-theme-toggle .fa-adjust::before {
 
 .catalog-filter {
     width: 100%;
-    height: 700px;
+    height: 200px;
     border-radius: 15px;
     margin-top: 79px;
 }
@@ -1077,7 +1242,7 @@ body.dark-theme .profile-theme-toggle .fa-adjust::before {
 
 .card-border {
     width: 950px;
-    height: 220px;
+    height: 150px;
     background-color: white;
     margin: 30px auto;
     display: flex;
