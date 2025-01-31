@@ -98,14 +98,26 @@ body.dark-theme .section-description {
 /* Начало стилей для навигации */
 .nav {
     flex: 1;
-    margin-left: 110px;
+    margin: 0 auto;
     max-width: 1000px;
+    justify-content: center;
+    display: flex;
 }
-/* Базовые стили поиска */
-.search-line, .mobile-search-container {
+.search-line {
     position: relative;
     width: 100%;
-    max-width: 600px;
+    max-width: 300px;
+    margin-left: 0 auto;
+  }
+  @media (max-width: 768px) {
+    .search-line {
+      max-width: 200px;
+    }
+  }
+  .mobile-search-container {
+    position: relative;
+    width: 100%;
+    max-width: auto;
   }
   
   .search-suggestions {
@@ -809,10 +821,7 @@ body.dark-theme .profile-menu a:hover {
         font-size: 20px;
     }
 
-    .search {
-        width: 200px;
-        margin-right: 10px;
-    }
+
 
     .search input:focus {
         width: 200px;
