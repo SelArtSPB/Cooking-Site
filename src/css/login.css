@@ -103,6 +103,7 @@ body.dark-theme .section-description {
     justify-content: center;
     display: flex;
 }
+/* Базовые стили поиска */
 .search-line {
     position: relative;
     width: 100%;
@@ -171,7 +172,7 @@ body.dark-theme .section-description {
   .fa-search {
     pointer-events: none;
   }
-  /* Тёмная тема для выпадающего списка */
+/* Тёмная тема для выпадающего списка */
 body.dark-theme .search-suggestions {
     background: #2d2d2d;
     border-color: #444;

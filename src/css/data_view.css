@@ -104,6 +104,7 @@ body.dark-theme .section-description {
     display: flex;
 }
 /* Базовые стили поиска */
+/* Базовые стили поиска */
 .search-line {
     position: relative;
     width: 100%;
@@ -126,7 +127,7 @@ body.dark-theme .section-description {
     top: calc(100% + 5px);
     left: 0;
     right: 0;
-    border: 1px solid #e0e0e0;
+    background: #ffffff;
     border-radius: 0 0 8px 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     max-height: 300px;
@@ -172,7 +173,7 @@ body.dark-theme .section-description {
   .fa-search {
     pointer-events: none;
   }
-  /* Тёмная тема для выпадающего списка */
+/* Тёмная тема для выпадающего списка */
 body.dark-theme .search-suggestions {
     background: #2d2d2d;
     border-color: #444;
