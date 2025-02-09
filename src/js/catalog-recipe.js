@@ -38,10 +38,7 @@ document.addEventListener('click', function(e) {
     }
 });
 
-document.querySelector('.profile-theme-toggle').addEventListener('click', function(e) {
-    e.preventDefault();
-    document.body.classList.toggle('dark-theme');
-});
+
 
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {

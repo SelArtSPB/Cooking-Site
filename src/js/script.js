@@ -174,10 +174,6 @@ document.addEventListener('DOMContentLoaded', function() {
     elements.slider.addEventListener('mouseenter', () => clearInterval(autoSlide));
 });
 
-document.querySelector('.profile-theme-toggle').addEventListener('click', function(e) {
-    e.preventDefault();
-    document.body.classList.toggle('dark-theme');
-});
 
 // Добавляем обработчик для мобильного поиска
 document.querySelector('.mobile-search-toggle').addEventListener('click', function() {
@@ -314,3 +310,75 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+// transition-manager.js
+document.addEventListener('DOMContentLoaded', () => {
+    const transitionOverlay = document.createElement('div');
+    transitionOverlay.className = 'transition-overlay';
+    transitionOverlay.innerHTML = `
+        <div class="loader">
+            <div class="loader-text">Загрузка...</div>
+            <div class="progress-bar"></div>
+        </div>
+    `;
+    document.body.appendChild(transitionOverlay);
+
+    // Обработчик для всех внутренних ссылок
+    document.body.addEventListener('click', function(e) {
+        const link = e.target.closest('a[href$="catalog-recipe.html"], a[href$="index.html"]');
+        if (!link || link.href === window.location.href) return;
+        
+        e.preventDefault();
+        startTransition(link.href);
+    });
+
+    async function startTransition(targetUrl) {
+        // Запуск анимации перехода
+        transitionOverlay.classList.add('active');
+        
+        try {
+            // Загрузка новой страницы
+            const response = await fetch(targetUrl);
+            const html = await response.text();
+            
+            // Имитация 5-секундной задержки
+            await new Promise(resolve => {
+                const progress = transitionOverlay.querySelector('.progress-bar');
+                let width = 0;
+                const interval = setInterval(() => {
+                    width += 1;
+                    progress.style.width = `${width}%`;
+                    if (width >= 100) {
+                        clearInterval(interval);
+                        resolve();
+                    }
+                }, 50);
+            });
+
+            // Парсинг и замена контента
+            const parser = new DOMParser();
+            const newDoc = parser.parseFromString(html, 'text/html');
+            document.documentElement.innerHTML = newDoc.documentElement.innerHTML;
+            
+            // Инициализация скриптов новой страницы
+            window.history.pushState({}, '', targetUrl);
+            reinitializeScripts();
+            
+        } catch (error) {
+            console.error('Ошибка загрузки:', error);
+            transitionOverlay.classList.remove('active');
+        }
+    }
+
+    function reinitializeScripts() {
+        // Переинициализация основных компонентов
+        if (typeof initSlider === 'function') initSlider();
+        if (typeof initFilters === 'function') initFilters();
+        if (typeof initTheme === 'function') initTheme();
+        
+        // Скрытие overlay после завершения
+        transitionOverlay.classList.remove('active');
+    }
+
+    // Обработчик истории
+    window.addEventListener('popstate', () => window.location.reload());
+});
