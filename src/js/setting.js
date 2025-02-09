@@ -187,10 +187,7 @@ document.querySelector('.mobile-search-toggle').addEventListener('click', functi
     }
 });
 
-document.querySelector('.profile-theme-toggle').addEventListener('click', function(e) {
-    e.preventDefault();
-    document.body.classList.toggle('dark-theme');
-});
+
 
 // Закрываем поиск при нажатии Escape
 document.addEventListener('keydown', (e) => {

@@ -234,10 +234,7 @@ document.addEventListener('DOMContentLoaded', function() {
     elements.slider.addEventListener('mouseenter', () => clearInterval(autoSlide));
 });
 
-document.querySelector('.profile-theme-toggle').addEventListener('click', function(e) {
-    e.preventDefault();
-    document.body.classList.toggle('dark-theme');
-});
+
 
 // Добавляем обработчик для мобильного поиска
 document.querySelector('.mobile-search-toggle').addEventListener('click', function() {
