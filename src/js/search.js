@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
           country: "Италия",
           type: "Горячее",
           author: "@Admins",
-          recipe: "1. Подготовьте все ингредиенты...",
+          recipe: "1. Подготовьте все ингредиенты: нарежьте бекон, натрите сыр Пекорино Романо и разведите яйца. 2. Отварите пасту в большом количестве подсоленной воды до состояния al dente. 3. Пока паста варится, обжарьте бекон до золотистой корочки на среднем огне. 4. В миске смешайте яичные желтки, тертый сыр и немного воды из пасты до однородной консистенции. 5. Слейте пасту, оставив немного воды, и соедините ее с беконом на сковороде. 6. Снимите сковороду с огня и добавьте соус из яиц и сыра, постоянно перемешивая, чтобы избежать сворачивания яиц. 7. При необходимости добавьте немного воды из пасты для достижения кремовой текстуры. 8. Подавайте пасту Карбонара сразу, посыпав сверху свежемолотым черным перцем и дополнительно сыром.",
           image: "src/img/karbonara.jpg"
         },
         {
@@ -236,12 +236,15 @@ document.addEventListener('DOMContentLoaded', () => {
     input.addEventListener('focus', handleInput);
   });
 
-  // Закрытие при клике вне
   document.addEventListener('click', (e) => {
     if (!e.target.closest('.search-line, .mobile-search-container, .search-suggestions')) {
       if(activeSuggestions) {
         activeSuggestions.remove();
         activeSuggestions = null;
+        // Очищаем все поля поиска
+        searchInputs.forEach(input => {
+          input.value = '';
+        });
       }
     }
   });

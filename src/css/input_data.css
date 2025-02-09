@@ -134,6 +134,7 @@ body.dark-theme .section-description {
     overflow-y: auto;
     z-index: 1000;
     display: none;
+    scrollbar-width: none;
   }
   
   .suggestion-item {
