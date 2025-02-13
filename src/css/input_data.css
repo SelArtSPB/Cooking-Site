@@ -1393,7 +1393,6 @@ body.dark-theme .input-group input[list]:focus {
     position: relative;
     display: flex;
     gap: 30px;
-    align-items: flex-start;
     margin: 20px 0 20px 0 ;
 }
 
