@@ -42,8 +42,8 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
-// Пагинация с учетом фильтров
-let itemsPerPage = 6;
+// Фильтрация и пагинация
+const itemsPerPage = 6;
 let currentPage = 1;
 let allCards = Array.from(document.querySelectorAll('.recipe-card'));
 let filteredCards = allCards;
@@ -57,8 +57,7 @@ function filterRecipes() {
     const selectedTime = timeFilter.value;
     const selectedType = typeFilter.value;
     
-    filteredCards = [];
-    allCards.forEach(card => {
+    filteredCards = allCards.filter(card => {
         const cardCountry = card.dataset.country;
         let cardTime = parseInt(card.dataset.cookingTime) || 0;
         const cardType = card.dataset.type;
@@ -74,9 +73,7 @@ function filterRecipes() {
         }
         let typeMatch = !selectedType || cardType.includes(selectedType);
         
-        if (countryMatch && timeMatch && typeMatch) {
-            filteredCards.push(card);
-        }
+        return countryMatch && timeMatch && typeMatch;
     });
     
     currentPage = 1;
@@ -84,8 +81,8 @@ function filterRecipes() {
 }
 
 function updatePagination() {
-    const existingPagination = document.querySelector('.pagination');
-    if (existingPagination) existingPagination.remove();
+    // Удаляем все существующие элементы пагинации, чтобы избежать дублирования
+    document.querySelectorAll('.pagination').forEach(pagination => pagination.remove());
 
     const totalPages = Math.ceil(filteredCards.length / itemsPerPage);
     
@@ -95,13 +92,18 @@ function updatePagination() {
         
         for (let i = 1; i <= totalPages; i++) {
             const button = document.createElement('button');
-            button.className = `pagination-button ${i === 1 ? 'active' : ''}`;
+            // Если текущая страница равна i, добавляем класс active
+            button.className = `pagination-button ${i === currentPage ? 'active' : ''}`;
             button.textContent = i;
             button.addEventListener('click', () => changePage(i));
             pagination.appendChild(button);
         }
         
-        document.querySelector('.recipes-grid .container').appendChild(pagination);
+        // Добавляем пагинацию в контейнер рецептов, если он существует
+        const container = document.querySelector('.recipes-grid .container');
+        if (container) {
+            container.appendChild(pagination);
+        }
     }
     showPage(currentPage);
 }
@@ -114,10 +116,11 @@ function showPage(page) {
     
     document.querySelectorAll('.pagination-button').forEach(button => {
         button.classList.remove('active');
-        if (parseInt(button.textContent) === page) button.classList.add('active');
+        if (parseInt(button.textContent) === page) {
+            button.classList.add('active');
+        }
     });
 }
-
 function changePage(newPage) {
     currentPage = newPage;
     showPage(currentPage);
@@ -128,13 +131,8 @@ function changePage(newPage) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-    const countryFilter = document.getElementById("country");
-    const timeFilter = document.getElementById("time");
-    const typeFilter = document.getElementById("type");
-    
-    countryFilter.addEventListener("change", filterRecipes);
-    timeFilter.addEventListener("change", filterRecipes);
-    typeFilter.addEventListener("change", filterRecipes);
-    
     filterRecipes();
+    document.getElementById("country").addEventListener("change", filterRecipes);
+    document.getElementById("time").addEventListener("change", filterRecipes);
+    document.getElementById("type").addEventListener("change", filterRecipes);
 });

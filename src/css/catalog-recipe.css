@@ -106,7 +106,9 @@ body::-webkit-scrollbar {
         grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
         gap: 20px;
     }
-    
+    .container{
+        margin: 250px auto;
+    }
     .recipe-card {
         height: 500px;
     }
@@ -1223,14 +1225,65 @@ body.dark-theme .profile-theme-toggle .fa-adjust::before {
     color: #fff;
 }
 /* Конец обновления стилей для переключателя темы */
+select {
+    background-color: #222;
+    color: #fff;
+    border: 1px solid #444;
+    padding: 10px;
+    border-radius: 8px;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
 
+.select-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 400px;
+    background-color: #222;
+    border-radius: 8px;
+    padding: 5px;
+}
+
+.select-wrapper::after {
+    content: '\25BC';
+    font-size: 16px;
+    color: #fff;
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+select::-ms-expand {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .select-wrapper {
+        max-width: 100%;
+    }
+    select {
+        font-size: 14px;
+        padding: 8px;
+    }
+}
 /* фильтр каталога */
 
 .catalog-filter {
     width: 100%;
-    height: 200px;
+    height: 150px;
     border-radius: 15px;
-    margin-top: 79px;
+    margin-top: 80px;
+    margin-bottom: 65px;
 }
 
 .catalog-filter h1 {
@@ -1413,6 +1466,7 @@ body.dark-theme .profile-theme-toggle .fa-adjust::before {
 @media (max-width: 576px) {
     .catalog-filter h1 {
         font-size: 28px;
+        height: 350px;
     }
 
     .card-border {
