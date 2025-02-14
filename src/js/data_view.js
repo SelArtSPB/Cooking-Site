@@ -11,6 +11,25 @@ document.querySelectorAll('.nav a').forEach(link => {
         document.body.style.overflow = '';
     });
 });
+document.addEventListener("DOMContentLoaded", () => {
+    let profileData = JSON.parse(localStorage.getItem("profileData"));
+
+    if (profileData && profileData.image) {
+        const profileIcon = document.querySelector(".profile-toggle i");
+        const profileImg = document.createElement("img");
+
+        profileImg.src = profileData.image;
+        profileImg.alt = "Profile";
+        profileImg.style.width = "42px";
+        profileImg.style.height = "42px";
+        profileImg.style.borderRadius = "50%";
+        profileImg.style.objectFit = "cover";
+        profileImg.style.marginLeft = "15px";
+
+        profileIcon.replaceWith(profileImg);
+    }
+});
+
 
 document.addEventListener('click', (e) => {
     const nav = document.querySelector('.nav');
