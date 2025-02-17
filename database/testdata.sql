@@ -1,21 +1,19 @@
-SET search_path = 'cooking_site';
-
-INSERT INTO usersProfile (userTag, password, email, description) 
+INSERT INTO "usersProfile" ("userTag", "userName", "password", "email", "description") 
 VALUES
-  ('@FastFood', 'fast123', 'fastfood@example.com', 'Делимся быстрыми и вкусными рецептами для будних дней!'),
-  ('@HomeChef', 'home456', 'homechef@mail.com', 'Готовлю с любовью! Рецепты домашней кухни для всей семьи.'),
-  ('@VeggieLover', 'green789', 'veggie@domain.org', 'Здоровое питание и вегетарианские блюда. Присоединяйтесь!'),
-  ('@BakingQueen', 'sweetie00', 'bakingqueen@bakery.com', 'Люблю создавать сладкие шедевры. Делюсь рецептами тортов, пирогов и печенья.'),
-  ('@SpiceMaster', 'spicy1234', 'spice.master@hotmail.com', 'Экзотические специи и острые рецепты со всего мира!'),
-  ('@Admin', 'adminRoot', 'admin@cook.com', 'Администратор кулинарной платформы. Контроль качества рецептов.'),
-  ('@GrillMaster', 'grill2023', 'grill.meat@bbq.com', 'Король гриля и мангала! Рецепты для настоящих мужчин.'),
-  ('@SushiPro', 'fishSushi88', 'sushi.lover@japan.jp', 'Искусство суши и японской кухни. 10 лет опыта!'),
-  ('@CoffeeTime', 'coffeeBarista', 'coffee.tips@mail.com', 'Все о кофе: от эспрессо до авторских коктейлей.'),
-  ('@GrandmaCook', 'borshch1945', 'grandma.recipes@old.com', 'Советские рецепты и семейные секреты.');
+  ('@FastFood', 'Абрамов Илья', 'fast123', 'fastfood@example.com', 'Делимся быстрыми и вкусными рецептами для будних дней!'),
+  ('@HomeChef', 'Ivan Ivanovich', 'home456', 'homechef@mail.com', 'Готовлю с любовью! Рецепты домашней кухни для всей семьи.'),
+  ('@VeggieLover','Greg Irfan', 'green789', 'veggie@domain.org', 'Здоровое питание и вегетарианские блюда. Присоединяйтесь!'),
+  ('@BakingQueen','Sweete Slaw', 'sweetie00', 'bakingqueen@bakery.com', 'Люблю создавать сладкие шедевры. Делюсь рецептами тортов, пирогов и печенья.'),
+  ('@SpiceMaster','SerGay', 'spicy1234', 'spice.master@hotmail.com', 'Экзотические специи и острые рецепты со всего мира!'),
+  ('@Admin','Boonk KEEER', 'adminRoot', 'admin@cook.com', 'Администратор кулинарной платформы. Контроль качества рецептов.'),
+  ('@GrillMaster', 'keer poor', 'grill2023', 'grill.meat@bbq.com', 'Король гриля и мангала! Рецепты для настоящих мужчин.'),
+  ('@SushiPro','Volik Nimor', 'fishSushi88', 'sushi.lover@japan.jp', 'Искусство суши и японской кухни. 10 лет опыта!'),
+  ('@CoffeeTime','CVBNMLHGUIHHIOJOB', 'coffeeBarista', 'coffee.tips@mail.com', 'Все о кофе: от эспрессо до авторских коктейлей.'),
+  ('@GrandmaCook','VKL Epkr', 'borshch1945', 'grandma.recipes@old.com', 'Советские рецепты и семейные секреты.');
 
-INSERT INTO cardRecipe (
-  titleRecipe, descriptionLittle, cookingTime, 
-  countryRecipe, typeRecipe, authorTag, recipeText, imageRecipe
+INSERT INTO "cardRecipe" (
+  "titleRecipe", "descriptionLittle", "cookingTime", 
+  "countryRecipe", "typeRecipe", "authorTag", "recipeText", "imageRecipe"
 ) VALUES
 -- Рецепты от @Admin (2 шт)
 ('Служебный суп', 'Тестовый рецепт для проверки системы', '15 мин', 'Россия', 'Суп', '@Admin', 
@@ -88,7 +86,7 @@ INSERT INTO cardRecipe (
 ('Карри с тофу', 'Острое блюдо с кокосовым молоком', '45 мин', 'Таиланд', 'Основное блюдо', '@SpiceMaster', 
 '1. Обжарить тофу\n2. Добавить карри и кокосовое молоко\n3. Подавать с рисом', 'src/img/tofu_curry.jpg');
 
-INSERT INTO userRecipe (idUser, cardID)
+INSERT INTO "userRecipe" ("idUser", "cardID")
 VALUES
 (6, 1),  -- @Admin и рецепт 1
 (6, 2),  -- @Admin и рецепт 2
