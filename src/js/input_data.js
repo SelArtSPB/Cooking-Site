@@ -206,7 +206,37 @@ document.querySelector('.mobile-search-toggle').addEventListener('click', functi
     }
 });
 
-
+document.addEventListener('DOMContentLoaded', () => {
+    const fileInput = document.getElementById('recipe-image');
+    
+    fileInput.addEventListener('change', function() {
+      const file = this.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const imagePreview = document.querySelector('.image-preview');
+          
+          // Очищаем, если там что-то было
+          imagePreview.innerHTML = '';
+  
+          // Создаем <img> и назначаем ему src
+          const img = document.createElement('img');
+          img.src = e.target.result;
+          img.style.width = '100%';
+          img.style.height = '100%';
+          img.style.objectFit = 'cover';
+          
+          imagePreview.appendChild(img);
+          imagePreview.style.display = 'block';
+          
+          // Скрываем надпись "Нажмите, чтобы добавить фото"
+          document.querySelector('.image-upload-label').style.display = 'none';
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+  });
+  
 
 // Закрываем поиск при нажатии Escape
 document.addEventListener('keydown', (e) => {
@@ -312,75 +342,3 @@ function updateStepNumbers() {
 }
 
 
-document.getElementById('save-recipe').addEventListener('click', function() {
-    // Сбор данных из полей
-    const recipeTitle = document.querySelector('.input-name-recipe').value;
-    const preparationTime = document.querySelector('.input-time-recipe').value;
-    const recipeDescription = document.querySelector('.input-description-recipe').value;
-    const country = document.querySelector('.input-country-recipe').value;
-    const dishType = document.querySelector('.input-type-recipe').value;
-
-    // Собираем этапы
-    const steps = [];
-    const stepElements = document.querySelectorAll('.cooking-step');
-    
-    stepElements.forEach((step, index) => {
-        const stepDescription = step.querySelector('textarea').value;
-        const imgInput = step.querySelector('input[type="file"]');
-        const imgPreview = step.querySelector('img');
-
-        // Чтение изображений
-        const stepImage = imgPreview.src || null; // если изображение существует, добавляем в шаг
-
-        steps.push({
-            stepNumber: index + 1,
-            description: stepDescription,
-            image: stepImage
-        });
-    });
-
-    // Создание объекта рецепта
-    const recipeData = {
-        title: recipeTitle,
-        preparationTime: preparationTime,
-        description: recipeDescription,
-        country: country,
-        dishType: dishType,
-        steps: steps
-    };
-
-    // Сохранение данных в файл (текстовый)
-    const blobData = new Blob([JSON.stringify(recipeData, null, 2)], { type: 'application/json' });
-    const textFileLink = document.createElement('a');
-    textFileLink.href = URL.createObjectURL(blobData);
-    textFileLink.download = 'recipe.json'; // Имя файла
-    textFileLink.click();
-
-    // Скачивание изображений
-    steps.forEach((step, index) => {
-        if (step.image) {
-            // Создаем файл изображения по номеру этапа
-            const imageBlob = dataURLtoBlob(step.image);
-            const imageLink = document.createElement('a');
-            imageLink.href = URL.createObjectURL(imageBlob);
-            imageLink.download = `step_${index + 1}.jpg`; // Имя файла изображения
-            imageLink.click();
-        }
-    });
-
-    alert('Рецепт сохранен локально!');
-});
-
-// Функция для конвертации DataURL в Blob (используется для картинок)
-function dataURLtoBlob(dataURL) {
-    const byteString = atob(dataURL.split(',')[1]);
-    const mimeString = dataURL.split(',')[0].split(':')[1].split(';')[0];
-    const arrayBuffer = new ArrayBuffer(byteString.length);
-    const uintArray = new Uint8Array(arrayBuffer);
-
-    for (let i = 0; i < byteString.length; i++) {
-        uintArray[i] = byteString.charCodeAt(i);
-    }
-
-    return new Blob([arrayBuffer], { type: mimeString });
-}
