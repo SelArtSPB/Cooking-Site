@@ -5,7 +5,7 @@ CREATE TABLE "usersProfile"(
     "idUser" int primary key default(nextval('sq_idUser')),
     "userName" varchar(75),
     "userTag" varchar(50) UNIQUE , -- всегла начинается с @
-    "password" varchar(25), --шифровать при получении код ниже
+    "password" varchar(255), --шифровать при получении код ниже
     "email" varchar(50), --почта моджет изменятся 
     "description" varchar(5000) --опсиание добавляет пользователь
 );

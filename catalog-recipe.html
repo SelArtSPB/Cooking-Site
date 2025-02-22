@@ -74,18 +74,22 @@
                         <option value="Вьетнамская кухня">Вьетнамская кухня</option>
                         <option value="Грузинская кухня">Грузинская кухня</option>
                     </select>
-                </div>
-                <div class="filter-item">
-                    <label for="time">Время готовки</label>
-                    <select id="time" class="filter-input">
-                        <option value="">Любое время</option>
-                        <option value="15 минут">До 15 минут</option>
-                        <option value="30 минут">До 30 минут</option>
-                        <option value="40 минут">До 40 минут</option>
-                        <option value="1 час">До 1 часа</option>
-                        <option value="Более 1 часа">Более 1 часа</option>
-                    </select>
-                </div>
+                 </div>
+            <!-- В разделе catalog-filter замените filter-item с временем на: -->
+            <div class="filter-item">
+                <label for="author">Автор</label>
+                <select id="author" class="filter-input">
+                    <option value="">Все авторы</option>
+                    <option value="@Admins">@Admins</option>
+                    <option value="@RamenMaster">@RamenMaster</option>
+                    <option value="@SpanishChef">@SpanishChef</option>
+                    <option value="@FrenchCuisine">@FrenchCuisine</option>
+                    <option value="@BreadLover">@BreadLover</option>
+                    <option value="@DessertMaster">@DessertMaster</option>
+                    <option value="@AsiaFood">@AsiaFood</option>
+                    <option value="@BarmanPro">@BarmanPro</option>
+                </select>
+            </div>
                 <div class="filter-item">
                     <label for="type">Тип блюда</label>
                     <select id="type" class="filter-input">

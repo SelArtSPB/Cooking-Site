@@ -66,30 +66,26 @@ document.querySelector('.footer-section ul').addEventListener('click', function(
     }
 });
 
-// Фильтрация по URL (для страницы catalog-recipe.html)
 const urlParams = new URLSearchParams(window.location.search);
 const filters = {
     country: urlParams.get('country') || '',
-    date: urlParams.get('date') || '',
-    time: urlParams.get('time') || '',
+    author: urlParams.get('author') || '', // Заменяем time
     type: urlParams.get('type') || ''
 };
 
 const countryFilter = document.getElementById('country');
-const dateFilter = document.getElementById('date');
-const timeFilter = document.getElementById('time');
+const authorFilter = document.getElementById('author'); // Заменяем timeFilter
 const typeFilter = document.getElementById('type');
 
 // Установка значений фильтров из URL
 if (countryFilter) countryFilter.value = filters.country;
-if (timeFilter) timeFilter.value = filters.time;
+if (authorFilter) authorFilter.value = filters.author;
 if (typeFilter) typeFilter.value = filters.type;
 
 function applyFilters() {
     const updatedFilters = {
         country: countryFilter ? countryFilter.value : '',
-        date: dateFilter ? dateFilter.value : '',
-        time: timeFilter ? timeFilter.value : '',
+        author: authorFilter ? authorFilter.value : '', // Заменяем time
         type: typeFilter ? typeFilter.value : ''
     };
 
@@ -133,35 +129,24 @@ let currentPage = 1;
  */
 function getFilteredCards() {
     const countryInput = document.getElementById("country");
-    const timeInput = document.getElementById("time");
+    const authorInput = document.getElementById("author"); // Заменяем time на author
     const typeInput = document.getElementById("type");
     const selectedCountry = countryInput ? countryInput.value : "";
-    const selectedTime = timeInput ? timeInput.value : "";
+    const selectedAuthor = authorInput ? authorInput.value : ""; // Заменяем selectedTime
     const selectedType = typeInput ? typeInput.value : "";
     
     const recipeCards = Array.from(document.querySelectorAll(".recipe-card"));
     
     return recipeCards.filter(card => {
-         const cardCountry = card.dataset.country;
-         const cardTime = parseInt(card.dataset.cookingTime);
-         const cardType = card.dataset.type;
-         let countryMatch = !selectedCountry || cardCountry.includes(selectedCountry.replace("-", " "));
-         let timeMatch = true;
-         if (selectedTime) {
-             if (selectedTime === "До 15 минут") {
-                 timeMatch = cardTime <= 15;
-             } else if (selectedTime === "До 30 минут") {
-                 timeMatch = cardTime <= 30;
-             } else if (selectedTime === "До 40 минут") {
-                 timeMatch = cardTime <= 40;
-             } else if (selectedTime === "До 1 часа") {
-                 timeMatch = cardTime <= 60;
-             } else if (selectedTime === "Более 1 часа") {
-                 timeMatch = cardTime > 60;
-             }
-         }
-         let typeMatch = !selectedType || cardType.includes(selectedType);
-         return countryMatch && timeMatch && typeMatch;
+        const cardCountry = card.dataset.country;
+        const cardAuthor = card.dataset.author; // Заменяем cardTime
+        const cardType = card.dataset.type;
+        
+        let countryMatch = !selectedCountry || cardCountry.includes(selectedCountry.replace("-", " "));
+        let authorMatch = !selectedAuthor || cardAuthor === selectedAuthor; // Простое сравнение строк
+        let typeMatch = !selectedType || cardType.includes(selectedType);
+        
+        return countryMatch && authorMatch && typeMatch;
     });
 }
 
@@ -257,14 +242,14 @@ document.querySelectorAll('.recipe-card').forEach(card => {
 // навешиваем обработчики изменения фильтров и инициализируем пагинацию
 document.addEventListener("DOMContentLoaded", function () {
     if (document.querySelectorAll('.recipe-card').length > 0) {
-         const countryInput = document.getElementById("country");
-         const timeInput = document.getElementById("time");
-         const typeInput = document.getElementById("type");
+        const countryInput = document.getElementById("country");
+        const authorInput = document.getElementById("author"); // Заменяем timeInput
+        const typeInput = document.getElementById("type");
 
-         if(countryInput) countryInput.addEventListener("change", () => { currentPage = 1; updatePagination(); });
-         if(timeInput) timeInput.addEventListener("change", () => { currentPage = 1; updatePagination(); });
-         if(typeInput) typeInput.addEventListener("change", () => { currentPage = 1; updatePagination(); });
+        if(countryInput) countryInput.addEventListener("change", () => { currentPage = 1; updatePagination(); });
+        if(authorInput) authorInput.addEventListener("change", () => { currentPage = 1; updatePagination(); }); // Заменяем timeInput
+        if(typeInput) typeInput.addEventListener("change", () => { currentPage = 1; updatePagination(); });
 
-         updatePagination();
+        updatePagination();
     }
 });

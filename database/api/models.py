@@ -10,7 +10,7 @@ class UserProfile(Base):
     id_user = Column("idUser", Integer, Sequence("sq_idUser"), primary_key=True)
     user_name = Column("userName", String(75))
     user_tag = Column("userTag", String(50), unique=True)
-    password = Column("password", String(25))
+    password = Column("password", String(255))
     email = Column("email", String(50))
     description = Column("description", String(5000))
     
