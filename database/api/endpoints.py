@@ -1,5 +1,7 @@
-from flask import Blueprint, jsonify
+from werkzeug.security import generate_password_hash
+from flask import Blueprint, jsonify, request
 from .models import SessionLocal, UserProfile, CardRecipe
+from flask_cors import cross_origin
 
 api = Blueprint("api", __name__)
 
@@ -99,3 +101,34 @@ def get_recipes():
         }
         for recipe in data_store["recipes"]
     ])
+
+
+@api.route("/register", methods=["POST"])
+@cross_origin()
+def register_user():
+    try:
+        data = request.json
+        if not data:
+            return jsonify({"error": "Нет данных в запросе"}), 400
+
+        print("Полученные данные:", data)  # Отладка
+
+        session = SessionLocal()
+        existing_user = session.query(UserProfile).filter_by(user_tag=data["user_tag"]).first()
+        if existing_user:
+            return jsonify({"error": "Пользователь уже существует"}), 400
+
+        new_user = UserProfile(
+            user_name=data["user_name"],
+            user_tag=data["user_tag"],
+            password=generate_password_hash(data["password"]),
+            email=data["email"],
+            description=data.get("description", "")
+        )
+
+        session.add(new_user)
+        session.commit()
+        return jsonify({"message": "Регистрация успешна"}), 201
+    except Exception as e:
+        print("Ошибка:", e)  # Выведет ошибку в консоль Flask
+        return jsonify({"error": f"Ошибка на сервере: {e}"}), 500

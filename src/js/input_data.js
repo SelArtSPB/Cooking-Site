@@ -208,34 +208,44 @@ document.querySelector('.mobile-search-toggle').addEventListener('click', functi
 
 document.addEventListener('DOMContentLoaded', () => {
     const fileInput = document.getElementById('recipe-image');
-    
+    const imagePreview = document.querySelector('.image-preview');
+    const uploadLabel = document.querySelector('.image-upload-label');
+
     fileInput.addEventListener('change', function() {
-      const file = this.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          const imagePreview = document.querySelector('.image-preview');
-          
-          // Очищаем, если там что-то было
-          imagePreview.innerHTML = '';
-  
-          // Создаем <img> и назначаем ему src
-          const img = document.createElement('img');
-          img.src = e.target.result;
-          img.style.width = '100%';
-          img.style.height = '100%';
-          img.style.objectFit = 'cover';
-          
-          imagePreview.appendChild(img);
-          imagePreview.style.display = 'block';
-          
-          // Скрываем надпись "Нажмите, чтобы добавить фото"
-          document.querySelector('.image-upload-label').style.display = 'none';
-        };
-        reader.readAsDataURL(file);
-      }
+        const file = this.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                imagePreview.innerHTML = '';
+
+                // Создаем изображение
+                const img = document.createElement('img');
+                img.src = e.target.result;
+
+                // Создаем кнопку удаления
+                const deleteBtn = document.createElement('button');
+                deleteBtn.classList.add('delete-image-btn');
+                deleteBtn.innerHTML = '&times;';
+
+                deleteBtn.addEventListener('click', () => {
+                    imagePreview.innerHTML = '';
+                    uploadLabel.style.display = 'flex';
+                    fileInput.value = ''; // Очистка инпута
+                });
+
+                // Добавляем в превью
+                imagePreview.appendChild(img);
+                imagePreview.appendChild(deleteBtn);
+
+                // Показываем превью, скрываем кнопку загрузки
+                uploadLabel.style.display = 'none';
+                deleteBtn.style.display = 'flex';
+            };
+            reader.readAsDataURL(file);
+        }
     });
-  });
+});
+
   
 
 // Закрываем поиск при нажатии Escape

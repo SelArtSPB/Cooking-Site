@@ -3,9 +3,13 @@ from .models import Base, engine
 from .endpoints import api, load_data, save_data
 import threading
 import time
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app, resources={r"/*": {"origins": "*"}})  # Разрешает запросы со всех источников
 app.register_blueprint(api)
+app.config["DEBUG"] = True  # Включаем режим отладки
+
 
 def init_app():
     #Инициализация приложения и базы данных

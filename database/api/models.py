@@ -40,6 +40,6 @@ class UserRecipe(Base):
     card_id = Column("cardID", Integer, ForeignKey("cardRecipe.cardID"), primary_key=True)
 
 # Конфигурация базы данных
-DATABASE_URL = "postgresql://postgres:123456789@localhost/Cooking-Site"
+DATABASE_URL = "postgresql://postgres:123456789@localhost/postgres"
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(bind=engine)
