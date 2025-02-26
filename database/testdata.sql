@@ -1,111 +1,34 @@
-INSERT INTO "usersProfile" ("userTag", "userName", "password", "email", "description") 
-VALUES
-  ('@FastFood', 'Абрамов Илья', 'fast123', 'fastfood@example.com', 'Делимся быстрыми и вкусными рецептами для будних дней!'),
-  ('@HomeChef', 'Ivan Ivanovich', 'home456', 'homechef@mail.com', 'Готовлю с любовью! Рецепты домашней кухни для всей семьи.'),
-  ('@VeggieLover','Greg Irfan', 'green789', 'veggie@domain.org', 'Здоровое питание и вегетарианские блюда. Присоединяйтесь!'),
-  ('@BakingQueen','Sweete Slaw', 'sweetie00', 'bakingqueen@bakery.com', 'Люблю создавать сладкие шедевры. Делюсь рецептами тортов, пирогов и печенья.'),
-  ('@SpiceMaster','SerGay', 'spicy1234', 'spice.master@hotmail.com', 'Экзотические специи и острые рецепты со всего мира!'),
-  ('@Admin','Boonk KEEER', 'adminRoot', 'admin@cook.com', 'Администратор кулинарной платформы. Контроль качества рецептов.'),
-  ('@GrillMaster', 'keer poor', 'grill2023', 'grill.meat@bbq.com', 'Король гриля и мангала! Рецепты для настоящих мужчин.'),
-  ('@SushiPro','Volik Nimor', 'fishSushi88', 'sushi.lover@japan.jp', 'Искусство суши и японской кухни. 10 лет опыта!'),
-  ('@CoffeeTime','CVBNMLHGUIHHIOJOB', 'coffeeBarista', 'coffee.tips@mail.com', 'Все о кофе: от эспрессо до авторских коктейлей.'),
-  ('@GrandmaCook','VKL Epkr', 'borshch1945', 'grandma.recipes@old.com', 'Советские рецепты и семейные секреты.');
+-- Примерные данные
+INSERT INTO "userInfo" ("userEmail", "userLogin", "userPassword") 
+VALUES 
+('test1@example.com', 'chefAlex', 'password123'),
+('test2@example.com', 'foodieAnna', 'securepass'),
+('test3@example.com', 'recipeMaster', 'mystrongpassword');
 
-INSERT INTO "cardRecipe" (
-  "titleRecipe", "descriptionLittle", "cookingTime", 
-  "countryRecipe", "typeRecipe", "authorTag", "recipeText", "imageRecipe"
-) VALUES
--- Рецепты от @Admin (2 шт)
-('Служебный суп', 'Тестовый рецепт для проверки системы', '15 мин', 'Россия', 'Суп', '@Admin', 
-'1. Вскипятить воду\n2. Добавить макароны\n3. Посолить', 'src/img/system_soup.jpg'),
+INSERT INTO "userProfile" ("userLoginID", "userImage", "userFullName", "userDescription", "userRecipes") 
+VALUES 
+('chefAlex', 'images/alex.jpg', 'Алексей Иванов', 'Люблю готовить итальянскую кухню', 2),
+('foodieAnna', 'images/anna.jpg', 'Анна Петрова', 'Экспериментирую с десертами', 3),
+('recipeMaster', 'images/master.jpg', 'Иван Сидоров', 'Профессиональный повар', 5);
 
-('Админская закуска', 'Секретное блюдо для совещаний', '5 мин', 'США', 'Закуска', '@Admin', 
-'1. Открыть чипсы\n2. Разложить по тарелкам', 'src/img/admin_snack.jpg'),
+INSERT INTO "siteRecipes" ("imageRecipe", "titleRecipe", "discriptionRecipe", "contryRecipe", "typeRecipe", "autorRecipe") 
+VALUES 
+('images/carbonara.jpg', 'Паста Карбонара', 'Классический итальянский рецепт', 'Италия', 'Основное блюдо', 'chefAlex'),
+('images/borsh.jpg', 'Борщ', 'Традиционный русский борщ с говядиной', 'Россия', 'Суп', 'foodieAnna'),
+('images/sushi.jpg', 'Суши', 'Японские суши с лососем и авокадо', 'Япония', 'Закуска', 'recipeMaster');
 
--- Рецепты от @GrillMaster (4 шт)
-('Стейк Рибай', 'Идеальный стейк средней прожарки', '25 мин', 'Аргентина', 'Основное блюдо', '@GrillMaster', 
-'1. Разогреть гриль до 250°C\n2. Обжарить стейк по 4 мин с каждой стороны\n3. Дать отдохнуть 5 мин', 'src/img/ribeye.jpg'),
-
-('Шашлык из свинины', 'Марокканский маринад', '4 ч + 40 мин', 'Марокко', 'Гриль', '@GrillMaster', 
-'1. Смешать специи: паприка, кумин, кориандр\n2. Замариновать мясо на 3 ч\n3. Жарить на углях', 'src/img/kebab.jpg'),
-
-('Бургер с говядиной', 'Сочный бургер с сыром чеддер', '30 мин', 'США', 'Фастфуд', '@GrillMaster', 
-'1. Обжарить котлету на гриле\n2. Собрать бутерброд: булка, котлета, сыр, овощи\n3. Подавать с соусом', 'src/img/burger.jpg'),
-
-('Курица-гриль', 'С лимоном и розмарином', '1 ч', 'Италия', 'Гриль', '@GrillMaster', 
-'1. Натереть курицу специями\n2. Запекать на гриле 45 мин\n3. Подавать с лимоном', 'src/img/grill_chicken.jpg'),
-
--- Рецепты от @SushiPro (3 шт)
-('Ролл Филадельфия', 'Классика с лососем и сливочным сыром', '30 мин', 'Япония', 'Суши', '@SushiPro', 
-'1. Распределить рис на нори\n2. Добавить лосось и сыр\n3. Завернуть бамбуковым ковриком', 'src/img/philadelphia.jpg'),
-
-('Темпура с креветками', 'Хрустящие креветки в кляре', '20 мин', 'Япония', 'Закуска', '@SushiPro', 
-'1. Приготовить кляр из муки и воды\n2. Обжарить креветки во фритюре\n3. Подавать с соусом', 'src/img/tempura.jpg'),
-
-('Мисо-суп', 'Традиционный японский суп', '25 мин', 'Япония', 'Суп', '@SushiPro', 
-'1. Вскипятить бульон\n2. Добавить пасту мисо и тофу\n3. Украсить водорослями', 'src/img/miso_soup.jpg'),
-
--- Рецепты от @CoffeeTime (3 шт)
-('Раф-кофе с лавандой', 'Нежный кофейный коктейль', '10 мин', 'Италия', 'Напиток', '@CoffeeTime', 
-'1. Взбить сливки с сиропом\n2. Добавить эспрессо\n3. Украсить цветами лаванды', 'src/img/lavender_raf.jpg'),
-
-('Капучино с корицей', 'Классика с ароматом специй', '7 мин', 'Италия', 'Напиток', '@CoffeeTime', 
-'1. Приготовить эспрессо\n2. Взбить молоко\n3. Посыпать корицей', 'src/img/cappuccino.jpg'),
-
-('Айс-латте', 'Холодный кофе с молоком', '5 мин', 'США', 'Напиток', '@CoffeeTime', 
-'1. Смешать эспрессо со льдом\n2. Добавить молоко\n3. Подавать с трубочкой', 'src/img/ice_latte.jpg'),
-
--- Рецепты от @GrandmaCook (4 шт)
-('Советский оливье', 'Традиционный салат на Новый год', '60 мин', 'СССР', 'Салат', '@GrandmaCook', 
-'1. Отварить овощи\n2. Нарезать кубиками\n3. Заправить майонезом', 'src/img/olivye.jpg'),
-
-('Борщ', 'Классический украинский борщ', '2 ч', 'Украина', 'Суп', '@GrandmaCook', 
-'1. Варить бульон\n2. Добавить свеклу и капусту\n3. Подавать со сметаной', 'src/img/borshch.jpg'),
-
-('Сырники', 'Творожные сырники с изюмом', '30 мин', 'Россия', 'Завтрак', '@GrandmaCook', 
-'1. Смешать творог, яйца и муку\n2. Обжарить на сковороде\n3. Подавать с вареньем', 'src/img/syrniki.jpg'),
-
-('Пирог с яблоками', 'Домашний пирог с корицей', '1 ч', 'Россия', 'Выпечка', '@GrandmaCook', 
-'1. Приготовить тесто\n2. Выложить яблоки\n3. Запекать 40 мин', 'src/img/apple_pie.jpg'),
-
--- Рецепты от @VeggieLover (2 шт)
-('Тыквенный суп-пюре', 'Нежный веганский суп', '40 мин', 'Франция', 'Суп', '@VeggieLover', 
-'1. Обжарить тыкву\n2. Взбить в блендере\n3. Подавать с семечками', 'src/img/pumpkin_soup.jpg'),
-
-('Салат с киноа', 'Легкий и полезный салат', '20 мин', 'Перу', 'Салат', '@VeggieLover', 
-'1. Отварить киноа\n2. Смешать с овощами\n3. Заправить оливковым маслом', 'src/img/quinoa_salad.jpg'),
-
--- Рецепты от @BakingQueen (2 шт)
-('Тирамису', 'Классический итальянский десерт', '1 ч 30 мин', 'Италия', 'Десерт', '@BakingQueen', 
-'1. Приготовить крем из маскарпоне\n2. Собрать слои с кофе\n3. Охладить', 'src/img/tiramisu.jpg'),
-
-('Шоколадный торт', 'Нежный торт с глазурью', '2 ч', 'Франция', 'Десерт', '@BakingQueen', 
-'1. Приготовить бисквит\n2. Смазать кремом\n3. Украсить глазурью', 'src/img/chocolate_cake.jpg'),
-
--- Рецепты от @SpiceMaster (1 шт)
-('Карри с тофу', 'Острое блюдо с кокосовым молоком', '45 мин', 'Таиланд', 'Основное блюдо', '@SpiceMaster', 
-'1. Обжарить тофу\n2. Добавить карри и кокосовое молоко\n3. Подавать с рисом', 'src/img/tofu_curry.jpg');
-
-INSERT INTO "userRecipe" ("idUser", "cardID")
-VALUES
-(6, 1),  -- @Admin и рецепт 1
-(6, 2),  -- @Admin и рецепт 2
-(7, 3),  -- @GrillMaster и рецепт 3
-(7, 4),  -- @GrillMaster и рецепт 4
-(7, 5),  -- @GrillMaster и рецепт 5
-(7, 6),  -- @GrillMaster и рецепт 6
-(8, 7),  -- @SushiPro и рецепт 7
-(8, 8),  -- @SushiPro и рецепт 8
-(8, 9),  -- @SushiPro и рецепт 9
-(9, 10), -- @CoffeeTime и рецепт 10
-(9, 11), -- @CoffeeTime и рецепт 11
-(9, 12), -- @CoffeeTime и рецепт 12
-(10, 13), -- @GrandmaCook и рецепт 13
-(10, 14), -- @GrandmaCook и рецепт 14
-(10, 15), -- @GrandmaCook и рецепт 15
-(10, 16), -- @GrandmaCook и рецепт 16
-(3, 17),  -- @VeggieLover и рецепт 17
-(3, 18),  -- @VeggieLover и рецепт 18
-(4, 19),  -- @BakingQueen и рецепт 19
-(4, 20),  -- @BakingQueen и рецепт 20
-(5, 21);  -- @SpiceMaster и рецепт 21
+-- Получаем id рецепта "Паста Карбонара"
+WITH inserted AS (
+    INSERT INTO "siteRecipes" ("imageRecipe", "titleRecipe", "discriptionRecipe", "contryRecipe", "typeRecipe", "autorRecipe") 
+    VALUES ('images/carbonara.jpg', 'Паста Карбонара', 'Классический итальянский рецепт', 'Италия', 'Основное блюдо', 'chefAlex')
+    RETURNING "idRecipe"
+)
+-- Добавляем этапы для "Паста Карбонара"
+INSERT INTO "stageRecipes" ("idRecipe", "stage", "stageImage", "stageDiscription") 
+SELECT "idRecipe", stage_num, stage_img, stage_desc FROM (
+    VALUES 
+    (1, 'images/step1.jpg', 'Нарезать бекон небольшими кубиками.'),
+    (2, 'images/step2.jpg', 'Обжарить бекон на среднем огне 5 минут.'),
+    (3, 'images/step3.jpg', 'Добавить яйца и пармезан, перемешать.'),
+    (4, 'images/step4.jpg', 'Смешать с макаронами и прогреть 2 минуты.')
+) AS steps(stage_num, stage_img, stage_desc), inserted;
