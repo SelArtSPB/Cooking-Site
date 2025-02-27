@@ -1,3 +1,3 @@
-apivenv/
+*venv/
 
 __pycache__/

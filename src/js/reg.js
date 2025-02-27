@@ -68,10 +68,10 @@ document.addEventListener("DOMContentLoaded", function () {
     document.querySelector(".login-btn").addEventListener("click", async function (event) {
         event.preventDefault();
 
-        let email = document.querySelector("input[name='login']").value;
-        let user_tag = document.querySelectorAll("input[name='login']")[1].value;
+        let email = document.querySelector("input[name='email']").value;
+        let login = document.querySelector("input[name='login']").value;
         let password = document.querySelector("input[name='password']").value;
-        let password_repeat = document.querySelectorAll("input[name='password']")[1].value;
+        let password_repeat = document.querySelector("input[name='password_repeat']").value;
 
         if (password !== password_repeat) {
             alert("Пароли не совпадают!");
@@ -80,8 +80,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         let userData = {
             email: email,
-            user_tag: user_tag,
-            user_name: user_tag, 
+            user_tag: login,
             password: password
         };
 

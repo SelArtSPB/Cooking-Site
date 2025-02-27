@@ -64,3 +64,28 @@ def get_recipe_stages(recipe_id):
     return jsonify([
         {"stage": s.stage, "description": s.stageDiscription, "image": s.stageImage} for s in stages
     ])
+
+@api.route("/register", methods=["POST"])
+def register():
+    data = request.json
+    email = data.get("email")
+    login = data.get("user_tag")
+    password = data.get("password")
+    
+    if not email or not login or not password:
+        return jsonify({"error": "Заполните все поля!"}), 400
+    
+    hashed_password = generate_password_hash(password)
+    
+    session = SessionLocal()
+    existing_user = session.query(UserInfo).filter_by(userLogin=login).first()
+    if existing_user:
+        session.close()
+        return jsonify({"error": "Логин уже занят!"}), 400
+    
+    new_user = UserInfo(userEmail=email, userLogin=login, userPassword=hashed_password)
+    session.add(new_user)
+    session.commit()
+    session.close()
+    
+    return jsonify({"message": "Регистрация успешна!"}), 201
