@@ -1,12 +1,11 @@
--- Конфигурация и настройки
-CREATE EXTENSION IF NOT EXISTS pgcrypto;
-
 -- База и таблицы
-CREATE TABLE "userInfo"(
+CREATE TABLE "userInfo" (
     "userEmail" VARCHAR(125) NOT NULL UNIQUE,
     "userLogin" VARCHAR(75) NOT NULL PRIMARY KEY,
-    "userPassword" VARCHAR(225) NOT NULL -- Пароль будет шифроваться через триггер
+    "userPassword" VARCHAR(225) NOT NULL, -- Храним зашифрованный пароль
+    "salt" VARCHAR(50) NOT NULL -- Храним соль для Argon2
 );
+
 
 CREATE TABLE "siteRecipes" (
     "idRecipe" SERIAL PRIMARY KEY,
@@ -33,20 +32,6 @@ CREATE TABLE "userProfile"(
     "userDescription" VARCHAR(500) NULL,
     "userRecipes" INTEGER DEFAULT 0 -- Количество рецептов пользователя
 );
-
--- Триггер для хеширования пароля перед вставкой
-CREATE OR REPLACE FUNCTION hash_user_password()
-RETURNS TRIGGER AS $$
-BEGIN
-    NEW."userPassword" := crypt(NEW."userPassword", gen_salt('bf'));
-    RETURN NEW;
-END;
-$$ LANGUAGE plpgsql;
-
-CREATE TRIGGER trigger_hash_password
-BEFORE INSERT ON "userInfo"
-FOR EACH ROW
-EXECUTE FUNCTION hash_user_password();
 
 
 

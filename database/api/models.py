@@ -9,8 +9,10 @@ class UserInfo(Base):
     userEmail = Column(String(125), primary_key=True, nullable=False)
     userLogin = Column(String(75), unique=True, nullable=False)
     userPassword = Column(String(225), nullable=False)  # Хранится в зашифрованном виде
+    salt = Column(String(50), nullable=False)  # Храним соль
     
     recipes = relationship("SiteRecipe", back_populates="author")
+
 
 class SiteRecipe(Base):
     __tablename__ = "siteRecipes"
