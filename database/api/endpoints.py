@@ -72,9 +72,8 @@ def get_recipe_stages(recipe_id):
 
 ph = PasswordHasher()
 
-
-
-
+from config import SECRET_PEPPER, AES_KEY
+from utils import encrypt
 
 @api.route("/register", methods=["POST"])
 def register():
@@ -99,31 +98,33 @@ def register():
 
     print(f"[REGISTER] Исходный пароль: {password}")
 
-    # 🔥 Генерируем соль
-    salt = os.urandom(16)  # 16 байт случайной соли
-    encoded_salt = b64encode(salt).decode()  # Кодируем в base64 для хранения
+    salt = os.urandom(16)
+    encoded_salt = b64encode(salt).decode()
 
-    # 🔥 Явно передаем соль в Argon2
-    hashed_password = ph.hash(password, salt=salt)
+    password_with_pepper = password + SECRET_PEPPER
 
-    print(f"[REGISTER] Сгенерированная соль: {encoded_salt}")
-    print(f"[REGISTER] Итоговый хеш пароля: {hashed_password}")
+    hashed_password = ph.hash(password_with_pepper, salt=salt)
+    encrypted_password = encrypt(hashed_password, AES_KEY)
 
-    new_user = UserInfo(userEmail=email, userLogin=login, userPassword=hashed_password, salt=encoded_salt)
+    print(f"[REGISTER] Соль: {encoded_salt}")
+    print(f"[REGISTER] Зашифрованный хеш: {encrypted_password}")
+
+    new_user = UserInfo(userEmail=email, userLogin=login, userPassword=encrypted_password, salt=encoded_salt)
 
     try:
         session.add(new_user)
         session.commit()
-        print(f"[REGISTER] ✅ Пользователь '{login}' успешно зарегистрирован!")
+        print(f"[REGISTER] ✅ Пользователь '{login}' зарегистрирован!")
         return jsonify({"message": "Регистрация успешна!"}), 201
     except Exception as e:
         session.rollback()
-        print(f"[REGISTER] ❌ Ошибка при сохранении в БД: {e}")
+        print(f"[REGISTER] ❌ Ошибка БД: {e}")
         return jsonify({"error": "Ошибка сервера при регистрации!"}), 500
     finally:
         session.close()
 
 
+from utils import decrypt
 
 @api.route("/login", methods=["POST"])
 def login():
@@ -144,18 +145,20 @@ def login():
 
     print(f"[LOGIN] Исходный пароль пользователя: {password}")
 
-    # 🔥 Загружаем соль из БД
-    stored_salt = b64decode(user.salt)  # Декодируем обратно
+    stored_salt = b64decode(user.salt)
+    encrypted_password = user.userPassword
+    stored_hash = decrypt(encrypted_password, AES_KEY)
+
     print(f"[LOGIN] Используемая соль: {user.salt}")
+    print(f"[LOGIN] Расшифрованный хеш в БД: {stored_hash}")
 
-    # 🔥 Хешируем введенный пароль с этой солью (как в `register()`)
-    hashed_input = ph.hash(password, salt=stored_salt)
+    password_with_pepper = password + SECRET_PEPPER
+    hashed_input = ph.hash(password_with_pepper, salt=stored_salt)
+
     print(f"[LOGIN] Новый хеш из введенного пароля: {hashed_input}")
-    print(f"[LOGIN] Хеш в БД: {user.userPassword}")
 
-    # 🔥 Сравниваем хеши
-    if hashed_input == user.userPassword:
-        print(f"[LOGIN] ✅ Вход успешен для пользователя '{login}'")
+    if hashed_input == stored_hash:
+        print(f"[LOGIN] ✅ Вход успешен для '{login}'")
         return jsonify({"message": "Вход успешен!"}), 200
     else:
         print(f"[LOGIN] ❌ Ошибка: Пароли не совпадают!")
