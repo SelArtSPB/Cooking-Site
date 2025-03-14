@@ -16,19 +16,3 @@ VALUES
 ('images/carbonara.jpg', 'Паста Карбонара', 'Классический итальянский рецепт', 'Италия', 'Основное блюдо', 'chefAlex'),
 ('images/borsh.jpg', 'Борщ', 'Традиционный русский борщ с говядиной', 'Россия', 'Суп', 'foodieAnna'),
 ('images/sushi.jpg', 'Суши', 'Японские суши с лососем и авокадо', 'Япония', 'Закуска', 'recipeMaster');
-
--- Получаем id рецепта "Паста Карбонара"
-WITH inserted AS (
-    INSERT INTO "siteRecipes" ("imageRecipe", "titleRecipe", "discriptionRecipe", "contryRecipe", "typeRecipe", "autorRecipe") 
-    VALUES ('images/carbonara.jpg', 'Паста Карбонара', 'Классический итальянский рецепт', 'Италия', 'Основное блюдо', 'chefAlex')
-    RETURNING "idRecipe"
-)
--- Добавляем этапы для "Паста Карбонара"
-INSERT INTO "stageRecipes" ("idRecipe", "stage", "stageImage", "stageDiscription") 
-SELECT "idRecipe", stage_num, stage_img, stage_desc FROM (
-    VALUES 
-    (1, 'images/step1.jpg', 'Нарезать бекон небольшими кубиками.'),
-    (2, 'images/step2.jpg', 'Обжарить бекон на среднем огне 5 минут.'),
-    (3, 'images/step3.jpg', 'Добавить яйца и пармезан, перемешать.'),
-    (4, 'images/step4.jpg', 'Смешать с макаронами и прогреть 2 минуты.')
-) AS steps(stage_num, stage_img, stage_desc), inserted;

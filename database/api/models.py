@@ -28,16 +28,6 @@ class SiteRecipe(Base):
     author = relationship("UserInfo", back_populates="recipes")
     stages = relationship("StageRecipe", back_populates="recipe", cascade="all, delete-orphan")
 
-class StageRecipe(Base):
-    __tablename__ = "stageRecipes"
-    
-    idStage = Column(Integer, primary_key=True, autoincrement=True)
-    idRecipe = Column(Integer, ForeignKey("siteRecipes.idRecipe", ondelete="CASCADE"))
-    stage = Column(Integer, nullable=False)
-    stageImage = Column(Text, nullable=True)
-    stageDiscription = Column(Text, nullable=False)
-    
-    recipe = relationship("SiteRecipe", back_populates="stages")
 
 class UserProfile(Base):
     __tablename__ = "userProfile"

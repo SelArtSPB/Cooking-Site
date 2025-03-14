@@ -17,13 +17,6 @@ CREATE TABLE "siteRecipes" (
     "autorRecipe" VARCHAR(75) REFERENCES "userInfo"("userLogin") ON DELETE CASCADE
 );
 
-CREATE TABLE "stageRecipes" (
-    "idStage" SERIAL PRIMARY KEY,
-    "idRecipe" INTEGER REFERENCES "siteRecipes"("idRecipe") ON DELETE CASCADE,
-    "stage" INTEGER NOT NULL,
-    "stageImage" TEXT,
-    "stageDiscription" TEXT NOT NULL
-);
 
 CREATE TABLE "userProfile"(
     "userLoginID" VARCHAR(75) PRIMARY KEY REFERENCES "userInfo"("userLogin") ON DELETE CASCADE,
