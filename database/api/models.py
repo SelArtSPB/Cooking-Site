@@ -26,7 +26,6 @@ class SiteRecipe(Base):
     autorRecipe = Column(String(75), ForeignKey("userInfo.userLogin", ondelete="CASCADE"))
     
     author = relationship("UserInfo", back_populates="recipes")
-    stages = relationship("StageRecipe", back_populates="recipe", cascade="all, delete-orphan")
 
 
 class UserProfile(Base):

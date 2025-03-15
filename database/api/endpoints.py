@@ -2,7 +2,7 @@ import os
 from base64 import b64encode, b64decode
 from flask import Blueprint, jsonify, request
 from sqlalchemy.orm import Session
-from models import SessionLocal, UserInfo, SiteRecipe, StageRecipe, UserProfile
+from models import SessionLocal, UserInfo, SiteRecipe, UserProfile
 from werkzeug.security import generate_password_hash
 from flask_cors import cross_origin
 import hashlib
@@ -60,15 +60,6 @@ def get_recipe(recipe_id):
             "image": recipe.imageRecipe
         })
     return jsonify({"error": "Recipe not found"}), 404
-
-@api.route("/recipes/<int:recipe_id>/stages", methods=["GET"])
-def get_recipe_stages(recipe_id):
-    session = SessionLocal()
-    stages = session.query(StageRecipe).filter_by(idRecipe=recipe_id).all()
-    session.close()
-    return jsonify([
-        {"stage": s.stage, "description": s.stageDiscription, "image": s.stageImage} for s in stages
-    ])
 
 ph = PasswordHasher()
 
