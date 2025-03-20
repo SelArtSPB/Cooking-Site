@@ -41,7 +41,6 @@
                     <i class="fas fa-adjust"></i>
                     <span>Изменить тему</span>
                 </a>
-                <a href="input_data.html"><i class="fas fa-plus"></i>Создать рецепт</a>
                 <a href="settings.html"><i class="fas fa-cog"></i> Настройки</a>
                 <a href="#"><i class="fas fa-sign-out-alt"></i> Выход</a>
                 <!-- <div class="auth-menu">
@@ -56,82 +55,28 @@
     <h1 class="title-text">МОЙ ПРОФИЛЬ</h1>
     <div class="profile-card">
         <div class="card-image">
-            <img src="" alt="">
+            <img src="src/img/default.jpg" alt="Фото профиля">
         </div>
         <div class="sideway-text">
-            <h1></h1>
-            <p3></p3>
-            <h4></h4>
+            <h1>Загрузка...</h1>
+            <p3>Загрузка описания...</p3>
+            <h4>Загрузка количества рецептов...</h4>
         </div>
     </div>
 </div>
 <div class="profile-recipte">
     <h1 class="title-text">МОИ РЕЦЕПТЫ</h1>
+    <div class="add-recipe-button-container">
+        <button id="openAddRecipeModal" class="add-recipe-button">
+            <i class="fas fa-plus"></i> Добавить рецепт
+        </button>
+        <button id="deleteRecipeBtn" class="delete-recipe-button">
+            <i class="fas fa-trash"></i> Удалить рецепт
+        </button>
+    </div>
     <div class="container">
         <div class="grid">
-
-         <div class="recipe-card"
-                data-title="Рататуй"
-                data-description="Французское овощное блюдо, состоящее из тушёных баклажанов, кабачков, помидоров и перца."
-                data-cooking-time="45 минут"
-                data-country="Франция"
-                data-type="Овощное блюдо"
-                data-author="@artemS"
-                data-recipe="1. Нарежьте баклажаны, кабачки, болгарский перец и помидоры тонкими кружочками.
-            2. Разогрейте сковороду, обжарьте измельчённый лук и чеснок на оливковом масле до мягкости.
-            3. Выложите овощи в форму для запекания, чередуя их по цвету.
-            4. Приготовьте соус: смешайте томатную пасту с оливковым маслом, тимьяном, базиликом, солью и перцем.
-            5. Полейте овощи соусом, накройте фольгой и запекайте при 180°C 30 минут.
-            6. Снимите фольгу и запекайте ещё 10 минут до румяной корочки.
-            7. Подавайте горячим, украсив свежей зеленью."
-                data-image="src/img/ratatouille.jpg">
-            <img src="src/img/ratatouille.jpg" alt="Рататуй">
-            <div class="recipe-overlay">
-                <h3>Рататуй</h3>
-                <p>Французское овощное блюдо...</p>
-            </div>
-       </div>
-       
-       <div class="recipe-card"
-                data-title="Шакшука"
-                data-description="Пряное блюдо из яиц, томатов и специй, популярное в ближневосточной кухне."
-                data-cooking-time="30 минут"
-                data-country="Ближний Восток"
-                data-type="Завтрак"
-                data-author="@artemS"
-                data-recipe="1. Разогрейте глубокую сковороду с оливковым маслом, обжарьте измельчённый лук и чеснок до золотистого цвета.
-            2. Добавьте нарезанные томаты и томатную пасту, тушите 10 минут до густой консистенции.
-            3. Посолите, поперчите, добавьте специи: паприку, зиру и чили.
-            4. Сделайте углубления в соусе, аккуратно вбейте яйца и убавьте огонь.
-            5. Накройте крышкой и готовьте до желаемой консистенции желтков (жидких или плотных).
-            6. Подавайте горячим, посыпав зеленью и подавая с хрустящим хлебом."
-                data-image="src/img/shakshuka.jpg">
-            <img src="src/img/shakshuka.jpg" alt="Шакшука">
-            <div class="recipe-overlay">
-                <h3>Шакшука</h3>
-                <p>Пряное блюдо из яиц и томатов...</p>
-            </div>
-       </div>
-       
-       <div class="recipe-card"
-                data-title="Том Ям"
-                data-description="Острый и ароматный тайский суп с креветками, кокосовым молоком и лаймом."
-                data-cooking-time="40 минут"
-                data-country="Таиланд"
-                data-type="Суп"
-                data-author="@artemS"
-                data-recipe="1. Вскипятите 1 литр куриного бульона, добавьте раздавленный галангал, лимонное сорго и листья кафрского лайма.
-            2. Варите на среднем огне 10 минут, затем добавьте нарезанные шампиньоны и перец чили.
-            3. Влейте 200 мл кокосового молока, доведите до кипения и добавьте креветки.
-            4. Готовьте ещё 5 минут, затем добавьте рыбный соус и сок лайма.
-            5. Посыпьте свежей кинзой и подавайте горячим вместе с рисом."
-                data-image="src/img/tomyam.jpg">
-            <img src="src/img/tomyam.jpg" alt="Том Ям">
-            <div class="recipe-overlay">
-                <h3>Том Ям</h3>
-                <p>Острый и ароматный тайский суп...</p>
-            </div>
-       </div>
+            <!-- Здесь будут динамически добавляться рецепты -->
         </div>
     </div>
 </div>
@@ -165,6 +110,67 @@
     <script src="src/js/profile.js"></script>
     <script src="src/js/search.js"></script>
     <script src="src/js/theme-manager.js"></script>
+    <script src="src/js/profile-dropdown.js"></script>
+
+<!-- Модальное окно добавления рецепта -->
+<div id="addRecipeModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Добавить новый рецепт</h2>
+        <form id="addRecipeForm">
+            <div class="form-group">
+                <label for="recipeTitle">Название рецепта:</label>
+                <input type="text" id="recipeTitle" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="recipeDescription">Описание:</label>
+                <textarea id="recipeDescription" required></textarea>
+            </div>
+
+            <!-- Добавляем новое поле для времени готовки -->
+            <div class="form-group">
+                <label for="recipeCookingTime">Время приготовления (в минутах):</label>
+                <input type="number" id="recipeCookingTime" min="1" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="recipeCountry">Страна:</label>
+                <select id="recipeCountry" required>
+                    <option value="">Выберите страну</option>
+                    <option value="Русская кухня">Русская кухня</option>
+                    <option value="Итальянская кухня">Итальянская кухня</option>
+                    <option value="Французская кухня">Французская кухня</option>
+                    <!-- Добавьте другие страны -->
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="recipeType">Тип блюда:</label>
+                <select id="recipeType" required>
+                    <option value="">Выберите тип</option>
+                    <option value="Основное блюдо">Основное блюдо</option>
+                    <option value="Суп">Суп</option>
+                    <option value="Салат">Салат</option>
+                    <!-- Добавьте другие типы -->
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="recipeImage">Фото блюда:</label>
+                <input type="file" id="recipeImage" accept="image/*">
+            </div>
+            
+            <div id="stagesContainer">
+                <h3>Этапы приготовления</h3>
+                <!-- Этапы будут добавляться динамически -->
+            </div>
+            
+            <button type="button" id="addStageBtn">Добавить этап</button>
+            <button type="submit">Сохранить рецепт</button>
+        </form>
+    </div>
+</div>
 </body>
 </html>
 

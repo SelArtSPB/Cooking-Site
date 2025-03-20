@@ -97,25 +97,6 @@ function applyFilters() {
 
     window.location.href = `catalog-recipe.html?${queryParams.toString()}`;
 }
-document.addEventListener("DOMContentLoaded", () => {
-    let profileData = JSON.parse(localStorage.getItem("profileData"));
-
-    if (profileData && profileData.image) {
-        const profileIcon = document.querySelector(".profile-toggle i");
-        const profileImg = document.createElement("img");
-
-        profileImg.src = profileData.image;
-        profileImg.alt = "Profile";
-        profileImg.style.width = "42px";
-        profileImg.style.height = "42px";
-        profileImg.style.borderRadius = "50%";
-        profileImg.style.objectFit = "cover";
-        profileImg.style.marginLeft = "15px";
-
-        profileIcon.replaceWith(profileImg);
-    }
-});
-
 
 // =======================================================
 // ПАГИНАЦИЯ И КЛИЕНТСАЙД ФИЛЬТРАЦИЯ ДЛЯ КАРТОЧЕК РЕЦЕПТОВ
@@ -251,5 +232,136 @@ document.addEventListener("DOMContentLoaded", function () {
         if(typeInput) typeInput.addEventListener("change", () => { currentPage = 1; updatePagination(); });
 
         updatePagination();
+    }
+});
+
+// Объединяем все обработчики DOMContentLoaded в один
+document.addEventListener('DOMContentLoaded', async () => {
+    try {
+        // Получаем все рецепты
+        const response = await fetch('http://localhost:5000/recipes');
+        if (!response.ok) {
+            throw new Error('Ошибка при загрузке рецептов');
+        }
+        const recipes = await response.json();
+        console.log('Загруженные рецепты:', recipes);
+
+        const gridContainer = document.querySelector('.grid');
+        if (!gridContainer) {
+            console.error('Контейнер для рецептов не найден');
+            return;
+        }
+
+        // Функция для отображения рецептов с учетом фильтров
+        function displayRecipes(filteredRecipes) {
+            gridContainer.innerHTML = '';
+
+            if (!filteredRecipes || filteredRecipes.length === 0) {
+                gridContainer.innerHTML = '<p class="no-recipes">Рецептов не найдено</p>';
+                return;
+            }
+
+            filteredRecipes.forEach(recipe => {
+                const recipeCard = document.createElement('div');
+                recipeCard.className = 'recipe-card';
+                
+                let imageSrc = recipe.image || './src/img/default.jpg';
+
+                recipeCard.innerHTML = `
+                    <div class="recipe-image">
+                        <img src="${imageSrc}" 
+                             alt="${recipe.title}" 
+                             onerror="this.src='./src/img/default.jpg'">
+                    </div>
+                    <div class="recipe-info">
+                        <h3>${recipe.title || 'Без названия'}</h3>
+                        <p class="recipe-description">${recipe.description || 'Описание отсутствует'}</p>
+                        <div class="recipe-details">
+                            <span><i class="fas fa-clock"></i> ${recipe.cookingTime || 'Не указано'} мин</span>
+                            <span><i class="fas fa-globe"></i> ${recipe.country || 'Не указано'}</span>
+                            <span><i class="fas fa-utensils"></i> ${recipe.type || 'Не указано'}</span>
+                            <span><i class="fas fa-user"></i> ${recipe.author || 'Аноним'}</span>
+                        </div>
+                    </div>
+                `;
+
+                recipeCard.addEventListener('click', () => {
+                    window.location.href = `data_view.html?id=${recipe.id}`;
+                });
+
+                gridContainer.appendChild(recipeCard);
+            });
+        }
+
+        // Функция фильтрации
+        function filterRecipes() {
+            const countryFilter = document.getElementById('country').value;
+            const authorFilter = document.getElementById('author').value;
+            const typeFilter = document.getElementById('type').value;
+
+            const filteredRecipes = recipes.filter(recipe => {
+                const countryMatch = !countryFilter || recipe.country === countryFilter;
+                const authorMatch = !authorFilter || recipe.author === authorFilter;
+                const typeMatch = !typeFilter || recipe.type === typeFilter;
+
+                return countryMatch && authorMatch && typeMatch;
+            });
+
+            displayRecipes(filteredRecipes);
+        }
+
+        // Добавляем обработчики событий для фильтров
+        const filters = ['country', 'author', 'type'];
+        filters.forEach(filterId => {
+            const filter = document.getElementById(filterId);
+            if (filter) {
+                filter.addEventListener('change', filterRecipes);
+            }
+        });
+
+        // Заполняем фильтры уникальными значениями из рецептов
+        const countrySelect = document.getElementById('country');
+        const authorSelect = document.getElementById('author');
+        const typeSelect = document.getElementById('type');
+
+        if (countrySelect) {
+            const countries = [...new Set(recipes.map(r => r.country).filter(Boolean))];
+            countries.forEach(country => {
+                const option = document.createElement('option');
+                option.value = country;
+                option.textContent = country;
+                countrySelect.appendChild(option);
+            });
+        }
+
+        if (authorSelect) {
+            const authors = [...new Set(recipes.map(r => r.author).filter(Boolean))];
+            authors.forEach(author => {
+                const option = document.createElement('option');
+                option.value = author;
+                option.textContent = author;
+                authorSelect.appendChild(option);
+            });
+        }
+
+        if (typeSelect) {
+            const types = [...new Set(recipes.map(r => r.type).filter(Boolean))];
+            types.forEach(type => {
+                const option = document.createElement('option');
+                option.value = type;
+                option.textContent = type;
+                typeSelect.appendChild(option);
+            });
+        }
+
+        // Начальное отображение всех рецептов
+        displayRecipes(recipes);
+
+    } catch (error) {
+        console.error('Ошибка при загрузке рецептов:', error);
+        const gridContainer = document.querySelector('.grid');
+        if (gridContainer) {
+            gridContainer.innerHTML = '<p class="error-message">Ошибка при загрузке рецептов</p>';
+        }
     }
 });

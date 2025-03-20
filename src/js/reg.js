@@ -95,8 +95,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
             let result = await response.json();
             if (response.ok) {
+                // Сохраняем токены и логин
+                localStorage.setItem('token', result.access_token);
+                localStorage.setItem('refreshToken', result.refresh_token);
+                localStorage.setItem('userLogin', result.user_login);
+                
                 alert(result.message);
-                window.location.href = "index.html";
+                // Перенаправляем на профиль
+                window.location.href = "profile.html";
             } else {
                 alert(result.error);
             }

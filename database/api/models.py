@@ -21,6 +21,7 @@ class SiteRecipe(Base):
     imageRecipe = Column(Text, nullable=True)
     titleRecipe = Column(Text, nullable=False)
     discriptionRecipe = Column(Text, nullable=True)
+    cookingTime = Column(Integer, nullable=True)  # Поле уже добавлено
     contryRecipe = Column(Text, nullable=True)
     typeRecipe = Column(Text, nullable=True)
     autorRecipe = Column(String(75), ForeignKey("userInfo.userLogin", ondelete="CASCADE"))
@@ -44,10 +45,9 @@ class UserProfile(Base):
     
     userLoginID = Column(String, ForeignKey("userInfo.userLogin", ondelete="CASCADE"), primary_key=True)
     userImage = Column(Text, nullable=True)  # Тестово картинка в локальных файлах, хранится путь
-    userFullName = Column(String(125), nullable=True)
     userDescription = Column(Text, nullable=True)
     userRecipes = Column(Integer, nullable=True)
 
-DATABASE_URL = "postgresql://postgres:123456789@localhost/postgres"
+DATABASE_URL = "postgresql://postgres:sednev23@localhost/postgres"
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(bind=engine)

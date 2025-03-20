@@ -1,8 +1,12 @@
+// Добавляем константу для количества рецептов на странице
+const RECIPES_PER_PAGE = 6;
 
-
+let allRecipes = [];
 
 function displayRecipes(page) {
     const recipeContainer = document.querySelector('.recipe-row');
+    if (!recipeContainer || !allRecipes) return; // Добавляем проверку
+
     const start = (page - 1) * RECIPES_PER_PAGE;
     const end = start + RECIPES_PER_PAGE;
     const recipesToShow = allRecipes.slice(start, end);
@@ -93,7 +97,7 @@ document.addEventListener('click', function(e) {
     const menu = document.querySelector('.profile-menu');
     const toggle = document.querySelector('.profile-toggle');
     
-    if (!menu.contains(e.target) && !toggle.contains(e.target)) {
+    if (menu && toggle && !menu.contains(e.target) && !toggle.contains(e.target)) {
         menu.classList.remove('active');
     }
 });
@@ -285,14 +289,13 @@ document.querySelector('.footer-section ul').addEventListener('click', function(
         }
     }
 });
-document.addEventListener("DOMContentLoaded", () => {
-    let profileData = JSON.parse(localStorage.getItem("profileData"));
 
-    if (profileData && profileData.image) {
+// Функция для обновления изображения профиля в dropdown
+function updateProfileDropdownImage(imageData) {
         const profileIcon = document.querySelector(".profile-toggle i");
+    if (imageData && profileIcon) {
         const profileImg = document.createElement("img");
-
-        profileImg.src = profileData.image;
+        profileImg.src = imageData;
         profileImg.alt = "Profile";
         profileImg.style.width = "42px";
         profileImg.style.height = "42px";
@@ -302,34 +305,403 @@ document.addEventListener("DOMContentLoaded", () => {
 
         profileIcon.replaceWith(profileImg);
     }
-});
+}
 
-
+// Использование функции при загрузке страницы
 document.addEventListener("DOMContentLoaded", () => {
-    let profileData = JSON.parse(localStorage.getItem("profileData"));
-
-    if (profileData) {
-        document.querySelector(".sideway-text h1").textContent = profileData.name;
-        document.querySelector(".sideway-text p3").textContent = profileData.tag;
-        document.querySelector(".sideway-text h4").textContent = profileData.description;
-
-        const profileImage = document.querySelector(".card-image img");
-        profileImage.src = profileData.image || "src/img/profile-cat.jpg";
+    const userLogin = localStorage.getItem('userLogin');
+    const token = localStorage.getItem('token');
+    
+    if (!userLogin || !token) {
+        window.location.href = 'login.html';
+        return;
     }
+
+    // Загружаем данные профиля
+    fetch(`http://localhost:5000/profile/${userLogin}`, {
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(response => {
+            if (!response.ok) {
+                if (response.status === 401) {
+                    localStorage.removeItem('token');
+                    localStorage.removeItem('userLogin');
+                    window.location.href = 'login.html';
+                    throw new Error('Необходима повторная авторизация');
+                }
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.error) {
+                console.error('Ошибка:', data.error);
+                return;
+            }
+
+            // Обновляем информацию профиля
+            const cardImage = document.querySelector('.card-image img');
+            const sidewayText = document.querySelector('.sideway-text');
+            
+            if (data.image) {
+                cardImage.src = data.image.startsWith('data:image') ? 
+                    data.image : 
+                    data.image.startsWith('src/') ?
+                        `./${data.image}` :
+                        `http://localhost:5000/${data.image}`;
+            } else {
+                cardImage.src = './src/img/default.jpg';
+            }
+            
+            cardImage.onerror = function() {
+                this.src = './src/img/default.jpg';
+                console.log('Используется изображение по умолчанию');
+            };
+
+            sidewayText.querySelector('h1').textContent = data.login || userLogin;
+            sidewayText.querySelector('p3').textContent = data.description || 'Нет описания';
+            sidewayText.querySelector('h4').textContent = `Рецептов: ${data.recipesCount || 0}`;
+        })
+        .catch(error => {
+            console.error('Ошибка при загрузке профиля:', error);
+            // Показываем сообщение об ошибке на странице
+            const sidewayText = document.querySelector('.sideway-text');
+            if (sidewayText) {
+                sidewayText.querySelector('h1').textContent = 'Ошибка загрузки';
+                sidewayText.querySelector('p3').textContent = 'Попробуйте обновить страницу';
+                sidewayText.querySelector('h4').textContent = '';
+            }
+        });
+
+    // Загружаем рецепты пользователя
+    fetch(`http://localhost:5000/recipes?author=${userLogin}`, {
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(response => response.json())
+        .then(recipes => {
+            const grid = document.querySelector('.grid');
+            if (!grid) return;
+            
+            grid.innerHTML = '';
+
+            if (!recipes || recipes.length === 0) {
+                grid.innerHTML = '<p class="no-recipes">У вас пока нет рецептов</p>';
+                return;
+            }
+
+            recipes.forEach(recipe => {
+                const recipeCard = createRecipeCard(recipe);
+                grid.appendChild(recipeCard);
+            });
+        })
+        .catch(error => {
+            console.error('Ошибка при загрузке рецептов:', error);
+            const grid = document.querySelector('.grid');
+            if (grid) {
+                grid.innerHTML = '<p class="error-message">Ошибка при загрузке рецептов</p>';
+            }
+        });
+
+    // Обработчики для модального окна
+    const openAddRecipeModal = document.getElementById('openAddRecipeModal');
+    if (openAddRecipeModal) {
+        openAddRecipeModal.addEventListener('click', function() {
+            document.getElementById('addRecipeModal').style.display = 'flex';
+        });
+    }
+
+    const closeButton = document.querySelector('.close');
+    if (closeButton) {
+        closeButton.addEventListener('click', function() {
+            document.getElementById('addRecipeModal').style.display = 'none';
+        });
+    }
+
+    // Закрытие модального окна при клике вне его
+    window.addEventListener('click', function(e) {
+        const modal = document.getElementById('addRecipeModal');
+        if (e.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
+
+    // Добавление этапа приготовления
+    const addStageBtn = document.getElementById('addStageBtn');
+    if (addStageBtn) {
+        addStageBtn.addEventListener('click', function() {
+            const stagesContainer = document.getElementById('stagesContainer');
+            const stageNumber = stagesContainer.getElementsByClassName('stage-item').length + 1;
+            
+            const stageDiv = document.createElement('div');
+            stageDiv.className = 'stage-item';
+            stageDiv.innerHTML = `
+                <h4>Этап ${stageNumber}</h4>
+                <div class="form-group">
+                    <label>Описание этапа:</label>
+                    <textarea required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Фото этапа:</label>
+                    <input type="file" accept="image/*">
+                </div>
+                <button type="button" class="remove-stage">Удалить этап</button>
+            `;
+            
+            stagesContainer.appendChild(stageDiv);
+        });
+    }
+
+    // Функция для конвертации файла в base64
+    function getBase64(file) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = error => reject(error);
+        });
+    }
+
+    // Обработка формы добавления рецепта
+    const addRecipeForm = document.getElementById('addRecipeForm');
+    if (addRecipeForm) {
+        addRecipeForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            try {
+                const imageFile = document.getElementById('recipeImage').files[0];
+                let imageBase64 = null;
+                
+                if (imageFile) {
+                    imageBase64 = await getBase64(imageFile);
+                }
+
+                const formData = {
+                    title: document.getElementById('recipeTitle').value,
+                    description: document.getElementById('recipeDescription').value,
+                    cookingTime: document.getElementById('recipeCookingTime').value,
+                    country: document.getElementById('recipeCountry').value,
+                    type: document.getElementById('recipeType').value,
+                    author: localStorage.getItem('userLogin'),
+                    image: imageBase64,
+                    stages: []
+                };
+
+                // Собираем данные об этапах
+                const stageItems = document.getElementsByClassName('stage-item');
+                for (let i = 0; i < stageItems.length; i++) {
+                    const stageItem = stageItems[i];
+                    const stageImageFile = stageItem.querySelector('input[type="file"]').files[0];
+                    let stageImageBase64 = null;
+
+                    if (stageImageFile) {
+                        stageImageBase64 = await getBase64(stageImageFile);
+                    }
+
+                    formData.stages.push({
+                        number: i + 1,
+                        description: stageItem.querySelector('textarea').value,
+                        image: stageImageBase64
+                    });
+                }
+
+                const response = await fetch('http://localhost:5000/recipes/add', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                const result = await response.json();
+                if (response.ok) {
+                    alert(result.message);
+                    document.getElementById('addRecipeModal').style.display = 'none';
+                    document.getElementById('addRecipeForm').reset();
+                    
+                    // Обновляем количество рецептов в профиле
+                    const userLogin = localStorage.getItem('userLogin');
+                    const profileResponse = await fetch(`http://localhost:5000/profile/${userLogin}`);
+                    const profileData = await profileResponse.json();
+                    
+                    if (profileData && !profileData.error) {
+                        document.querySelector('.sideway-text h4').textContent = `Рецептов: ${profileData.recipesCount}`;
+                    }
+
+                    // Обновляем список рецептов
+                    const recipesResponse = await fetch(`http://localhost:5000/recipes?author=${userLogin}`);
+                    const recipes = await recipesResponse.json();
+                    displayRecipes(1); // Обновляем отображение рецептов на первой странице
+                } else {
+                    alert(result.error || 'Ошибка при добавлении рецепта');
+                }
+            } catch (error) {
+                console.error('Ошибка:', error);
+                alert('Ошибка при добавлении рецепта');
+            }
+        });
+    }
+
+    // Добавляем предпросмотр изображения
+    document.getElementById('recipeImage')?.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const preview = document.createElement('img');
+                preview.src = e.target.result;
+                preview.style.maxWidth = '200px';
+                preview.style.marginTop = '10px';
+                
+                // Удаляем предыдущий предпросмотр, если он есть
+                const oldPreview = this.parentElement.querySelector('img');
+                if (oldPreview) {
+                    oldPreview.remove();
+                }
+                
+                this.parentElement.appendChild(preview);
+            }.bind(this);
+            reader.readAsDataURL(file);
+        }
+    });
 });
 
-document.querySelectorAll('.recipe-card').forEach(card => {
-    card.addEventListener('click', function () {
-        const title = this.dataset.title;
-        const description = this.dataset.description;
-        const cookingTime = this.dataset.cookingTime;
-        const country = this.dataset.country;
-        const type = this.dataset.type;
-        const author = this.dataset.author;
-        const recipe = this.dataset.recipe;
-        const image = this.dataset.image; // Новый параметр
+let isDeleteMode = false;
+const selectedRecipes = new Set();
 
-        const url = `data_view.html?title=${encodeURIComponent(title)}&description=${encodeURIComponent(description)}&cookingTime=${encodeURIComponent(cookingTime)}&country=${encodeURIComponent(country)}&type=${encodeURIComponent(type)}&author=${encodeURIComponent(author)}&recipe=${encodeURIComponent(recipe)}&image=${encodeURIComponent(image)}`;
-        window.location.href = url;
+// Модифицируем функцию создания карточек рецептов
+function createRecipeCard(recipe) {
+    const recipeCard = document.createElement('div');
+    recipeCard.className = 'recipe-card';
+    recipeCard.dataset.id = recipe.id;
+
+    let imageSrc = recipe.image || './src/img/default.jpg';
+
+    recipeCard.innerHTML = `
+        <img src="${imageSrc}" 
+             alt="${recipe.title}" 
+             onerror="this.src='./src/img/default.jpg'"
+             style="width: 100%; height: 100%; object-fit: cover;">
+        <div class="recipe-overlay">
+            <h3>${recipe.title}</h3>
+            <p>${recipe.description || 'Нет описания'}</p>
+        </div>
+    `;
+
+    // Единый обработчик клика
+    recipeCard.onclick = function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        if (isDeleteMode) {
+            this.classList.toggle('selected');
+            const recipeId = this.dataset.id;
+            
+            if (selectedRecipes.has(recipeId)) {
+                selectedRecipes.delete(recipeId);
+            } else {
+                selectedRecipes.add(recipeId);
+            }
+        } else {
+            window.location.href = `data_view.html?id=${recipe.id}`;
+        }
+    };
+
+    return recipeCard;
+}
+
+// Обработчик для кнопки удаления
+const deleteRecipeBtn = document.getElementById('deleteRecipeBtn');
+if (deleteRecipeBtn) {
+    deleteRecipeBtn.onclick = function() {
+        isDeleteMode = !isDeleteMode;
+        this.classList.toggle('active');
+        
+        const recipeCards = document.querySelectorAll('.recipe-card');
+        
+        if (isDeleteMode) {
+            this.innerHTML = '<i class="fas fa-check"></i> Подтвердить удаление';
+            this.style.backgroundColor = '#28a745';
+            recipeCards.forEach(card => {
+                card.style.cursor = 'pointer';
+                card.classList.add('delete-mode');
+            });
+        } else {
+            if (selectedRecipes.size > 0) {
+                deleteSelectedRecipes();
+            }
+            resetDeleteMode();
+        }
+    };
+}
+
+function resetDeleteMode() {
+    isDeleteMode = false;
+    selectedRecipes.clear();
+    const deleteBtn = document.getElementById('deleteRecipeBtn');
+    if (deleteBtn) {
+        deleteBtn.innerHTML = '<i class="fas fa-trash"></i> Удалить рецепт';
+        deleteBtn.style.backgroundColor = '';
+    }
+    document.querySelectorAll('.recipe-card').forEach(card => {
+        card.classList.remove('selected');
+        card.classList.remove('delete-mode');
+        card.style.cursor = '';
     });
+}
+
+async function deleteSelectedRecipes() {
+    if (selectedRecipes.size === 0) return;
+
+    const confirmed = confirm(`Вы уверены, что хотите удалить ${selectedRecipes.size} рецепт(ов)?`);
+    if (!confirmed) {
+        resetDeleteMode();
+        return;
+    }
+
+    try {
+        const promises = Array.from(selectedRecipes).map(recipeId =>
+            fetch(`http://localhost:5000/recipes/${recipeId}`, {
+                method: 'DELETE'
+            }).then(response => {
+                if (!response.ok) throw new Error('Ошибка при удалении рецепта');
+                return response.json();
+            })
+        );
+
+        await Promise.all(promises);
+        alert('Рецепты успешно удалены!');
+        location.reload();
+    } catch (error) {
+        console.error('Ошибка при удалении рецептов:', error);
+        alert('Произошла ошибка при удалении рецептов');
+    }
+}
+
+// Добавляем проверку на существование элементов перед использованием
+document.addEventListener('DOMContentLoaded', () => {
+    const userLogin = localStorage.getItem('userLogin');
+    if (!userLogin) {
+        window.location.href = 'login.html';
+        return;
+    }
+
+    // Загружаем рецепты только если мы на странице с рецептами
+    const recipeContainer = document.querySelector('.recipe-row');
+    if (recipeContainer) {
+        fetch(`http://localhost:5000/recipes?author=${userLogin}`)
+            .then(response => response.json())
+            .then(recipes => {
+                allRecipes = recipes; // Определяем глобально
+                displayRecipes(1);
+            })
+            .catch(error => {
+                console.error('Ошибка при загрузке рецептов:', error);
+            });
+    }
 });

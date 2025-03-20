@@ -11,25 +11,6 @@ document.querySelectorAll('.nav a').forEach(link => {
         document.body.style.overflow = '';
     });
 });
-document.addEventListener("DOMContentLoaded", () => {
-    let profileData = JSON.parse(localStorage.getItem("profileData"));
-
-    if (profileData && profileData.image) {
-        const profileIcon = document.querySelector(".profile-toggle i");
-        const profileImg = document.createElement("img");
-
-        profileImg.src = profileData.image;
-        profileImg.alt = "Profile";
-        profileImg.style.width = "42px";
-        profileImg.style.height = "42px";
-        profileImg.style.borderRadius = "50%";
-        profileImg.style.objectFit = "cover";
-        profileImg.style.marginLeft = "15px";
-
-        profileIcon.replaceWith(profileImg);
-    }
-});
-
 
 document.addEventListener('click', (e) => {
     const nav = document.querySelector('.nav');
@@ -211,7 +192,8 @@ document.addEventListener('click', (e) => {
     const searchContainer = document.querySelector('.mobile-search-container');
     const searchToggle = document.querySelector('.mobile-search-toggle');
     
-    if (!searchContainer.contains(e.target) && 
+    if (searchContainer && searchToggle && 
+        !searchContainer.contains(e.target) && 
         !searchToggle.contains(e.target) && 
         searchContainer.classList.contains('active')) {
         searchContainer.classList.remove('active');
@@ -221,7 +203,10 @@ document.addEventListener('click', (e) => {
 // Закрываем поиск при нажатии Escape
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
-        document.querySelector('.mobile-search-container').classList.remove('active');
+        const mobileSearchContainer = document.querySelector('.mobile-search-container');
+        if (mobileSearchContainer) {
+            mobileSearchContainer.classList.remove('active');
+        }
     }
 });
 
@@ -247,28 +232,85 @@ document.querySelector('.footer-section ul').addEventListener('click', function(
 
 
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     const params = new URLSearchParams(window.location.search);
+    const recipeId = params.get('id');
     
-    // Получаем данные напрямую из URL
-    const recipeData = {
-      title: params.get('title'),
-      description: params.get('description'),
-      cookingTime: params.get('cookingTime'),
-      country: params.get('country'),
-      type: params.get('type'),
-      author: params.get('author'),
-      recipe: params.get('recipe'),
-      image: params.get('image')
-    };
-  
-    // Заполняем данные
-    document.querySelector('.dish-title').textContent = recipeData.title;
-    document.querySelector('.cooking-time').textContent = `Время готовки: ${recipeData.cookingTime}`;
-    document.querySelector('.description').textContent = recipeData.description;
-    document.querySelector('.country').textContent = `Страна: ${recipeData.country}`;
-    document.querySelector('.type').textContent = `Тип блюда: ${recipeData.type}`;
-    document.querySelector('.author').textContent = `Автор: ${recipeData.author}`;
-    document.querySelector('.recipe').textContent = recipeData.recipe;
-    document.querySelector('.insert-image img').src = recipeData.image;
-  });
+    if (!recipeId) {
+        console.error('ID рецепта не указан');
+        return;
+    }
+
+    try {
+        // Загружаем данные рецепта
+        const recipeResponse = await fetch(`http://localhost:5000/recipes/${recipeId}`);
+        const recipe = await recipeResponse.json();
+
+        // Загружаем этапы рецепта
+        const stagesResponse = await fetch(`http://localhost:5000/recipes/${recipeId}/stages`);
+        const stages = await stagesResponse.json();
+
+        console.log('Полученные этапы:', stages); // Для отладки
+
+        // Заполняем основные данные рецепта
+        document.querySelector('.dish-title').textContent = recipe.title || 'Название не указано';
+        document.querySelector('.cooking-time').textContent = `Время готовки: ${recipe.cookingTime || 'не указано'} минут`;
+        document.querySelector('.description').textContent = recipe.description || 'Описание отсутствует';
+        document.querySelector('.country').textContent = `Страна: ${recipe.country || 'не указана'}`;
+        document.querySelector('.type').textContent = `Тип блюда: ${recipe.type || 'не указан'}`;
+        document.querySelector('.author').textContent = `Автор: ${recipe.author || 'не указан'}`;
+        
+        // Устанавливаем главное изображение рецепта
+        const recipeImage = document.querySelector('.insert-image img');
+        if (recipe.image) {
+            recipeImage.src = recipe.image;
+        }
+        recipeImage.onerror = function() {
+            this.src = './src/img/default.jpg';
+        };
+
+        // Создаем HTML для этапов рецепта
+        const recipeContainer = document.querySelector('.recipe');
+        recipeContainer.innerHTML = ''; // Очищаем контейнер
+
+        if (stages && stages.length > 0) {
+            const stagesHtml = stages
+                .sort((a, b) => a.stage - b.stage)
+                .map(stage => {
+                    // Проверяем наличие описания этапа
+                    const description = stage.description || stage.stageDiscription || 'Описание этапа отсутствует';
+                    
+                    // Проверяем наличие изображения
+                    const image = stage.image || stage.stageImage;
+                    const imageHtml = image ? `
+                        <div class="stage-image">
+                            <img src="${image}" 
+                                 alt="Этап ${stage.stage}" 
+                                 onerror="this.src='./src/img/default.jpg'">
+                        </div>
+                    ` : '';
+
+                    return `
+                        <div class="recipe-stage">
+                            <h4>Этап ${stage.stage}</h4>
+                            ${imageHtml}
+                            <p class="stage-description">${description}</p>
+                        </div>
+                    `;
+                }).join('');
+
+            recipeContainer.innerHTML = `
+                <h2>Этапы приготовления:</h2>
+                <div class="stages-container">
+                    ${stagesHtml}
+                </div>
+            `;
+        } else {
+            recipeContainer.innerHTML = '<p>Этапы приготовления не указаны</p>';
+        }
+
+    } catch (error) {
+        console.error('Ошибка при загрузке данных рецепта:', error);
+        alert('Ошибка при загрузке рецепта');
+    }
+});

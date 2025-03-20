@@ -5,11 +5,11 @@ VALUES
 ('test2@example.com', 'foodieAnna', 'securepass'),
 ('test3@example.com', 'recipeMaster', 'mystrongpassword');
 
-INSERT INTO "userProfile" ("userLoginID", "userImage", "userFullName", "userDescription", "userRecipes") 
+INSERT INTO "userProfile" ("userLoginID", "userImage", "userDescription", "userRecipes") 
 VALUES 
-('chefAlex', 'images/alex.jpg', 'Алексей Иванов', 'Люблю готовить итальянскую кухню', 2),
-('foodieAnna', 'images/anna.jpg', 'Анна Петрова', 'Экспериментирую с десертами', 3),
-('recipeMaster', 'images/master.jpg', 'Иван Сидоров', 'Профессиональный повар', 5);
+('chefAlex', 'images/alex.jpg', 'Люблю готовить итальянскую кухню', 2),
+('foodieAnna', 'images/anna.jpg', 'Экспериментирую с десертами', 3),
+('recipeMaster', 'images/master.jpg', 'Профессиональный повар', 5);
 
 INSERT INTO "siteRecipes" ("imageRecipe", "titleRecipe", "discriptionRecipe", "contryRecipe", "typeRecipe", "autorRecipe") 
 VALUES 

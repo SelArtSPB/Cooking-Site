@@ -1529,3 +1529,48 @@ body.dark-theme .author {
     height: 3px;
     bottom: -8px;
 }
+
+/* Стили для этапов рецепта */
+.recipe-stage {
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: var(--bg-secondary);
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.recipe-stage h4 {
+    color: var(--text-primary);
+    font-size: 1.2em;
+    margin-bottom: 15px;
+}
+
+.stage-image {
+    margin: 15px 0;
+    text-align: center;
+}
+
+.stage-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.stage-description {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-top: 15px;
+}
+
+.stages-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.recipe h2 {
+    text-align: center;
+    color: var(--text-primary);
+    margin-bottom: 30px;
+    font-size: 1.8em;
+}

@@ -68,7 +68,52 @@ document.addEventListener('keydown', (e) => {
 
 
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", async function () {
+    // Проверяем наличие токенов
+    const token = localStorage.getItem('token');
+    const refreshToken = localStorage.getItem('refreshToken');
+    const userLogin = localStorage.getItem('userLogin');
+
+    if (token && refreshToken && userLogin) {
+        try {
+            // Проверяем валидность токена
+            const response = await fetch(`http://localhost:5000/profile/${userLogin}`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            if (response.ok) {
+                // Если токен валидный, перенаправляем на профиль
+                window.location.href = 'profile.html';
+                return;
+            } else if (response.status === 401) {
+                // Пробуем обновить токен
+                const refreshResponse = await fetch('http://localhost:5000/refresh', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${refreshToken}`
+                    }
+                });
+
+                if (refreshResponse.ok) {
+                    const data = await refreshResponse.json();
+                    localStorage.setItem('token', data.access_token);
+                    window.location.href = 'profile.html';
+                    return;
+                } else {
+                    // Если refresh token невалидный, очищаем хранилище
+                    localStorage.removeItem('token');
+                    localStorage.removeItem('refreshToken');
+                    localStorage.removeItem('userLogin');
+                }
+            }
+        } catch (error) {
+            console.error('Ошибка при проверке токена:', error);
+        }
+    }
+
+    // Обработчик формы входа
     document.querySelector(".login-btn").addEventListener("click", async function (event) {
         event.preventDefault();
 
@@ -80,30 +125,32 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        let userData = {
-            login: login,
-            password: password
-        };
-
         try {
-            let response = await fetch("http://127.0.0.1:5000/login", {
+            let response = await fetch("http://localhost:5000/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify(userData)
+                body: JSON.stringify({
+                    login: login,
+                    password: password
+                })
             });
 
             let result = await response.json();
+            
             if (response.ok) {
-                alert(result.message);
-                window.location.href = "index.html";
+                localStorage.setItem('token', result.access_token);
+                localStorage.setItem('refreshToken', result.refresh_token);
+                localStorage.setItem('userLogin', result.user_login);
+                
+                window.location.href = "profile.html";
             } else {
-                alert(result.error);
+                alert(result.error || "Ошибка при входе");
             }
         } catch (error) {
             console.error("Ошибка:", error);
-            alert("Ошибка при входе.");
+            alert("Ошибка при входе");
         }
     });
 });
