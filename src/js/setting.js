@@ -1,3 +1,85 @@
+let userData = {
+    username: '',
+    email: '',
+    avatar: ''
+};
+
+// Загрузка текущих данных пользователя при инициализации
+document.addEventListener('DOMContentLoaded', async function() {
+    try {
+        const response = await fetch('/api/user/profile');
+        if (response.ok) {
+            userData = await response.json();
+            // Заполняем поля формы текущими данными
+            document.querySelector('input[type="text"]').value = userData.username;
+            document.querySelector('input[type="email"]').value = userData.email;
+        }
+    } catch (error) {
+        console.error('Ошибка при загрузке данных пользователя:', error);
+    }
+});
+
+// Обработчик для кнопки "Сохранить"
+document.querySelector('.save-btn').addEventListener('click', async function() {
+    const newUsername = document.querySelector('input[type="text"]').value;
+    const newEmail = document.querySelector('input[type="email"]').value;
+    const newPassword = document.querySelector('input[type="password"]').value;
+    const confirmPassword = document.querySelectorAll('input[type="password"]')[1].value;
+
+    // Валидация
+    if (newPassword && newPassword !== confirmPassword) {
+        alert('Пароли не совпадают!');
+        return;
+    }
+
+    const updateData = {
+        username: newUsername,
+        email: newEmail,
+        avatar: croppedImageData || userData.avatar
+    };
+
+    if (newPassword) {
+        updateData.password = newPassword;
+    }
+
+    try {
+        const response = await fetch('/profile/update', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(updateData)
+        });
+
+        if (response.ok) {
+            alert('Настройки успешно сохранены!');
+            location.reload();
+        } else {
+            const error = await response.json();
+            alert(`Ошибка при сохранении: ${error.message}`);
+        }
+    } catch (error) {
+        console.error('Ошибка при обновлении профиля:', error);
+        alert('Произошла ошибка при сохранении настроек');
+    }
+});
+
+// Обработчик для кнопки "Отменить"
+document.querySelector('.cancel-btn').addEventListener('click', function() {
+    // Возвращаем исходные значения
+    document.querySelector('input[type="text"]').value = userData.username;
+    document.querySelector('input[type="email"]').value = userData.email;
+    document.querySelectorAll('input[type="password"]').forEach(input => input.value = '');
+    
+    // Если есть предпросмотр аватара, удаляем его
+    const preview = document.querySelector('.settings-card-new-img img');
+    if (preview) {
+        preview.remove();
+    }
+    
+    croppedImageData = null;
+});
+
 document.querySelector('.menu-toggle').addEventListener('click', function() {
     this.classList.toggle('active');
     document.querySelector('.nav').classList.toggle('active');
@@ -345,5 +427,74 @@ function getBase64(file) {
         reader.onload = () => resolve(reader.result);
         reader.onerror = error => reject(error);
     });
+}
+
+let cropper = null;
+let croppedImageData = null;
+
+document.querySelector('#new-img-input').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const modal = document.querySelector('.modal-crop');
+            const img = document.querySelector('#crop-image');
+            
+            img.src = e.target.result;
+            modal.style.display = 'flex';
+            
+            // Инициализация Cropper
+            cropper = new Cropper(img, {
+                aspectRatio: 1,
+                viewMode: 1,
+                dragMode: 'move',
+                autoCropArea: 1,
+                restore: false,
+                modal: true,
+                guides: true,
+                highlight: true,
+                cropBoxMovable: true,
+                cropBoxResizable: true,
+                toggleDragModeOnDblclick: false,
+            });
+        };
+        reader.readAsDataURL(file);
+    }
+});
+
+// Обработчики для модального окна
+document.querySelector('.close-modal').addEventListener('click', closeCropModal);
+document.querySelector('.crop-cancel').addEventListener('click', closeCropModal);
+document.querySelector('.crop-save').addEventListener('click', function() {
+    croppedImageData = cropper.getCroppedCanvas({
+        width: 250, // Фиксированная ширина
+        height: 250 // Фиксированная высота
+    }).toDataURL('image/jpeg');
+    
+    // Показываем превью
+    const preview = document.createElement('img');
+    preview.src = croppedImageData;
+    preview.style.width = '100px';
+    preview.style.height = '100px';
+    preview.style.borderRadius = '50%';
+    preview.style.objectFit = 'cover';
+    
+    const container = document.querySelector('.settings-card-new-img');
+    const existingPreview = container.querySelector('img');
+    if (existingPreview) {
+        container.removeChild(existingPreview);
+    }
+    container.appendChild(preview);
+    
+    closeCropModal();
+});
+
+function closeCropModal() {
+    const modal = document.querySelector('.modal-crop');
+    modal.style.display = 'none';
+    if (cropper) {
+        cropper.destroy();
+        cropper = null;
+    }
 }
 

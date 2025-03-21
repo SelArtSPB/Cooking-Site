@@ -38,18 +38,23 @@ def get_user_profile(user_login):
         })
     return jsonify({"error": "User not found"}), 404
 
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
 @api.route("/recipes", methods=["GET"])
 def get_recipes():
-    author = request.args.get('author')  # Получаем параметр автора из запроса
-    session = SessionLocal()
+    db = next(get_db())
+    author = request.args.get('author')
     
     try:
-        # Если указан автор, фильтруем рецепты по нему
         if author:
-            recipes = session.query(SiteRecipe).filter_by(autorRecipe=author).all()
+            recipes = db.query(SiteRecipe).filter_by(autorRecipe=author).all()
         else:
-            # Если автор не указан, возвращаем все рецепты
-            recipes = session.query(SiteRecipe).all()
+            recipes = db.query(SiteRecipe).all()
         
         return jsonify([{
             "id": r.idRecipe,
@@ -65,7 +70,7 @@ def get_recipes():
         print(f"[GET_RECIPES] ❌ Ошибка: {e}")
         return jsonify({"error": "Ошибка при получении рецептов"}), 500
     finally:
-        session.close()
+        db.close()
 
 @api.route("/recipes/<int:recipe_id>", methods=["GET"])
 def get_recipe(recipe_id):

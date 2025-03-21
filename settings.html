@@ -6,6 +6,8 @@
     <title>Settings</title>
     <link rel="stylesheet" href="src/css/settings.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
 </head>
 <body>
     <header class="header">
@@ -80,6 +82,23 @@
         <div class="settings-buttons">
             <button class="save-btn">Сохранить</button>
             <button class="cancel-btn">Отменить</button>
+        </div>
+    </div>
+    <div class="modal-crop" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Обрезка изображения</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="img-container">
+                    <img id="crop-image" src="" alt="Изображение для обрезки">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="crop-cancel">Отмена</button>
+                <button class="crop-save">Сохранить</button>
+            </div>
         </div>
     </div>
 

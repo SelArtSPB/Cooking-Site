@@ -357,8 +357,10 @@ document.addEventListener("DOMContentLoaded", () => {
             }
             
             cardImage.onerror = function() {
-                this.src = './src/img/default.jpg';
-                console.log('Используется изображение по умолчанию');
+                console.log("Используется изображение по умолчанию");
+                if (!this.src.includes('default.jpg')) {
+                    this.src = 'src/img/default.jpg';
+                }
             };
 
             sidewayText.querySelector('h1').textContent = data.login || userLogin;
