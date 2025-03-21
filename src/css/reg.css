@@ -477,11 +477,7 @@ body.dark-theme .section-title {
 /* Конец стилей для заголовков секций и рецептов */
 
 /* Начало стилей для навигации */
-.nav ul {
-    margin-left: 170px;
-    font-family: 'Open Sans', sans-serif;
-    font-weight: 600;
-}
+
 /* Конец стилей для навигации */
 
 /* Начало стилей для отрывков рецептов и наложений */
@@ -728,7 +724,7 @@ body.dark-theme .read-more:hover {
 
 /* Начало стилей для навигации */
 .nav ul {
-    margin-left: 170px;
+    margin-right: 130px;
     font-family: 'Open Sans', sans-serif;
     font-weight: 600;
 }
@@ -1104,7 +1100,6 @@ body.dark-theme .profile-theme-toggle .fa-adjust::before {
     height: 1000px;
     display: flex;
     justify-content: center;
-    padding: 50px 15px;
 }
 
 .card {

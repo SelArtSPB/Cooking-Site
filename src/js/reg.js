@@ -112,27 +112,3 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
-
-document.addEventListener('DOMContentLoaded', function() {
-    // Инициализация темы
-    const darkThemeClass = 'dark-theme';
-    const storageKey = 'siteTheme';
-    const savedTheme = localStorage.getItem(storageKey);
-    if (savedTheme === 'dark') {
-        document.body.classList.add(darkThemeClass);
-    }
-
-    // Обработчик переключения темы
-    document.querySelector('.profile-theme-toggle').addEventListener('click', function(e) {
-        e.preventDefault();
-        document.body.classList.toggle(darkThemeClass);
-        localStorage.setItem(storageKey, document.body.classList.contains(darkThemeClass) ? 'dark' : 'light');
-    });
-
-    // Синхронизация темы между вкладками
-    window.addEventListener('storage', function(e) {
-        if (e.key === storageKey) {
-            document.body.classList.toggle(darkThemeClass, e.newValue === 'dark');
-        }
-    });
-});
