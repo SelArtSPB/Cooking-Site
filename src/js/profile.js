@@ -705,3 +705,21 @@ document.addEventListener('DOMContentLoaded', () => {
             });
     }
 });
+
+// Добавляем обработчик для удаления этапов
+document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('remove-stage')) {
+        const stageItem = e.target.closest('.stage-item');
+        if (stageItem) {
+            stageItem.remove();
+            // Обновляем нумерацию оставшихся этапов
+            const stages = document.querySelectorAll('.stage-item');
+            stages.forEach((stage, index) => {
+                const stageTitle = stage.querySelector('h4');
+                if (stageTitle) {
+                    stageTitle.textContent = `Этап ${index + 1}`;
+                }
+            });
+        }
+    }
+});
