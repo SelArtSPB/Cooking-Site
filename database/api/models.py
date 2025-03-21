@@ -1,5 +1,6 @@
 from sqlalchemy import Column, Integer, String, Text, ForeignKey, create_engine
 from sqlalchemy.orm import relationship, declarative_base, sessionmaker
+from config import DATABASE_URL
 
 Base = declarative_base()
 
@@ -48,6 +49,5 @@ class UserProfile(Base):
     userDescription = Column(Text, nullable=True)
     userRecipes = Column(Integer, nullable=True)
 
-DATABASE_URL = "postgresql://postgres:sednev23@localhost/postgres"
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(bind=engine)

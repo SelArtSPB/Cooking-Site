@@ -1,6 +1,8 @@
-Flask==3.0.0
-SQLAlchemy==2.0.23
-psycopg2-binary==2.9.9
-flask-cors
-argon2-cffi
-pycryptodome
+PyJWT==2.8.0  # Для работы с JWT токенами
+SQLAlchemy  # Для работы с базой данных
+psycopg2-binary  # PostgreSQL адаптер
+Flask  # Веб-фреймворк
+Flask-CORS  # Для CORS поддержки
+argon2-cffi  # Для хеширования паролей
+pycryptodome  # Для шифрования данных 
+python-dotenv  # Для работы с переменными окружения
