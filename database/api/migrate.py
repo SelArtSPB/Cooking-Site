@@ -56,8 +56,22 @@ def update_foreign_keys():
         connection.commit()
         print("Внешние ключи успешно обновлены")
 
+def create_recommended_recipes_table():
+    with engine.connect() as connection:
+        connection.execute(text('''
+            CREATE TABLE IF NOT EXISTS "recommendedRecipes" (
+                "id" SERIAL PRIMARY KEY,
+                "recipeId" INTEGER REFERENCES "siteRecipes"("idRecipe") ON DELETE CASCADE,
+                "dateAdded" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            )
+        '''))
+        
+        connection.commit()
+        print("Таблица recommendedRecipes успешно создана или уже существует")
+
 if __name__ == "__main__":
     add_cooking_time_column()
     remove_full_name_column()
     update_primary_key()
-    update_foreign_keys() 
+    update_foreign_keys()
+    create_recommended_recipes_table() 

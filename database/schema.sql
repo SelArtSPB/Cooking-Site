@@ -33,5 +33,12 @@ CREATE TABLE "userProfile" (
     PRIMARY KEY ("userLoginID")
 );
 
+-- Новая таблица для рекомендуемых рецептов
+CREATE TABLE "recommendedRecipes" (
+    "id" SERIAL PRIMARY KEY,
+    "recipeId" INTEGER REFERENCES "siteRecipes"("idRecipe") ON DELETE CASCADE,
+    "dateAdded" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 
 

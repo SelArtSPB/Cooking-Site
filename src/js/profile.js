@@ -318,7 +318,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Загружаем данные профиля
-    fetch(`http://localhost:5000/profile/${userLogin}`, {
+    fetch(`http://localhost:5000/api/profile/${userLogin}`, {
         headers: {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json'
@@ -379,7 +379,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
     // Загружаем рецепты пользователя
-    fetch(`http://localhost:5000/recipes?author=${userLogin}`, {
+    fetch(`http://localhost:5000/api/recipes?author=${userLogin}`, {
         headers: {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json'
@@ -512,7 +512,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     });
                 }
 
-                const response = await fetch('http://localhost:5000/recipes/add', {
+                const response = await fetch('http://localhost:5000/api/recipes/add', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -528,7 +528,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     
                     // Обновляем количество рецептов в профиле
                     const userLogin = localStorage.getItem('userLogin');
-                    const profileResponse = await fetch(`http://localhost:5000/profile/${userLogin}`);
+                    const profileResponse = await fetch(`http://localhost:5000/api/profile/${userLogin}`);
                     const profileData = await profileResponse.json();
                     
                     if (profileData && !profileData.error) {
@@ -536,7 +536,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     }
 
                     // Обновляем список рецептов
-                    const recipesResponse = await fetch(`http://localhost:5000/recipes?author=${userLogin}`);
+                    const recipesResponse = await fetch(`http://localhost:5000/api/recipes?author=${userLogin}`);
                     const recipes = await recipesResponse.json();
                     displayRecipes(1); // Обновляем отображение рецептов на первой странице
                 } else {
@@ -668,7 +668,7 @@ async function deleteSelectedRecipes() {
 
     try {
         const promises = Array.from(selectedRecipes).map(recipeId =>
-            fetch(`http://localhost:5000/recipes/${recipeId}`, {
+            fetch(`http://localhost:5000/api/recipes/${recipeId}`, {
                 method: 'DELETE'
             }).then(response => {
                 if (!response.ok) throw new Error('Ошибка при удалении рецепта');
@@ -696,7 +696,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Загружаем рецепты только если мы на странице с рецептами
     const recipeContainer = document.querySelector('.recipe-row');
     if (recipeContainer) {
-        fetch(`http://localhost:5000/recipes?author=${userLogin}`)
+        fetch(`http://localhost:5000/api/recipes?author=${userLogin}`)
             .then(response => response.json())
             .then(recipes => {
                 allRecipes = recipes; // Определяем глобально
@@ -723,5 +723,60 @@ document.addEventListener('click', function(e) {
                 }
             });
         }
+    }
+});
+
+// Функция для загрузки списка стран
+async function loadCountries() {
+    try {
+        const response = await fetch('http://localhost:5000/api/countries');
+        const countries = await response.json();
+        const countrySelect = document.getElementById('recipeCountry');
+        
+        if (countrySelect) {
+            countries.forEach(country => {
+                const option = document.createElement('option');
+                option.value = country;
+                option.textContent = country;
+                countrySelect.appendChild(option);
+            });
+        }
+    } catch (error) {
+        console.error('Ошибка при загрузке списка стран:', error);
+    }
+}
+
+// Функция для загрузки типов блюд
+async function loadDishTypes() {
+    try {
+        const response = await fetch('http://localhost:5000/api/dish-types');
+        const types = await response.json();
+        const typeSelect = document.getElementById('recipeType');
+        
+        if (typeSelect) {
+            types.forEach(type => {
+                const option = document.createElement('option');
+                option.value = type;
+                option.textContent = type;
+                typeSelect.appendChild(option);
+            });
+        }
+    } catch (error) {
+        console.error('Ошибка при загрузке типов блюд:', error);
+    }
+}
+
+// Добавляем загрузку списков при открытии модального окна
+document.getElementById('openAddRecipeModal')?.addEventListener('click', function() {
+    document.getElementById('addRecipeModal').style.display = 'flex';
+    // Загружаем списки только если они еще не загружены
+    const countrySelect = document.getElementById('recipeCountry');
+    const typeSelect = document.getElementById('recipeType');
+    
+    if (countrySelect && countrySelect.children.length <= 1) {
+        loadCountries();
+    }
+    if (typeSelect && typeSelect.children.length <= 1) {
+        loadDishTypes();
     }
 });

@@ -205,17 +205,10 @@ function changePage(newPage) {
 // Переход к подробному просмотру рецепта по клику на карточку
 document.querySelectorAll('.recipe-card').forEach(card => {
     card.addEventListener('click', function () {
-        const title = this.dataset.title;
-        const description = this.dataset.description;
-        const cookingTime = this.dataset.cookingTime;
-        const country = this.dataset.country;
-        const type = this.dataset.type;
-        const author = this.dataset.author;
-        const recipe = this.dataset.recipe;
-        const image = this.dataset.image; // Новый параметр
-
-        const url = `data_view.html?title=${encodeURIComponent(title)}&description=${encodeURIComponent(description)}&cookingTime=${encodeURIComponent(cookingTime)}&country=${encodeURIComponent(country)}&type=${encodeURIComponent(type)}&author=${encodeURIComponent(author)}&recipe=${encodeURIComponent(recipe)}&image=${encodeURIComponent(image)}`;
-        window.location.href = url;
+        const id = this.dataset.id;
+        if (id) {
+            window.location.href = `data_view.html?id=${encodeURIComponent(id)}`;
+        }
     });
 });
 
@@ -238,8 +231,8 @@ document.addEventListener("DOMContentLoaded", function () {
 // Объединяем все обработчики DOMContentLoaded в один
 document.addEventListener('DOMContentLoaded', async () => {
     try {
-        // Получаем все рецепты
-        const response = await fetch('http://localhost:5000/recipes');
+        // Загрузка рецептов из API
+        const response = await fetch('http://localhost:5000/api/recipes');
         if (!response.ok) {
             throw new Error('Ошибка при загрузке рецептов');
         }
@@ -255,42 +248,53 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Функция для отображения рецептов с учетом фильтров
         function displayRecipes(filteredRecipes) {
             gridContainer.innerHTML = '';
-
-            if (!filteredRecipes || filteredRecipes.length === 0) {
-                gridContainer.innerHTML = '<p class="no-recipes">Рецептов не найдено</p>';
+            
+            if (filteredRecipes.length === 0) {
+                const noRecipesMessage = document.createElement('p');
+                noRecipesMessage.className = 'no-recipes-message';
+                noRecipesMessage.textContent = 'Рецепты не найдены. Попробуйте изменить параметры поиска.';
+                gridContainer.appendChild(noRecipesMessage);
                 return;
             }
-
+            
             filteredRecipes.forEach(recipe => {
-                const recipeCard = document.createElement('div');
-                recipeCard.className = 'recipe-card';
+                const card = document.createElement('div');
+                card.className = 'recipe-card';
+                card.dataset.id = recipe.id;
+                card.dataset.country = recipe.country || 'Не указано';
+                card.dataset.author = recipe.author || 'Аноним';
+                card.dataset.type = recipe.type || 'Не указано';
                 
-                let imageSrc = recipe.image || './src/img/default.jpg';
-
-                recipeCard.innerHTML = `
-                    <div class="recipe-image">
-                        <img src="${imageSrc}" 
-                             alt="${recipe.title}" 
-                             onerror="this.src='./src/img/default.jpg'">
-                    </div>
+                card.innerHTML = `
+                    <img src="${recipe.image || 'src/img/default.jpg'}" alt="${recipe.title}">
                     <div class="recipe-info">
-                        <h3>${recipe.title || 'Без названия'}</h3>
-                        <p class="recipe-description">${recipe.description || 'Описание отсутствует'}</p>
-                        <div class="recipe-details">
+                        <h3>${recipe.title}</h3>
+                        <p>${recipe.description ? recipe.description.substring(0, 100) + '...' : 'Описание отсутствует'}</p>
+                        <div class="recipe-meta">
                             <span><i class="fas fa-clock"></i> ${recipe.cookingTime || 'Не указано'} мин</span>
-                            <span><i class="fas fa-globe"></i> ${recipe.country || 'Не указано'}</span>
+                            <span><i class="fas fa-flag"></i> ${recipe.country || 'Не указано'}</span>
                             <span><i class="fas fa-utensils"></i> ${recipe.type || 'Не указано'}</span>
-                            <span><i class="fas fa-user"></i> ${recipe.author || 'Аноним'}</span>
                         </div>
                     </div>
                 `;
-
-                recipeCard.addEventListener('click', () => {
-                    window.location.href = `data_view.html?id=${recipe.id}`;
-                });
-
-                gridContainer.appendChild(recipeCard);
+                
+                gridContainer.appendChild(card);
             });
+            
+            // После добавления всех карточек, добавляем обработчики событий
+            document.querySelectorAll('.recipe-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    const id = this.dataset.id;
+                    if (id) {
+                        window.location.href = `data_view.html?id=${encodeURIComponent(id)}`;
+                    }
+                });
+            });
+            
+            // Обновляем пагинацию, если она необходима
+            if (filteredRecipes.length > itemsPerPage) {
+                setupPagination(filteredRecipes);
+            }
         }
 
         // Функция фильтрации
@@ -364,4 +368,64 @@ document.addEventListener('DOMContentLoaded', async () => {
             gridContainer.innerHTML = '<p class="error-message">Ошибка при загрузке рецептов</p>';
         }
     }
+});
+
+// Функция для загрузки списка стран в фильтр
+async function loadCountriesFilter() {
+    try {
+        const response = await fetch('http://localhost:5000/api/countries');
+        const countries = await response.json();
+        const countrySelect = document.getElementById('country');
+        
+        if (countrySelect) {
+            countries.forEach(country => {
+                const option = document.createElement('option');
+                option.value = country;
+                option.textContent = country;
+                countrySelect.appendChild(option);
+            });
+            
+            // Устанавливаем значение из URL, если есть
+            const urlParams = new URLSearchParams(window.location.search);
+            const countryParam = urlParams.get('country');
+            if (countryParam) {
+                countrySelect.value = countryParam;
+            }
+        }
+    } catch (error) {
+        console.error('Ошибка при загрузке списка стран:', error);
+    }
+}
+
+// Функция для загрузки типов блюд в фильтр
+async function loadDishTypesFilter() {
+    try {
+        const response = await fetch('http://localhost:5000/api/dish-types');
+        const types = await response.json();
+        const typeSelect = document.getElementById('type');
+        
+        if (typeSelect) {
+            types.forEach(type => {
+                const option = document.createElement('option');
+                option.value = type;
+                option.textContent = type;
+                typeSelect.appendChild(option);
+            });
+            
+            // Устанавливаем значение из URL, если есть
+            const urlParams = new URLSearchParams(window.location.search);
+            const typeParam = urlParams.get('type');
+            if (typeParam) {
+                typeSelect.value = typeParam;
+            }
+        }
+    } catch (error) {
+        console.error('Ошибка при загрузке типов блюд:', error);
+    }
+}
+
+// Загружаем списки при загрузке страницы
+document.addEventListener('DOMContentLoaded', () => {
+    loadCountriesFilter();
+    loadDishTypesFilter();
 });

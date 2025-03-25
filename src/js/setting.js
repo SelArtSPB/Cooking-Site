@@ -299,7 +299,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Загружаем данные профиля из БД
-    fetch(`http://localhost:5000/profile/${userLogin}`)
+    fetch(`http://localhost:5000/api/profile/${userLogin}`)
         .then(response => response.json())
         .then(data => {
             if (data.error) {
@@ -386,7 +386,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 image: imageData
             };
 
-            const response = await fetch('http://localhost:5000/profile/update', {
+            const response = await fetch('http://localhost:5000/api/profile/update', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

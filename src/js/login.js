@@ -77,7 +77,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     if (token && refreshToken && userLogin) {
         try {
             // Проверяем валидность токена
-            const response = await fetch(`http://localhost:5000/profile/${userLogin}`, {
+            const response = await fetch(`http://localhost:5000/api/profile/${userLogin}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -89,7 +89,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                 return;
             } else if (response.status === 401) {
                 // Пробуем обновить токен
-                const refreshResponse = await fetch('http://localhost:5000/refresh', {
+                const refreshResponse = await fetch('http://localhost:5000/api/refresh', {
                     method: 'POST',
                     headers: {
                         'Authorization': `Bearer ${refreshToken}`
@@ -126,7 +126,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         }
 
         try {
-            let response = await fetch("http://localhost:5000/login", {
+            let response = await fetch("http://localhost:5000/api/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

@@ -6,7 +6,7 @@ async function refreshAccessToken() {
     }
 
     try {
-        const response = await fetch('http://localhost:5000/refresh', {
+        const response = await fetch('http://localhost:5000/api/refresh', {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${refreshToken}`
@@ -34,26 +34,41 @@ async function refreshAccessToken() {
 async function fetchWithToken(url, options = {}) {
     let token = localStorage.getItem('token');
     
-    // Добавляем заголовок авторизации
-    options.headers = {
-        ...options.headers,
-        'Authorization': `Bearer ${token}`
+    // Настройки запроса с учетом CORS
+    options = {
+        ...options,
+        headers: {
+            ...options.headers,
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        mode: 'cors' // Явно указываем режим CORS
     };
 
-    let response = await fetch(url, options);
+    try {
+        let response = await fetch(url, options);
 
-    // Если получаем 401, пробуем обновить токен
-    if (response.status === 401) {
-        const refreshed = await refreshAccessToken();
-        if (refreshed) {
-            // Повторяем запрос с новым токеном
-            token = localStorage.getItem('token');
-            options.headers['Authorization'] = `Bearer ${token}`;
-            response = await fetch(url, options);
+        // Если получаем 401, пробуем обновить токен
+        if (response.status === 401) {
+            const refreshed = await refreshAccessToken();
+            if (refreshed) {
+                // Повторяем запрос с новым токеном
+                token = localStorage.getItem('token');
+                options.headers['Authorization'] = `Bearer ${token}`;
+                return fetch(url, options);
+            } else {
+                // Если токен не обновился, перенаправляем на страницу входа
+                window.location.href = '/login.html';
+                throw new Error('Unauthorized - Token refresh failed');
+            }
         }
+        
+        return response;
+    } catch (error) {
+        console.error('Fetch error:', error);
+        throw error;
     }
-
-    return response;
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -67,8 +82,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const protectedPages = [
         'profile.html',
         'settings.html',
-        'input_data.html',
-        'data_view.html'
+        'input_data.html'
+        // 'data_view.html' - удалено, чтобы незарегистрированные пользователи могли просматривать рецепты
     ];
     
     // Список страниц, доступных без авторизации
@@ -77,6 +92,7 @@ document.addEventListener("DOMContentLoaded", () => {
         'catalog-recipe.html',
         'login.html',
         'reg.html',
+        'data_view.html',  // добавлено как публичная страница
         ''  // Для случая, когда открыта корневая директория
     ];
 
@@ -103,7 +119,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         // Используем новую функцию для запросов
-        fetchWithToken(`http://localhost:5000/profile/${userLogin}`)
+        fetchWithToken(`http://localhost:5000/api/profile/${userLogin}`)
             .then(response => response.json())
             .then(data => {
                 const profileIcon = document.querySelector(".profile-toggle i");

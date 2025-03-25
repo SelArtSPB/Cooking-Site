@@ -2,7 +2,7 @@ import os
 from base64 import b64encode, b64decode
 from flask import Blueprint, jsonify, request
 from sqlalchemy.orm import Session
-from models import SessionLocal, UserInfo, SiteRecipe, StageRecipe, UserProfile
+from models import SessionLocal, UserInfo, SiteRecipe, StageRecipe, UserProfile, RecommendedRecipe
 from werkzeug.security import generate_password_hash
 from flask_cors import cross_origin, CORS
 import hashlib
@@ -31,7 +31,6 @@ def get_user_profile(user_login):
     if user:
         return jsonify({
             "login": user.userLoginID,
-            "fullName": user.userFullName,
             "description": user.userDescription,
             "image": user.userImage,
             "recipesCount": user.userRecipes
@@ -45,8 +44,16 @@ def get_db():
     finally:
         db.close()
 
-@api.route("/recipes", methods=["GET"])
+@api.route("/recipes", methods=["GET", "OPTIONS"])
+@cross_origin(origins=["http://localhost:5000", "http://127.0.0.1:5500", "http://localhost:3000"], 
+              methods=["GET", "OPTIONS"], 
+              allow_headers=["Content-Type", "Authorization"],
+              supports_credentials=True)
 def get_recipes():
+    # Обработка предварительных запросов OPTIONS
+    if request.method == "OPTIONS":
+        return jsonify({"message": "OK"}), 200
+        
     db = next(get_db())
     author = request.args.get('author')
     
@@ -294,25 +301,33 @@ def add_recipe():
     finally:
         session.close()
 
-@api.route("/profile/<string:user_login>", methods=["GET"])
-@cross_origin()
+@api.route("/profile/<string:user_login>", methods=["GET", "OPTIONS"])
+@cross_origin(origins=["http://localhost:5000", "http://127.0.0.1:5500", "http://localhost:3000"], 
+              methods=["GET", "OPTIONS"], 
+              allow_headers=["Content-Type", "Authorization"],
+              supports_credentials=True)
 def get_profile_data(user_login):
-    try:
-        session = SessionLocal()
-        user = session.query(UserProfile).filter_by(userLoginID=user_login).first()
+    # Обработка предварительных запросов OPTIONS
+    if request.method == "OPTIONS":
+        return jsonify({"message": "OK"}), 200
         
-        if not user:
-            return jsonify({"error": "Пользователь не найден"}), 404
-
-        return jsonify({
-            "login": user.userLoginID,
-            "description": user.userDescription,
-            "image": user.userImage,
-            "recipesCount": user.userRecipes
-        })
+    session = SessionLocal()
+    try:
+        user_profile = session.query(UserProfile).filter_by(userLoginID=user_login).first()
+        if not user_profile:
+            return jsonify({"error": "Профиль не найден"}), 404
+            
+        result = {
+            "login": user_profile.userLoginID,
+            "description": user_profile.userDescription,
+            "image": user_profile.userImage,
+            "recipesCount": user_profile.userRecipes
+        }
+        
+        return jsonify(result)
     except Exception as e:
         print(f"[GET_PROFILE] ❌ Ошибка: {e}")
-        return jsonify({"error": "Ошибка сервера"}), 500
+        return jsonify({"error": f"Ошибка при получении профиля: {str(e)}"}), 500
     finally:
         session.close()
 
@@ -412,3 +427,136 @@ def update_profile():
         return jsonify({"error": "Ошибка при обновлении профиля"}), 500
     finally:
         session.close()
+
+@api.route("/recommended-recipes", methods=["GET", "OPTIONS"])
+@cross_origin(origins=["http://localhost:5000", "http://127.0.0.1:5500", "http://localhost:3000"], 
+              methods=["GET", "OPTIONS"], 
+              allow_headers=["Content-Type", "Authorization"],
+              supports_credentials=True)
+def get_recommended_recipes():
+    """Получить список рекомендуемых рецептов"""
+    # Обработка предварительных запросов OPTIONS
+    if request.method == "OPTIONS":
+        return jsonify({"message": "OK"}), 200
+        
+    session = SessionLocal()
+    try:
+        recommended = session.query(RecommendedRecipe).join(SiteRecipe).all()
+        
+        return jsonify([{
+            "id": r.recipe.idRecipe,
+            "title": r.recipe.titleRecipe,
+            "description": r.recipe.discriptionRecipe,
+            "cookingTime": r.recipe.cookingTime,
+            "country": r.recipe.contryRecipe,
+            "type": r.recipe.typeRecipe,
+            "author": r.recipe.autorRecipe,
+            "image": r.recipe.imageRecipe,
+            "dateAdded": r.dateAdded.isoformat() if r.dateAdded else None
+        } for r in recommended])
+    except Exception as e:
+        print(f"[GET_RECOMMENDED] ❌ Ошибка: {e}")
+        return jsonify({"error": "Ошибка при получении рекомендуемых рецептов"}), 500
+    finally:
+        session.close()
+
+@api.route("/recommended-recipes/add", methods=["POST"])
+@token_required
+def add_recommended_recipe(user_login):
+    """Добавить рецепт в рекомендуемые"""
+    data = request.json
+    recipe_id = data.get("recipeId")
+    
+    if not recipe_id:
+        return jsonify({"error": "Не указан ID рецепта"}), 400
+    
+    session = SessionLocal()
+    try:
+        # Проверяем существование рецепта
+        recipe = session.query(SiteRecipe).filter_by(idRecipe=recipe_id).first()
+        if not recipe:
+            return jsonify({"error": "Рецепт не найден"}), 404
+        
+        # Проверяем, не добавлен ли уже рецепт в рекомендуемые
+        existing = session.query(RecommendedRecipe).filter_by(recipeId=recipe_id).first()
+        if existing:
+            return jsonify({"error": "Рецепт уже добавлен в рекомендуемые"}), 400
+        
+        # Добавляем в рекомендуемые
+        new_recommended = RecommendedRecipe(recipeId=recipe_id)
+        session.add(new_recommended)
+        session.commit()
+        
+        return jsonify({"message": "Рецепт успешно добавлен в рекомендуемые", "id": new_recommended.id}), 201
+    except Exception as e:
+        session.rollback()
+        print(f"[ADD_RECOMMENDED] ❌ Ошибка: {e}")
+        return jsonify({"error": "Ошибка при добавлении рецепта в рекомендуемые"}), 500
+    finally:
+        session.close()
+
+@api.route("/recommended-recipes/remove/<int:recipe_id>", methods=["DELETE"])
+@token_required
+def remove_recommended_recipe(user_login, recipe_id):
+    """Удалить рецепт из рекомендуемых"""
+    session = SessionLocal()
+    try:
+        recommended = session.query(RecommendedRecipe).filter_by(recipeId=recipe_id).first()
+        if not recommended:
+            return jsonify({"error": "Рецепт не найден в рекомендуемых"}), 404
+        
+        session.delete(recommended)
+        session.commit()
+        
+        return jsonify({"message": "Рецепт успешно удален из рекомендуемых"}), 200
+    except Exception as e:
+        session.rollback()
+        print(f"[REMOVE_RECOMMENDED] ❌ Ошибка: {e}")
+        return jsonify({"error": "Ошибка при удалении рецепта из рекомендуемых"}), 500
+    finally:
+        session.close()
+
+# Добавляем новые эндпоинты для получения списков стран и типов блюд
+@api.route("/countries", methods=["GET"])
+def get_countries():
+    """Получить список всех доступных стран"""
+    countries = [
+        "Русская кухня",
+        "Китайская кухня",
+        "Индийская кухня",
+        "Итальянская кухня",
+        "Мексиканская кухня",
+        "Французская кухня",
+        "Японская кухня",
+        "Тайская кухня",
+        "Турецкая кухня",
+        "Израильская кухня",
+        "Вьетнамская кухня",
+        "Грузинская кухня",
+        "Корейская кухня",
+        "Испанская кухня",
+        "Греческая кухня"
+    ]
+    return jsonify(countries)
+
+@api.route("/dish-types", methods=["GET"])
+def get_dish_types():
+    """Получить список всех типов блюд"""
+    types = [
+        "Основное блюдо",
+        "Суп",
+        "Салат",
+        "Десерт",
+        "Закуска",
+        "Напиток",
+        "Соус",
+        "Выпечка",
+        "Завтрак",
+        "Гарнир",
+        "Паста",
+        "Пицца",
+        "Сэндвич",
+        "Морепродукты",
+        "Вегетарианское"
+    ]
+    return jsonify(types)

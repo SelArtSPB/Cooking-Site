@@ -1,44 +1,53 @@
-document.querySelector('.menu-toggle').addEventListener('click', function() {
-    this.classList.toggle('active');
-    document.querySelector('.nav').classList.toggle('active');
-    document.body.style.overflow = document.querySelector('.nav').classList.contains('active') ? 'hidden' : '';
-});
-
-document.querySelectorAll('.nav a').forEach(link => {
-    link.addEventListener('click', () => {
-        document.querySelector('.nav').classList.remove('active');
-        document.querySelector('.menu-toggle').classList.remove('active');
-        document.body.style.overflow = '';
-    });
-});
-
-document.addEventListener('click', (e) => {
-    const nav = document.querySelector('.nav');
-    const toggle = document.querySelector('.menu-toggle');
-    if (nav.classList.contains('active') && 
-        !nav.contains(e.target) && 
-        !toggle.contains(e.target)) {
-        nav.classList.remove('active');
-        toggle.classList.remove('active');
-        document.body.style.overflow = '';
+// Загрузка рекомендуемых рецептов с сервера
+async function loadRecommendedRecipes() {
+    try {
+        const response = await fetch('http://localhost:5000/api/recommended-recipes');
+        if (!response.ok) {
+            throw new Error('Ошибка загрузки рекомендуемых рецептов');
+        }
+        
+        const recipes = await response.json();
+        const sliderTrack = document.querySelector('.slider-track');
+        
+        // Очищаем текущие рецепты
+        if (!sliderTrack) {
+            console.log('Элемент .slider-track не найден на странице');
+            return;
+        }
+        
+        sliderTrack.innerHTML = '';
+        
+        // Добавляем новые рецепты из API
+        recipes.forEach(recipe => {
+            const recipeCard = document.createElement('div');
+            recipeCard.className = 'recipe-card';
+            recipeCard.dataset.id = recipe.id;
+            
+            recipeCard.innerHTML = `
+                <img src="${recipe.image || 'src/img/default.jpg'}" alt="${recipe.title}">
+                <div class="recipe-overlay">
+                    <h3>${recipe.title}</h3>
+                    <p>${recipe.description ? recipe.description.substring(0, 50) + '...' : 'Нет описания'}</p>
+                </div>
+            `;
+            
+            sliderTrack.appendChild(recipeCard);
+        });
+        
+        // Если рецептов нет, добавляем сообщение
+        if (recipes.length === 0) {
+            sliderTrack.innerHTML = '<p class="no-recipes">Рекомендуемых рецептов пока нет</p>';
+        }
+        
+        // Инициализируем слайдер после загрузки рецептов
+        initSlider();
+    } catch (error) {
+        console.error('Ошибка при загрузке рекомендуемых рецептов:', error);
     }
-});
+}
 
-document.querySelector('.profile-toggle').addEventListener('click', function(e) {
-    e.stopPropagation();
-    document.querySelector('.profile-menu').classList.toggle('active');
-});
-
-document.addEventListener('click', function(e) {
-    const menu = document.querySelector('.profile-menu');
-    const toggle = document.querySelector('.profile-toggle');
-    
-    if (!menu.contains(e.target) && !toggle.contains(e.target)) {
-        menu.classList.remove('active');
-    }
-});
-
-document.addEventListener('DOMContentLoaded', function() {
+// Инициализация слайдера
+function initSlider() {
     const elements = {
         slider: document.querySelector('.slider-track'),
         slides: document.querySelectorAll('.recipe-card'),
@@ -133,7 +142,11 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Создаем точки навигации
-    const dotsCount = elements.slides.length - state.slidesPerView + 1;
+    // Сначала удаляем существующие точки
+    elements.dotsContainer.innerHTML = '';
+    
+    // Затем создаем новые
+    const dotsCount = Math.max(1, elements.slides.length - state.slidesPerView + 1);
     for (let i = 0; i < dotsCount; i++) {
         const dot = document.createElement('div');
         dot.classList.add('dot');
@@ -172,8 +185,63 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 5000);
 
     elements.slider.addEventListener('mouseenter', () => clearInterval(autoSlide));
+}
+
+document.querySelector('.menu-toggle').addEventListener('click', function() {
+    this.classList.toggle('active');
+    document.querySelector('.nav').classList.toggle('active');
+    document.body.style.overflow = document.querySelector('.nav').classList.contains('active') ? 'hidden' : '';
 });
 
+document.querySelectorAll('.nav a').forEach(link => {
+    link.addEventListener('click', () => {
+        document.querySelector('.nav').classList.remove('active');
+        document.querySelector('.menu-toggle').classList.remove('active');
+        document.body.style.overflow = '';
+    });
+});
+
+document.addEventListener('click', (e) => {
+    const nav = document.querySelector('.nav');
+    const toggle = document.querySelector('.menu-toggle');
+    if (nav.classList.contains('active') && 
+        !nav.contains(e.target) && 
+        !toggle.contains(e.target)) {
+        nav.classList.remove('active');
+        toggle.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+});
+
+document.querySelector('.profile-toggle').addEventListener('click', function(e) {
+    e.stopPropagation();
+    document.querySelector('.profile-menu').classList.toggle('active');
+});
+
+document.addEventListener('click', function(e) {
+    const menu = document.querySelector('.profile-menu');
+    const toggle = document.querySelector('.profile-toggle');
+    
+    if (!menu.contains(e.target) && !toggle.contains(e.target)) {
+        menu.classList.remove('active');
+    }
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Загружаем рекомендуемые рецепты
+    loadRecommendedRecipes();
+    
+    // Добавляем обработчик клика для всех карточек рецептов
+    document.addEventListener('click', function(e) {
+        const recipeCard = e.target.closest('.recipe-card');
+        if (recipeCard) {
+            const id = recipeCard.dataset.id;
+            if (id) {
+                window.location.href = `data_view.html?id=${encodeURIComponent(id)}`;
+            }
+        }
+    });
+});
 
 // Добавляем обработчик для мобильного поиска
 document.querySelector('.mobile-search-toggle').addEventListener('click', function() {
@@ -230,21 +298,6 @@ document.querySelector('.footer-section ul').addEventListener('click', function(
             });
         }
     }
-});
-document.querySelectorAll('.recipe-card').forEach(card => {
-    card.addEventListener('click', function () {
-        const title = this.dataset.title;
-        const description = this.dataset.description;
-        const cookingTime = this.dataset.cookingTime;
-        const country = this.dataset.country;
-        const type = this.dataset.type;
-        const author = this.dataset.author;
-        const recipe = this.dataset.recipe;
-        const image = this.dataset.image; // Новый параметр
-
-        const url = `data_view.html?title=${encodeURIComponent(title)}&description=${encodeURIComponent(description)}&cookingTime=${encodeURIComponent(cookingTime)}&country=${encodeURIComponent(country)}&type=${encodeURIComponent(type)}&author=${encodeURIComponent(author)}&recipe=${encodeURIComponent(recipe)}&image=${encodeURIComponent(image)}`;
-        window.location.href = url;
-    });
 });
 
 document.addEventListener('DOMContentLoaded', () => {

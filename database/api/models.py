@@ -1,6 +1,7 @@
-from sqlalchemy import Column, Integer, String, Text, ForeignKey, create_engine
+from sqlalchemy import Column, Integer, String, Text, ForeignKey, create_engine, DateTime
 from sqlalchemy.orm import relationship, declarative_base, sessionmaker
 from config import DATABASE_URL
+from sqlalchemy.sql import func
 
 Base = declarative_base()
 
@@ -29,6 +30,7 @@ class SiteRecipe(Base):
     
     author = relationship("UserInfo", back_populates="recipes")
     stages = relationship("StageRecipe", back_populates="recipe", cascade="all, delete-orphan")
+    recommended = relationship("RecommendedRecipe", back_populates="recipe", cascade="all, delete-orphan")
 
 class StageRecipe(Base):
     __tablename__ = "stageRecipes"
@@ -48,6 +50,15 @@ class UserProfile(Base):
     userImage = Column(Text, nullable=True)  # Тестово картинка в локальных файлах, хранится путь
     userDescription = Column(Text, nullable=True)
     userRecipes = Column(Integer, nullable=True)
+
+class RecommendedRecipe(Base):
+    __tablename__ = "recommendedRecipes"
+    
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    recipeId = Column(Integer, ForeignKey("siteRecipes.idRecipe", ondelete="CASCADE"))
+    dateAdded = Column(DateTime, default=func.now())
+    
+    recipe = relationship("SiteRecipe", back_populates="recommended")
 
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(bind=engine)

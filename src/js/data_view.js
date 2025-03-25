@@ -237,20 +237,49 @@ document.addEventListener('DOMContentLoaded', async () => {
     const recipeId = params.get('id');
     
     if (!recipeId) {
-        console.error('ID рецепта не указан');
+        showError('Не указан ID рецепта');
         return;
     }
-
+    
     try {
-        // Загружаем данные рецепта
-        const recipeResponse = await fetch(`http://localhost:5000/recipes/${recipeId}`);
+        // Загружаем данные рецепта без проверки авторизации
+        const recipeResponse = await fetch(`http://localhost:5000/api/recipes/${recipeId}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        
+        // Проверяем статус ответа
+        if (!recipeResponse.ok) {
+            throw new Error(
+                recipeResponse.status === 404 
+                ? 'Рецепт не найден' 
+                : `Ошибка сервера: ${recipeResponse.status}`
+            );
+        }
+        
         const recipe = await recipeResponse.json();
+        
+        // Проверяем, есть ли данные в ответе
+        if (recipe.error) {
+            throw new Error(recipe.error);
+        }
 
-        // Загружаем этапы рецепта
-        const stagesResponse = await fetch(`http://localhost:5000/recipes/${recipeId}/stages`);
-        const stages = await stagesResponse.json();
-
-        console.log('Полученные этапы:', stages); // Для отладки
+        // Продолжаем загрузку этапов только если рецепт получен успешно
+        const stagesResponse = await fetch(`http://localhost:5000/api/recipes/${recipeId}/stages`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        let stages = [];
+        
+        if (stagesResponse.ok) {
+            stages = await stagesResponse.json();
+        } else {
+            console.warn(`Ошибка получения этапов: ${stagesResponse.status} ${stagesResponse.statusText}`);
+        }
 
         // Заполняем основные данные рецепта
         document.querySelector('.dish-title').textContent = recipe.title || 'Название не указано';
@@ -273,7 +302,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const recipeContainer = document.querySelector('.recipe');
         recipeContainer.innerHTML = ''; // Очищаем контейнер
 
-        if (stages && stages.length > 0) {
+        if (stages && stages.length > 0 && !stages.error) {
             const stagesHtml = stages
                 .sort((a, b) => a.stage - b.stage)
                 .map(stage => {
@@ -285,8 +314,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                     const imageHtml = image ? `
                         <div class="stage-image">
                             <img src="${image}" 
-                                 alt="Этап ${stage.stage}" 
-                                 onerror="this.src='./src/img/default.jpg'">
+                                alt="Этап ${stage.stage}" 
+                                onerror="this.src='./src/img/default.jpg'">
                         </div>
                     ` : '';
 
@@ -308,9 +337,15 @@ document.addEventListener('DOMContentLoaded', async () => {
         } else {
             recipeContainer.innerHTML = '<p>Этапы приготовления не указаны</p>';
         }
-
     } catch (error) {
         console.error('Ошибка при загрузке данных рецепта:', error);
-        alert('Ошибка при загрузке рецепта');
+        showError(error.message || 'Не удалось загрузить рецепт');
     }
 });
+
+// Функция для отображения ошибки
+function showError(message) {
+    document.querySelector('.dish-title').textContent = 'Ошибка';
+    document.querySelector('.description').textContent = message;
+    document.querySelector('.recipe').innerHTML = '<p>Извините, данный рецепт недоступен.</p>';
+}

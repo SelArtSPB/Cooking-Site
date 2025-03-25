@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Функция для загрузки рецептов из API
     const loadRecipes = async () => {
         try {
-            const response = await fetch('http://localhost:5000/recipes');
+            const response = await fetch('http://localhost:5000/api/recipes');
             if (!response.ok) throw new Error('Network response was not ok');
             const data = await response.json();
             console.log('Загруженные рецепты:', data); // Добавляем логирование
