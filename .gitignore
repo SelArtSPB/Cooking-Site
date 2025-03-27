@@ -1,5 +1,18 @@
-*venv/
-
-__pycache__/
-
+# Игнорируем файл с секретами
 .env
+
+# Кэш Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Виртуальное окружение
+venv/
+env/
+.venv/
+.env/
+
+# Логи и временные файлы
+*.log
+*.tmp
+*.bak 
