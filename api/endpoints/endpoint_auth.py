@@ -1,14 +1,9 @@
 import sys
 import os
-
-# Добавляем корневой каталог проекта в путь для импорта
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-import jwt
-import datetime
+from flask import Blueprint, jsonify, request
 from functools import wraps
 from base64 import b64encode, b64decode
 from database.models import SessionLocal, UserInfo, UserProfile
-from flask import jsonify, request
 from flask_cors import cross_origin
 from argon2 import PasswordHasher
 from argon2.exceptions import VerifyMismatchError
@@ -16,8 +11,15 @@ from utils import encrypt, decrypt, generate_avatar
 from config import SECRET_PEPPER, AES_KEY
 from auth import create_access_token, create_refresh_token, verify_token
 from . import api
+from database.database import db_session
+import logging
 
 ph = PasswordHasher()
+
+# Создаем Blueprint для аутентификации
+auth_bp = Blueprint('auth', __name__)
+
+logger = logging.getLogger(__name__)
 
 # Декоратор для защиты маршрутов
 def token_required(f):
@@ -36,126 +38,76 @@ def token_required(f):
         return f(user_login, *args, **kwargs)
     return decorated
 
-@api.route("/register", methods=["POST"])
+@auth_bp.route("/auth/register", methods=["POST", "OPTIONS"])
 def register():
-    data = request.json
-    email = data.get("email")
-    login = data.get("login")
-    password = data.get("password")
-
-    if not login or not password:
-        return jsonify({"error": "Заполните логин и пароль!"}), 400
-
-    session = SessionLocal()
     try:
-        existing_user = session.query(UserInfo).filter_by(userLogin=login).first()
-        
-        if existing_user:
-            return jsonify({"error": "Этот логин уже занят!"}), 400
+        data = request.get_json()
+        if not data:
+            return jsonify({"error": "Нет данных для регистрации"}), 400
             
-        # Проверяем email, только если он указан
-        if email:
-            existing_email = session.query(UserInfo).filter_by(userEmail=email).first()
-            if existing_email:
-                return jsonify({"error": "Этот email уже зарегистрирован!"}), 400
-
-        # Создаем хеш пароля
-        salt = os.urandom(16)
-        encoded_salt = b64encode(salt).decode()
-        password_with_pepper = password + SECRET_PEPPER
-        hashed_password = ph.hash(password_with_pepper, salt=salt)
-        encrypted_password = encrypt(hashed_password, AES_KEY)
-
+        user_login = data.get("login")
+        email = data.get("email")
+        password = data.get("password")
+        
+        if not all([user_login, email, password]):
+            return jsonify({"error": "Не все поля заполнены"}), 400
+            
+        # Проверяем, существует ли пользователь
+        if UserInfo.query.filter_by(userLogin=user_login).first():
+            return jsonify({"error": "Пользователь с таким логином уже существует"}), 409
+            
+        if UserInfo.query.filter_by(userEmail=email).first():
+            return jsonify({"error": "Пользователь с таким email уже существует"}), 409
+            
         # Создаем нового пользователя
-        new_user = UserInfo(
-            userEmail=email, 
-            userLogin=login, 
-            userPassword=encrypted_password, 
-            salt=encoded_salt
+        user = UserInfo(
+            userLogin=user_login,
+            userEmail=email,
+            userPassword=password
         )
-        session.add(new_user)
         
-        # Генерируем аватар на основе первой буквы логина
-        avatar_binary = generate_avatar(login)
-        avatar_base64 = f"data:image/png;base64,{b64encode(avatar_binary).decode()}"
+        db_session.add(user)
+        db_session.commit()
         
-        # Создаем профиль пользователя с аватаром
-        new_profile = UserProfile(
-            userLoginID=login,
-            userDescription="Нет описания",
-            userImage=avatar_base64,  # Совместимость со старым кодом
-            userAvatarBinary=avatar_binary,
-            userAvatarBase64=avatar_base64,
-            userRecipes=0
-        )
-        session.add(new_profile)
-        
-        session.commit()
+        return jsonify({"message": "Пользователь успешно зарегистрирован"}), 201
+    except Exception as e:
+        logger.error(f"Ошибка при регистрации: {str(e)}")
+        return jsonify({"error": "Внутренняя ошибка сервера"}), 500
 
-        # Создаем токены
-        access_token = create_access_token(login)
-        refresh_token = create_refresh_token(login)
+@auth_bp.route("/auth/login", methods=["POST", "OPTIONS"])
+def login():
+    try:
+        data = request.get_json()
+        if not data:
+            return jsonify({"error": "Нет данных для входа"}), 400
+            
+        user_login = data.get("login")
+        password = data.get("password")
+        
+        if not user_login or not password:
+            return jsonify({"error": "Не указаны логин или пароль"}), 400
+            
+        user = UserInfo.query.filter_by(userLogin=user_login).first()
+        if not user:
+            return jsonify({"error": "Пользователь не найден"}), 404
+            
+        # Проверяем пароль
+        if not user.check_password(password):
+            return jsonify({"error": "Неверный пароль"}), 401
+            
+        # Генерируем токен
+        token = user.generate_token()
         
         return jsonify({
-            "message": "Регистрация успешна!",
-            "access_token": access_token,
-            "refresh_token": refresh_token,
-            "user_login": login,
-            "avatar": avatar_base64
-        }), 201
-        
+            "token": token,
+            "user": {
+                "login": user.userLogin,
+                "email": user.userEmail
+            }
+        })
     except Exception as e:
-        session.rollback()
-        print(f"[REGISTER] ❌ Ошибка БД: {e}")
-        return jsonify({"error": "Ошибка сервера при регистрации!"}), 500
-    finally:
-        session.close()
-
-@api.route("/login", methods=["POST"])
-def login():
-    data = request.json
-    login = data.get("login")
-    password = data.get("password")
-
-    if not login or not password:
-        return jsonify({"error": "Заполните все поля!"}), 400
-
-    session = SessionLocal()
-    user = session.query(UserInfo).filter_by(userLogin=login).first()
-    session.close()
-
-    if not user:
-        return jsonify({"error": "Пользователь не найден!"}), 404
-
-    try:
-        stored_salt = b64decode(user.salt)
-        encrypted_password = user.userPassword
-        stored_hash = decrypt(encrypted_password, AES_KEY)
-        
-        # Если произошла ошибка расшифровки, decrypt вернет пустую строку
-        if not stored_hash:
-            print(f"[LOGIN] ❌ Ошибка расшифровки пароля для пользователя {login}")
-            return jsonify({"error": "Ошибка сервера при входе. Пожалуйста, обратитесь к администратору."}), 500
-        
-        password_with_pepper = password + SECRET_PEPPER
-        hashed_input = ph.hash(password_with_pepper, salt=stored_salt)
-
-        if hashed_input == stored_hash:
-            # Создаем оба токена
-            access_token = create_access_token(login)
-            refresh_token = create_refresh_token(login)
-            
-            return jsonify({
-                "message": "Вход успешен!",
-                "access_token": access_token,
-                "refresh_token": refresh_token,
-                "user_login": login
-            }), 200
-        else:
-            return jsonify({"error": "Неверный пароль!"}), 401
-    except Exception as e:
-        print(f"[LOGIN] ❌ Ошибка: {e}")
-        return jsonify({"error": "Ошибка сервера при входе!"}), 500
+        logger.error(f"Ошибка при входе: {str(e)}")
+        return jsonify({"error": "Внутренняя ошибка сервера"}), 500
 
 @api.route("/refresh", methods=["POST"])
 def refresh():

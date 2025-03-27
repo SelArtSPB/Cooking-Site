@@ -9,15 +9,16 @@ import base64
 from pathlib import Path
 from io import BytesIO
 from PIL import Image
-from flask import jsonify, request
+from flask import jsonify, request, Blueprint
 from database.models import SessionLocal, UserInfo, UserProfile
 from argon2 import PasswordHasher
 from flask_cors import cross_origin
 from config import SECRET_PEPPER, AES_KEY
-from utils import encrypt
+from utils import encrypt, generate_avatar
 from . import api
 from .endpoint_auth import token_required
 from sqlalchemy import text
+from database.database import db_session
 
 # Настройка логирования
 logging.basicConfig(
@@ -32,12 +33,15 @@ logger = logging.getLogger("profile_api")
 
 ph = PasswordHasher()
 
-@api.route("/profile/<string:user_login>", methods=["GET", "OPTIONS"])
+# Создаем Blueprint для профиля
+profile_bp = Blueprint('profile', __name__)
+
+@profile_bp.route("/profile/<string:user_login>", methods=["GET", "OPTIONS"])
 @cross_origin(origins=["http://localhost:5000", "http://127.0.0.1:5500", "http://localhost:3000"], 
               methods=["GET", "OPTIONS"], 
               allow_headers=["Content-Type", "Authorization"],
               supports_credentials=True)
-def get_profile_data(user_login):
+def get_profile(user_login):
     # Обработка предварительных запросов OPTIONS
     if request.method == "OPTIONS":
         return jsonify({"message": "OK"}), 200
@@ -45,31 +49,44 @@ def get_profile_data(user_login):
     logger.info(f"Получение данных профиля для пользователя: {user_login}")
     session = SessionLocal()
     try:
-        user_profile = session.query(UserProfile).filter_by(userLoginID=user_login).first()
-        if not user_profile:
-            logger.warning(f"Профиль не найден для пользователя: {user_login}")
-            return jsonify({"error": "Профиль не найден"}), 404
+        user = session.query(UserInfo).filter_by(userLogin=user_login).first()
+        if not user:
+            logger.warning(f"Пользователь {user_login} не найден при получении профиля")
+            return jsonify({"error": "Пользователь не найден"}), 404
+            
+        profile = session.query(UserProfile).filter_by(userLoginID=user_login).first()
+        if not profile:
+            # Создаем профиль, если его нет
+            profile = UserProfile(
+                userLoginID=user_login,
+                userImage=None,
+                userDescription="",
+                userRecipes=0
+            )
+            session.add(profile)
+            session.commit()
             
         # Определяем, какое изображение использовать
-        image_url = user_profile.userImage
+        image_url = profile.userImage
         
         # Если есть base64 представление аватара, используем его
-        if user_profile.userAvatarBase64:
-            image_url = user_profile.userAvatarBase64
+        if profile.userAvatarBase64:
+            image_url = profile.userAvatarBase64
             logger.debug(f"Использую существующее base64 изображение для пользователя: {user_login}")
         # Если есть только бинарные данные, конвертируем их в base64
-        elif user_profile.userAvatarBinary:
+        elif profile.userAvatarBinary:
             logger.debug(f"Конвертирую бинарные данные в base64 для пользователя: {user_login}")
-            image_url = f"data:image/png;base64,{base64.b64encode(user_profile.userAvatarBinary).decode()}"
+            image_url = f"data:image/png;base64,{base64.b64encode(profile.userAvatarBinary).decode()}"
             # Обновляем базу данных для будущих запросов
-            user_profile.userAvatarBase64 = image_url
+            profile.userAvatarBase64 = image_url
             session.commit()
             
         result = {
-            "login": user_profile.userLoginID,
-            "description": user_profile.userDescription,
+            "login": user.userLogin,
+            "email": user.userEmail,
             "image": image_url,
-            "recipesCount": user_profile.userRecipes
+            "description": profile.userDescription,
+            "recipes_count": profile.userRecipes
         }
         
         logger.info(f"Профиль успешно получен для пользователя: {user_login}")
@@ -81,8 +98,40 @@ def get_profile_data(user_login):
     finally:
         session.close()
 
-@api.route("/profile/update", methods=["POST"])
+@profile_bp.route("/profile/update", methods=["POST", "OPTIONS"])
 def update_profile():
+    try:
+        data = request.get_json()
+        if not data:
+            return jsonify({"error": "Нет данных для обновления"}), 400
+            
+        user_login = data.get("login")
+        if not user_login:
+            return jsonify({"error": "Не указан логин пользователя"}), 400
+            
+        profile = SessionLocal().query(UserProfile).filter_by(userLoginID=user_login).first()
+        if not profile:
+            return jsonify({"error": "Профиль не найден"}), 404
+            
+        # Обновляем описание
+        if "description" in data:
+            profile.userDescription = data["description"]
+            
+        # Обновляем изображение
+        if "image" in data and data["image"]:
+            # Генерируем новое изображение
+            avatar_path = generate_avatar(data["image"], user_login)
+            profile.userImage = avatar_path
+            
+        db_session.commit()
+        return jsonify({"message": "Профиль успешно обновлен"})
+    except Exception as e:
+        logger.error(f"[UPDATE_PROFILE] ❌ Общая ошибка при обновлении профиля: {e}")
+        logger.error(traceback.format_exc())
+        return jsonify({"error": f"Ошибка при обновлении профиля: {str(e)}"}), 500
+
+@api.route("/profile/update", methods=["POST"])
+def update_profile_old():
     data = request.json
     user_login = data.get("userLogin")
     new_login = data.get("newLogin")

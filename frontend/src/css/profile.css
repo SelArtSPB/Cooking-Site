@@ -1529,6 +1529,11 @@ body.dark-theme .profile-recipte .recipe-overlay {
     max-height: 90vh;
     overflow-y: auto;
     position: relative;
+    scrollbar-width: none; /* Для Firefox */
+}
+
+.modal-content::-webkit-scrollbar {
+    display: none; /* Для Chrome, Safari и Edge */
 }
 
 .close {
@@ -1559,6 +1564,39 @@ body.dark-theme .profile-recipte .recipe-overlay {
     border-radius: 8px;
     background-color: var(--input-bg, white);
     color: var(--text-color, #333);
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.form-group select {
+    background-image: url("data:image/svg+xml;utf8,<svg fill='gray' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    padding-right: 30px;
+}
+
+.form-group input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+.form-group input[type="number"]::-webkit-outer-spin-button,
+.form-group input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Темная тема */
+body.dark-theme .form-group select {
+    background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+}
+
+body.dark-theme .form-group input,
+body.dark-theme .form-group select,
+body.dark-theme .form-group textarea {
+    background-color: #444;
+    border-color: #555;
+    color: white;
 }
 
 .stage-item {
@@ -1593,6 +1631,16 @@ button[type="submit"] {
     color: white;
     border: none;
     cursor: pointer;
+}
+
+#saveRecipeBtn {
+    background-color: #ff4444;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-bottom: 20px;
 }
 
 /* Темная тема */

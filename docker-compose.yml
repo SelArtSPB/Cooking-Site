@@ -1,0 +1,74 @@
+version: '3.8'
+
+services:
+  # Сервис Nginx для проксирования запросов
+  nginx:
+    build:
+      context: ./nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./api/uploads:/uploads:ro
+    depends_on:
+      - frontend
+      - backend
+    networks:
+      - web-network
+
+  # Сервис Frontend (статичные HTML, CSS, JS)
+  frontend:
+    build:
+      context: ./frontend
+    expose:
+      - "80"
+    networks:
+      - web-network
+    restart: always
+
+  # Сервис Backend (Python Flask API)
+  backend:
+    build:
+      context: ./api
+    expose:
+      - "5000"
+    depends_on:
+      database:
+        condition: service_healthy
+    environment:
+      - DATABASE_URL=postgresql://postgres:123456789@database/postgres
+    env_file:
+      - ./api/.env.docker
+    volumes:
+      - ./api/uploads:/app/uploads:rw
+    networks:
+      - web-network
+      - db-network
+    restart: always
+
+  # Сервис базы данных PostgreSQL
+  database:
+    build:
+      context: ./database
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=123456789
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=postgres
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - db-network
+    restart: always
+
+networks:
+  web-network:
+    driver: bridge
+  db-network:
+    driver: bridge
+
+volumes:
+  postgres-data: 

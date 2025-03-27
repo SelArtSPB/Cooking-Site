@@ -1,13 +1,18 @@
 import sys
 import os
-
-# Добавляем корневой каталог проекта в путь для импорта
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from flask import jsonify, request
+from flask import Blueprint, jsonify, request
 from flask_cors import cross_origin
 from database.models import SessionLocal, SiteRecipe, StageRecipe, UserProfile
 from .endpoint_auth import token_required
-from . import api
+import logging
+
+# Добавляем корневой каталог проекта в путь для импорта
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+# Создаем Blueprint для рецептов
+recipes_bp = Blueprint('recipes', __name__)
+
+logger = logging.getLogger(__name__)
 
 def get_db():
     db = SessionLocal()
@@ -16,7 +21,7 @@ def get_db():
     finally:
         db.close()
 
-@api.route("/recipes", methods=["GET", "OPTIONS"])
+@recipes_bp.route("/recipes", methods=["GET", "OPTIONS"])
 @cross_origin(origins=["http://localhost:5000", "http://127.0.0.1:5500", "http://localhost:3000"], 
               methods=["GET", "OPTIONS"], 
               allow_headers=["Content-Type", "Authorization"],
@@ -43,64 +48,84 @@ def get_recipes():
             "country": r.contryRecipe,
             "type": r.typeRecipe,
             "author": r.autorRecipe,
-            "image": r.imageRecipe
+            "image": r.imageRecipe,
+            "stages": [{
+                "id": stage.idStage,
+                "description": stage.stageDiscription,
+                "image": stage.stageImage
+            } for stage in r.stages]
         } for r in recipes])
     except Exception as e:
-        print(f"[GET_RECIPES] ❌ Ошибка: {e}")
-        return jsonify({"error": "Ошибка при получении рецептов"}), 500
+        logger.error(f"Ошибка при получении рецептов: {str(e)}")
+        return jsonify({"error": "Внутренняя ошибка сервера"}), 500
     finally:
         db.close()
 
-@api.route("/recipes/<int:recipe_id>", methods=["GET"])
+@recipes_bp.route("/recipes/<int:recipe_id>", methods=["GET", "OPTIONS"])
 def get_recipe(recipe_id):
-    session = SessionLocal()
-    recipe = session.query(SiteRecipe).filter_by(idRecipe=recipe_id).first()
-    session.close()
-    if recipe:
-        return jsonify({
-            "id": recipe.idRecipe,
-            "title": recipe.titleRecipe,
-            "description": recipe.discriptionRecipe,
-            "cookingTime": recipe.cookingTime,
-            "country": recipe.contryRecipe,
-            "type": recipe.typeRecipe,
-            "author": recipe.autorRecipe,
-            "image": recipe.imageRecipe
-        })
-    return jsonify({"error": "Recipe not found"}), 404
+    db = next(get_db())
+    try:
+        recipe = db.query(SiteRecipe).filter_by(idRecipe=recipe_id).first()
+        if recipe:
+            return jsonify({
+                "id": recipe.idRecipe,
+                "title": recipe.titleRecipe,
+                "description": recipe.discriptionRecipe,
+                "cookingTime": recipe.cookingTime,
+                "country": recipe.contryRecipe,
+                "type": recipe.typeRecipe,
+                "author": recipe.autorRecipe,
+                "image": recipe.imageRecipe,
+                "stages": [{
+                    "id": stage.idStage,
+                    "description": stage.stageDiscription,
+                    "image": stage.stageImage
+                } for stage in recipe.stages]
+            })
+        return jsonify({"error": "Recipe not found"}), 404
+    except Exception as e:
+        logger.error(f"Ошибка при получении рецепта: {str(e)}")
+        return jsonify({"error": "Внутренняя ошибка сервера"}), 500
+    finally:
+        db.close()
 
-@api.route("/recipes/<int:recipe_id>/stages", methods=["GET"])
+@recipes_bp.route("/recipes/<int:recipe_id>/stages", methods=["GET"])
 def get_recipe_stages(recipe_id):
-    session = SessionLocal()
-    stages = session.query(StageRecipe).filter_by(idRecipe=recipe_id).all()
-    session.close()
-    return jsonify([
-        {
-            "stage": s.stage,
-            "description": s.stageDiscription,
-            "image": s.stageImage
-        } for s in stages
-    ])
+    db = next(get_db())
+    try:
+        stages = db.query(StageRecipe).filter_by(idRecipe=recipe_id).all()
+        return jsonify([{
+            "id": stage.idStage,
+            "stage": stage.stage,
+            "description": stage.stageDiscription,
+            "image": stage.stageImage
+        } for stage in stages])
+    except Exception as e:
+        logger.error(f"Ошибка при получении этапов рецепта: {str(e)}")
+        return jsonify({"error": "Внутренняя ошибка сервера"}), 500
+    finally:
+        db.close()
 
-@api.route("/recipes/add", methods=["POST"])
-def add_recipe():
+@recipes_bp.route("/recipes/add", methods=["POST"])
+@token_required
+def add_recipe(current_user):
     data = request.json
-    user_login = data.get("author")
+    user_login = current_user.userLogin
     
-    session = SessionLocal()
+    db = next(get_db())
     try:
         # Создаем новый рецепт
         new_recipe = SiteRecipe(
             titleRecipe=data.get("title"),
             discriptionRecipe=data.get("description"),
-            cookingTime=data.get("cookingTime"),  # Добавляем время готовки
+            cookingTime=data.get("cookingTime"),
             contryRecipe=data.get("country"),
             typeRecipe=data.get("type"),
             autorRecipe=user_login,
             imageRecipe=data.get("image")
         )
-        session.add(new_recipe)
-        session.flush()  # Чтобы получить id нового рецепта
+        db.add(new_recipe)
+        db.flush()  # Чтобы получить id нового рецепта
         
         # Добавляем этапы приготовления
         for stage_data in data.get("stages", []):
@@ -110,43 +135,40 @@ def add_recipe():
                 stageImage=stage_data.get("image"),
                 stageDiscription=stage_data.get("description")
             )
-            session.add(stage)
+            db.add(stage)
         
         # Обновляем количество рецептов у пользователя
-        user_profile = session.query(UserProfile).filter_by(userLoginID=user_login).first()
+        user_profile = db.query(UserProfile).filter_by(userLoginID=user_login).first()
         if user_profile:
             user_profile.userRecipes = (user_profile.userRecipes or 0) + 1
         
-        session.commit()
+        db.commit()
         return jsonify({"message": "Рецепт успешно добавлен!", "recipeId": new_recipe.idRecipe}), 201
-    
     except Exception as e:
-        session.rollback()
-        print(f"[ADD_RECIPE] ❌ Ошибка: {e}")
+        db.rollback()
+        logger.error(f"Ошибка при добавлении рецепта: {str(e)}")
         return jsonify({"error": "Ошибка при добавлении рецепта"}), 500
     finally:
-        session.close()
+        db.close()
 
-@api.route("/recipes/<int:recipe_id>", methods=["DELETE"])
-def delete_recipe(recipe_id):
-    session = SessionLocal()
+@recipes_bp.route("/recipes/<int:recipe_id>", methods=["DELETE"])
+@token_required
+def delete_recipe(current_user, recipe_id):
+    db = next(get_db())
     try:
-        recipe = session.query(SiteRecipe).filter_by(idRecipe=recipe_id).first()
+        recipe = db.query(SiteRecipe).filter_by(idRecipe=recipe_id).first()
         if not recipe:
             return jsonify({"error": "Рецепт не найден"}), 404
-
-        # Обновляем количество рецептов у пользователя
-        user_profile = session.query(UserProfile).filter_by(userLoginID=recipe.autorRecipe).first()
-        if user_profile and user_profile.userRecipes > 0:
-            user_profile.userRecipes -= 1
-
-        session.delete(recipe)
-        session.commit()
-        return jsonify({"message": "Рецепт успешно удален"}), 200
-
+            
+        if recipe.autorRecipe != current_user.userLogin:
+            return jsonify({"error": "У вас нет прав на удаление этого рецепта"}), 403
+            
+        db.delete(recipe)
+        db.commit()
+        return jsonify({"message": "Рецепт успешно удален"})
     except Exception as e:
-        session.rollback()
-        print(f"[DELETE_RECIPE] ❌ Ошибка: {e}")
+        db.rollback()
+        logger.error(f"Ошибка при удалении рецепта: {str(e)}")
         return jsonify({"error": "Ошибка при удалении рецепта"}), 500
     finally:
-        session.close() 
+        db.close() 
